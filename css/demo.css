@@ -388,9 +388,9 @@ main {
 }
 
 .menu {
-	display: flex;
+	display: block;
 	justify-content: center;
-	flex-wrap: wrap;
+	flex-wrap: block;
 }
 
 .menu__item {

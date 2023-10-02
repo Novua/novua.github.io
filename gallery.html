@@ -7,9 +7,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #222325;
+            background-image: url('img/bg_mc.png'); /* Set the background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Prevent image from repeating */
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
         }
 
         .gallery {
@@ -23,8 +29,8 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 60px;
-            margin-bottom: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .image {
@@ -44,7 +50,7 @@
             height: auto;
             aspect-ratio: 16/9;
         }
-        
+
         .image-content {
             padding: 10px;
             background-color: #fff;
@@ -66,70 +72,69 @@
             margin-bottom: 20px;
         }
 
-        /* Footer styling */
         footer {
-            position: absolute;
+            margin-top: auto;
+            position: sticky;
             bottom: 0;
-            right: 0;
             background-color: #222325;
             color: #fff;
             padding: 10px 20px;
         }
 
         footer a {
-            color: #fff;
             text-decoration: none;
-        }
-
-        /* Bottom row styling */
-        .bottom-row {
-            width: 100%;
-            background-color: #222325;
-            height: 60px;
-            position: absolute;
-            bottom: 0;
-            right: 0;
         }
 
         /* Adjust the image size */
         footer img {
             width: 160px; /* Set the desired width */
-            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin-left: auto;
+        }
+
+        /* Add this CSS to make the Novua_minecraft image smaller */
+        .novua-image {
+            max-width: 40%; /* Adjust the percentage as needed */
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div class="gallery">
-        <div class="title">NOVUA</div>
-        <div class="subtitle">Portfolio</div>
-        
+  <div class="transition transition-1 active"></div>
+  
+  <div class="gallery">
+      <div class="title">
+          <img class="novua-image" src="img/novua_minecraft.png" alt="Novua">
+      </div>
+
+      <div class="row">
         <div class="row">
-            <div class="sketchfab-embed-wrapper"> <iframe title="Quest board" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/6a591047a5e643d8bc8b9a53928a3164/embed?autospin=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/quest-board-6a591047a5e643d8bc8b9a53928a3164?utm_medium=embed&utm_campaign=share-popup&utm_content=6a591047a5e643d8bc8b9a53928a3164" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Quest board </a> by <a href="https://sketchfab.com/novuanet?utm_medium=embed&utm_campaign=share-popup&utm_content=6a591047a5e643d8bc8b9a53928a3164" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Novua </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6a591047a5e643d8bc8b9a53928a3164" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
-            <!-- Replace the other images in subsequent div.image elements -->
-            <div class="sketchfab-embed-wrapper"> <iframe title="Scroll" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/62c081c53ed44b779ef929cec23b7e1b/embed?autospin=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/scroll-62c081c53ed44b779ef929cec23b7e1b?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Scroll </a> by <a href="https://sketchfab.com/novuanet?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Novua </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
-            
-            <div class="sketchfab-embed-wrapper"> <iframe title="Quest table" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d007c391cf014779a0055e1eebe02242/embed?autospin=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/quest-table-d007c391cf014779a0055e1eebe02242?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Quest table </a> by <a href="https://sketchfab.com/novuanet?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Novua </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Scroll" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/62c081c53ed44b779ef929cec23b7e1b/embed?autospin=1"> </iframe> </div>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Quest table" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d007c391cf014779a0055e1eebe02242/embed?autospin=1"> </iframe> </div>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Quest board" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/6a591047a5e643d8bc8b9a53928a3164/embed?autospin=1"> </iframe> </div>
         </div>
-        
-        <div class="row">
-            <div class="row">
-                <div class="sketchfab-embed-wrapper"> <iframe title="Ms Minutes Loki - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/8aa81a36166d4779811d5e3102cd256e/embed?autospin=1"> </iframe> </div>
-                <!-- Replace the other images in subsequent div.image elements -->
-                <div class="sketchfab-embed-wrapper"> <iframe title="Scroll" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/62c081c53ed44b779ef929cec23b7e1b/embed?autospin=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/scroll-62c081c53ed44b779ef929cec23b7e1b?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Scroll </a> by <a href="https://sketchfab.com/novuanet?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Novua </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=62c081c53ed44b779ef929cec23b7e1b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
-                
-                <div class="sketchfab-embed-wrapper"> <iframe title="Quest table" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d007c391cf014779a0055e1eebe02242/embed?autospin=1"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/quest-table-d007c391cf014779a0055e1eebe02242?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Quest table </a> by <a href="https://sketchfab.com/novuanet?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Novua </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=d007c391cf014779a0055e1eebe02242" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
-            </div>
-        </div>
+      </div>
+
+    <div class="row">
+      <div class="row">
+        <div class="sketchfab-embed-wrapper"> <iframe title="Ms Minutes Loki - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/8aa81a36166d4779811d5e3102cd256e/embed?autospin=1"> </iframe> </div>
+        <div class="sketchfab-embed-wrapper"> <iframe title="Mobius TVA - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/7231b41ec71842acb62323bdd1182437/embed?autospin=1"> </iframe> </div>
+        <div class="sketchfab-embed-wrapper"> <iframe title="Teddybear" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d55a0dbd1a53469786fbd37bbfee7f2a/embed?autospin=1"> </iframe> </div>
+      </div>
     </div>
 
-    <!-- Use a parent container for the bottom elements -->
-    <div class="parent">
-        <!-- Bottom row -->
-        <div class="bottom-row"></div>
+    <div class="row">
+        <div class="row">
+            <div class="sketchfab-embed-wrapper"> <iframe title="Green Team Engery Core | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/dbffc74f09dc4504b8efbdb9df780f08/embed?autospin=1"> </iframe> </div>
+            <div class="sketchfab-embed-wrapper"> <iframe title="Robot-ally | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d5031b4116e343c98e9c5352b8b4bd53/embed?autospin=1"> </iframe> </div>
+        </div>
+      </div>
 
-        <!-- Footer -->
-        <footer>
-            <a href="index.html"><img src="img/home.png" alt="Home"></a>
-        </footer>
-    </div>
-</body>
+  </div>
+  
+  <footer>
+    <a href="index.html">
+      <img src="https://media.discordapp.net/attachments/911301437013774344/1157033781841109042/home.png?ex=6517232e&is=6515d1ae&hm=19895fc0ce793fdf7a8b71504b0522a10d3533df0b63ca7e5ca9b5d7819fd20e&=&width=658&height=137" alt="Home">
+    </a>
+  </footer>
+  
