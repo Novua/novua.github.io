@@ -5,6 +5,20 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <!-- Include Lilita One font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .full-page-section {
+            min-height: 100vh; /* Minimum 100% of viewport height */
+            background-color: #f0f0f0; /* Change to your desired background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <header class="hero">
@@ -25,6 +39,16 @@
     <div class="text-container">
         <a href="gallery.html" class="hero-button">MY WORK</a>
     </div>
+
+    <!-- Full-page section -->
+    <section class="full-page-section">
+        <!-- Content for the second section goes here -->
+        <h2>Second Section</h2>
+        <p>This section fills the entire viewport height. Add more content to make the page scrollable.</p>
+        <p>More content...</p>
+        <p>Even more content...</p>
+        <!-- Add more content as needed -->
+    </section>
 
     <!-- Rest of your landing page content goes here -->
 </body>
