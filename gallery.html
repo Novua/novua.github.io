@@ -1,141 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html style="font-size: 16px;" lang="en"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('img/bg_mc.png'); /* Set the background image */
-            background-size: cover; /* Cover the entire viewport */
-            background-repeat: no-repeat; /* Prevent image from repeating */
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            min-height: 100svh;
-            display: flex;
-            flex-direction: column;
-        }
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Page 19</title>
+    <link rel="stylesheet" href="gallery.css" media="screen">
+<link rel="stylesheet" href="gallery-2.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="gallery.js" defer=""></script>
+    <meta name="generator" content="NovuaNET 2023">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "",
+		"url": "/"
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Page 19">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="/">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+  <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+    <section class="u-align-center u-clearfix u-section-1" id="carousel_9c28">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="custom-expanded u-align-center u-gallery u-layout-grid u-lightbox u-show-text-on-hover u-gallery-1">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+            </div>
 
-        .gallery {
-            max-width: 75vw;
-            margin: 0 auto;
-            padding: 20px;
-        }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .image {
-            width: 426px;
-            height: 240px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .image img {
-            flex: 1;
-            max-width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
-        }
-
-        .image-content {
-            padding: 10px;
-            background-color: #fff;
-        }
-
-        .title {
-            font-size: 150px;
-            font-weight: bold;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 30px;
-            font-weight: normal;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        footer {
-            margin-top: auto;
-            position: sticky;
-            bottom: 0;
-            background-color: #222325;
-            color: #fff;
-            padding: 10px 20px;
-        }
-
-        footer a {
-            text-decoration: none;
-        }
-
-        /* Adjust the image size */
-        footer img {
-            width: 160px; /* Set the desired width */
-            display: block;
-            margin-left: auto;
-        }
-
-        /* Add this CSS to make the Novua_minecraft image smaller */
-        .novua-image {
-            max-width: 40%; /* Adjust the percentage as needed */
-            height: auto;
-        }
-    </style>
-</head>
-<body>
-  <div class="transition transition-1 active"></div>
-  
-  <div class="gallery">
-      <div class="title">
-          <img class="novua-image" src="img/novua_minecraft.png" alt="Novua">
-      </div>
-
-      <div class="row">
-        <div class="row">
-          <div class="sketchfab-embed-wrapper"> <iframe title="Scroll" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/62c081c53ed44b779ef929cec23b7e1b/embed?autospin=1"> </iframe> </div>
-          <div class="sketchfab-embed-wrapper"> <iframe title="Quest table" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d007c391cf014779a0055e1eebe02242/embed?autospin=1"> </iframe> </div>
-          <div class="sketchfab-embed-wrapper"> <iframe title="Quest board" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/6a591047a5e643d8bc8b9a53928a3164/embed?autospin=1"> </iframe> </div>
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item">
+              <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
+              <div class="u-over-slide u-shading u-over-slide-6"></div>
+            </div>
+          </div>
         </div>
+        <a href="https://novua.net" class="u-border-2 u-border-grey-dark-1 u-btn u-btn-rectangle u-button-style u-none u-btn-1">view more</a>
       </div>
+    </section>
+    
+    
+    
+    
 
-    <div class="row">
-      <div class="row">
-        <div class="sketchfab-embed-wrapper"> <iframe title="Ms Minutes Loki - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/8aa81a36166d4779811d5e3102cd256e/embed?autospin=1"> </iframe> </div>
-        <div class="sketchfab-embed-wrapper"> <iframe title="Mobius TVA - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/7231b41ec71842acb62323bdd1182437/embed?autospin=1"> </iframe> </div>
-        <div class="sketchfab-embed-wrapper"> <iframe title="Teddybear" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d55a0dbd1a53469786fbd37bbfee7f2a/embed?autospin=1"> </iframe> </div>
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="row">
-            <div class="sketchfab-embed-wrapper"> <iframe title="Green Team Engery Core | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/dbffc74f09dc4504b8efbdb9df780f08/embed?autospin=1"> </iframe> </div>
-            <div class="sketchfab-embed-wrapper"> <iframe title="Robot-ally | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d5031b4116e343c98e9c5352b8b4bd53/embed?autospin=1"> </iframe> </div>
-            <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
-        </div>
-      </div>
-
-  </div>
   
-  <footer>
-    <a href="https://discord.gg/YsyZGZPttA">
-      <img src="img/discord.png" alt="Home">
-    </a>
-  </footer>
-  
+</body></html>
+
+
+<div class="sketchfab-embed-wrapper"> <iframe title="Scroll" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/62c081c53ed44b779ef929cec23b7e1b/embed?autospin=1"> </iframe> </div>
+<div class="sketchfab-embed-wrapper"> <iframe title="Quest table" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d007c391cf014779a0055e1eebe02242/embed?autospin=1"> </iframe> </div>
+<div class="sketchfab-embed-wrapper"> <iframe title="Quest board" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/6a591047a5e643d8bc8b9a53928a3164/embed?autospin=1"> </iframe> </div>
+</div>
+</div>
+
+<div class="row">
+<div class="row">
+<div class="sketchfab-embed-wrapper"> <iframe title="Ms Minutes Loki - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/8aa81a36166d4779811d5e3102cd256e/embed?autospin=1"> </iframe> </div>
+<div class="sketchfab-embed-wrapper"> <iframe title="Mobius TVA - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/7231b41ec71842acb62323bdd1182437/embed?autospin=1"> </iframe> </div>
+<div class="sketchfab-embed-wrapper"> <iframe title="Teddybear" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d55a0dbd1a53469786fbd37bbfee7f2a/embed?autospin=1"> </iframe> </div>
+</div>
+</div>
+
+<div class="row">
+<div class="row">
+  <div class="sketchfab-embed-wrapper"> <iframe title="Green Team Engery Core | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/dbffc74f09dc4504b8efbdb9df780f08/embed?autospin=1"> </iframe> </div>
+  <div class="sketchfab-embed-wrapper"> <iframe title="Robot-ally | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/d5031b4116e343c98e9c5352b8b4bd53/embed?autospin=1"> </iframe> </div>
+  <div class="sketchfab-embed-wrapper"> <iframe title="Silly Hats - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="426" height="240" src="https://sketchfab.com/models/356efbf37c7a4e73b917885d58a6595f/embed?autospin=1"> </iframe> </div>
