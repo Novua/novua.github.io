@@ -13,6 +13,9 @@
         .hero {
             position: relative;
             height: 400px; /* Adjust the height as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .video-background {
@@ -36,7 +39,7 @@
             background-color: #333;
             padding: 10px;
             display: flex;
-            justify-content: space between;
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -91,6 +94,15 @@
         .sketchfab-embed-wrapper {
             width: 30%;
         }
+
+        /* Fixed position image */
+        .fixed-image {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+        }
     </style>
 </head>
 <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
@@ -106,7 +118,8 @@
         </div>
     </section>
 
-    
+    <img src="img/mcheader.png" alt="Minecraft Header" style="width: 100%; height: auto;">
+
     <!-- Enable scrolling within a container -->
     <div class="scroll-container">
         <section class="u-align-center u-clearfix u-section-1" id="carousel_9c28">
@@ -124,7 +137,7 @@
                             </div>
                         </div>
                         <div class="u-effect-fade u-gallery-item">
-                            <div class="sketchfab-embed-wrapper">
+                            <div class "sketchfab-embed-wrapper">
                                 <iframe title="Cosmetics - Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/524208f22bd24b799db3fd1b1a669e44/embed?autospin=1"></iframe>
                             </div>
                         </div>
@@ -139,12 +152,26 @@
                         </div>
                         <div class="u-effect-fade u-gallery-item">
                             <div class="sketchfab-embed-wrapper">
-                                <iframe title="Robot-ally | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="375" height="240" src="https://sketchfab.com/models/d5031b4116e343c98e9c5352b8b4bd53/embed?autospin=1"></iframe>
+                                <div class="sketchfab-embed-wrapper"> <iframe title="Wooden Furniture | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="375" height="240" src="https://sketchfab.com/models/2e8fbf5b303a4aa59806e9c4d14b5c53/embed?autospin=1"> </iframe> </div>
                             </div>
                         </div>
                         <div class="u-effect-fade u-gallery-item">
                             <div class="sketchfab-embed-wrapper">
                                 <iframe title="Film and TV pack | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="375" height="240" src="https://sketchfab.com/models/98c258951fd048b48bd64e76ff195131/embed?autospin=1"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-expanded u-align-center u-gallery u-layout-grid u-lightbox u-show-text-on-hover u-gallery-1" > <!-- Blue background color -->
+                    <div class="u-gallery-inner u-gallery-inner-1">
+                        <div class="u-effect-fade u-gallery-item">
+                            <div class="sketchfab-embed-wrapper">
+                                <div class="sketchfab-embed-wrapper"> <iframe title="Goblin | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/2416be689ced4e1e805de0dc3ea799cc/embed?autospin=1"> </iframe> </div>
+                            </div>
+                        </div>
+                        <div class="u-effect-fade u-gallery-item">
+                            <div class "sketchfab-embed-wrapper">
+                                <iframe title="Robot-ally | Minecraft" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/d5031b4116e343c98e9c5352b8b4bd53/embed?autospin=1"></iframe>
                             </div>
                         </div>
                     </div>
