@@ -1,65 +1,52 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en">
+<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>NOVUA | Home</title>
-    <link rel="stylesheet" href="main.css" media="screen">
-    <link rel="stylesheet" href="Home.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="main.js" defer=""></script>
-    <meta name="generator" content="Novua NET">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "WebSite6032171",
-		"logo": "images/logoBW.png"
-    }</script>
-    <meta name="theme-color" content="#0F0F0F">
-    <meta property="og:title" content="Home">
-    <meta property="og:type" content="website">
-    <meta data-intl-tel-input-cdn-path="intlTelInput/">
-
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .u-header {
-            width: 100%;
-        }
-
-        .u-sheet {
-            max-width: 100%;
-        }
-
-        .spline-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        spline-viewer {
-            display: block;
-            width: 100%;
-            height: 115%; /* Adjust the height based on your header's height */
-        }
-    </style>
+    <title>My Web Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway&display=swap">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-path-to-root="./" data-include-products="false" class="u-body u-palette-4-base u-xl-mode" data-lang="en">
-    <div class="spline-container">
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.91/build/spline-viewer.js"></script>
-        <spline-viewer url="https://prod.spline.design/gNqo6mBb8GK61anP/scene.splinecode"></spline-viewer>
+<body>
+    <div class="fade-out" id="fade-out">
+        <img src="images/logo.png" class="logo" id="logo">
     </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="images/logo.png" class="nav-logo">
+        </div>
+        <div class="navbar-right">
+            <a href="https://mcmodels.net/vendors/114/novua" class="nav-link" id="store-link">Store</a>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="card">
+            <img src="images/card1.png" class="card-image">
+            <div class="card-content">
+                <h2 class="card-title">Mineblob</h2>
+                <p>Mineblob is a minecraft server in development providing a unique minigames experience unlike any other server.</p>
+                <br>
+                <p>With custom coded game modes, cosmetics and unique systems to ensure a one-of-a-kind experinece.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/card2.png" class="card-image">
+            <div class="card-content">
+                <h2 class="card-title">AnimationsCore</h2>
+                <p>AnimationsCore is a Minecraft spigot plugin to work with ModelEngine & MythicMobs to create animations for events such as: Join, Leave, Death etc.</p>
+                <br>
+                <p>It is maintained for latest versions of minecraft with many new features and events being added regularly with Animation packs being available on MCmodels.net by a variety of vendors.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/card3.png" class="card-image">
+            <div class="card-content">
+                <h2 class="card-title">Project HOG</h2>
+                <p>Project HOG is a Minecraft server in development that takes the style inspired by many mobile games in the Tower Defense genre.</p>
+                <br>
+                <p>Utilising 3D models and custom plugin technology, crafting a completely new style of minecraft server experience like no other!</p>
+            </div>
+        </div>
+        <!-- Add more cards here -->
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
