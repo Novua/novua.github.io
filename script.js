@@ -24,12 +24,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 1000); // Adjust this delay to match the transition duration in CSS (1.5 seconds in this example)
     });
 
+
+    
     // Show/hide the no-scroll class based on the fade-out overlay
     fadeOut.addEventListener('transitionend', function() {
         if (!fadeOut.classList.contains('show')) {
             document.body.classList.remove('no-scroll');
         } else {
-            document.body.classList.add('no-scroll');
+            
         }
     });
 });

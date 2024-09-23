@@ -49,14 +49,30 @@ body, html {
     color: #ddd;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px; /* Adjust for navbar height */
+}
+
 .main {
+    width: 120%; /* or any other width that makes it spill off the sides */
+    height: 95vh;
+    background-color: rgb(237, 237, 243);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.other {
     width: 100%;
     height: 95vh;
     background-color: rgb(237, 237, 243);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 60px; /* Adjust for navbar height */
 }
 
 .card {
@@ -113,8 +129,8 @@ body, html {
 body.no-scroll {
     overflow: hidden;
 }
-
-
 .logo {
     width: 150px; /* Adjust size as needed */
 }
+
+\end{code}

@@ -1,0 +1,8 @@
+Game mode uses previously used game mode on Join
+Fixed Camera not generating in config
+Get rid of debug messages
+Delay added to camera to ensure correct skin is grabbed
+Fix teleport animation
+Fixed emote animation
+Fix the weird TP when returning from camera
+Default animation will be grabbed on first join before animation plays

@@ -1,0 +1,6 @@
+Kill default animation
+Added Kill animation to test command
+Join delay works on both variations of join listeners (Resource pack and Join)
+Configurable delay added to teleport in and out to add a "wind up" feel
+Added new camera transition movement on join animation (Configuration toggle)
+Added new argument to emote command that will run emote as the specified player (useful for admin / console activation)
