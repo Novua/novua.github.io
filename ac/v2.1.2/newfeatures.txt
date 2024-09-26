@@ -1,0 +1,3 @@
+Added update checker
+Stability improvements
+Framework implemented for newer versions and features

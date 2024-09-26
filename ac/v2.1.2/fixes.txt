@@ -1,0 +1,3 @@
+Fixed emote out of bounds error when incorrectly typing the command
+Removed unwanted debug messages
+Fix GUI invisible with no animation preference set
