@@ -1,0 +1,3 @@
+Fixed Invisibility not working in some events
+Stability improvements
+Fixed various smaller bugs

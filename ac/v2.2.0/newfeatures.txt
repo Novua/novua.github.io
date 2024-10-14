@@ -1,0 +1,2 @@
+Added possibility for animations on teleport in and out to play simultaneously. [add "delay" section to animations in teleport in]
+Added consistent invisibility mechanics to function the same across all animations for stability

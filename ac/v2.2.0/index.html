@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AnimationsCore v2.2.0</title>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #171617;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 60px;
+            margin-bottom: 50px;
+        }
+
+        .section {
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 36px;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .section ul {
+            list-style-type: disc;
+            padding-left: 40px;
+        }
+
+        .section ul li {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="title">CHANGELOG v2.2.0</div>
+
+        <div class="section">
+            <h2>New Features</h2>
+            <ul id="new-features-list">
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Fixes</h2>
+            <ul id="fixes-list">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function loadFile(url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => callback(data))
+                .catch(error => console.error('Error loading ' + url + ':', error));
+        }
+
+        function populateList(elementId, data) {
+            const listElement = document.getElementById(elementId);
+            const lines = data.split('\n').filter(line => line.trim() !== '');
+            lines.forEach(line => {
+                const listItem = document.createElement('li');
+                listItem.textContent = line.trim();
+                listElement.appendChild(listItem);
+            });
+        }
+        loadFile('newfeatures.txt', function(data) {
+            populateList('new-features-list', data);
+        });
+        loadFile('fixes.txt', function(data) {
+            populateList('fixes-list', data);
+        });
+    </script>
+</body>
+</html>
