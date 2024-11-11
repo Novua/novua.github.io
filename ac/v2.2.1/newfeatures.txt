@@ -1,0 +1,6 @@
+Added possibility for animations on teleport in and out to play simultaneously. [add "delay" section to animations in teleport in]
+Added consistent invisibility mechanics to function the same across all animations for stability
+Added PlayerManager + AnimationManager class to better handle animations in future and have more robust code for ALL animations
+/animcore reload will now take effect on afk timeout
+Individual default animations now can be set to "" to be disabled
+default animations Toggle on / off with new configuration option "defaultanimations: [true/false]"
