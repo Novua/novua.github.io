@@ -1,0 +1,6 @@
+Fixed Invisibility not working in some events
+Stability improvements
+Fixed various smaller bugs
+Fixed issues where GUI-triggered animations would not play as expected.
+Resolved inconsistencies in player state handling (e.g., visibility and movement locking) during animations.
+Fixed timing issues causing animations to desync in certain teleport scenarios.

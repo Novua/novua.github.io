@@ -1,0 +1,10 @@
+Vanish and invisibility is now respected before running animations.
+Improved performance and stability of the plugin.
+Reworked AnimationManager for enhanced animation spawning and lifecycle management.
+JoinAnimation: Added camera effects and smoother handling during animations.
+TeleportAnimation: Enhanced animation flow for teleport events, improving sync and timing.
+DeathAnimation: Added more customization options for animations triggered on player death.
+RespawnAnimation: Updated transitions and effects for smoother respawn handling.
+EmoteAnimation: Improved playback for emote animations in specific scenarios.
+AFKAnimation: Optimized consistency of triggering AFK animations.
+Enhanced TestAnimation Command: Added improvements for easier testing of animations with more options and more flexible use.
