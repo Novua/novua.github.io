@@ -1,0 +1,1 @@
+QOL to improve console output spam
