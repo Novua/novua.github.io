@@ -1,1 +1,2 @@
 QOL to improve console output spam
+Error "IllegalArgumentException: pitch not finite" Fixed
