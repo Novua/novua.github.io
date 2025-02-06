@@ -1,0 +1,1 @@
+Added new .data folder for temporary but more redundant data storage for plugin internal use

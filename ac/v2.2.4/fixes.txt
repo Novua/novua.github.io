@@ -1,0 +1,4 @@
+Fixed player spectator gamemode exploit during camera movement.
+Fixed unloaded animation bug during Join Animation sequence
+Increased Stability
+Fixed Player camera rotation during join animation
