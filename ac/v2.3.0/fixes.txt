@@ -1,0 +1,2 @@
+Various Bug fixes surrounding general animation management
+More bug fixes related directly to Emotes

@@ -1,0 +1,1 @@
+New options for Emotes: [Traversal: true/false] + [Loop: true/false] Now enables Moving emoting and emoting on loop. allowing player to Sneak to exit
