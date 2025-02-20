@@ -1,0 +1,2 @@
+New Automatic configuration comparing on plugin load to check for changes to configuration and auto update version to version.
+New Configuration option { disabled_worlds: [] } Will take a list of worlds you would like Animations to NOT spawn.
