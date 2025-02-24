@@ -1,0 +1,2 @@
+Fixed Join animation camera now will respect disabled_worlds: []
+Fixed Join location override on incomplete join sequence on disabled_worlds: []
