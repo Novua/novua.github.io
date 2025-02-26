@@ -1,2 +1,2 @@
-disabled
+enabled
 This version has known issues. Please update to a newer version.
