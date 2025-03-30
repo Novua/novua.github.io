@@ -1,0 +1,3 @@
+New dynamic starter pack download system, allowing updated starter packs
+Improved debug-mode configuration for debug messages
+When a player is frozen they will now retain their original movement speed

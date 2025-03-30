@@ -1,0 +1,3 @@
+Various minor fixes
+Stability improvements
+Config fixes
