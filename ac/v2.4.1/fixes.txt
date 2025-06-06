@@ -1,0 +1,5 @@
+Fixed Teleport animation location spacing
+Fixed Teleport animation player visibility and freezing confliction
+Fixed live updating Player Preferences for the following animation types: AFK, GUI
+Various minor fixes
+Stability improvements

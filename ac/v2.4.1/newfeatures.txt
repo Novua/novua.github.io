@@ -1,0 +1,3 @@
+Added New Animation selection menu
+Added AFK animations to the test array
+Added auto filler for all old animations to be automatically be given selection GUI parameters
