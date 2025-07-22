@@ -1,0 +1,4 @@
+Fixed PlayerSneakEvent handler for emote animations
+Fixed Bug regarding /animations command handler
+Fixed animations menu missing some buttons
+minor fixes
