@@ -1,0 +1,2 @@
+Fixed console debug lines
+Fixed user incorrect cooldown message
