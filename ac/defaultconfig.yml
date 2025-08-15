@@ -1,0 +1,52 @@
+# config.yml
+# More to come soon!
+
+permission-message: "You don't have permission to use this command."
+debug-mode: false
+
+defaultanimations: false
+defaultjoin: ""
+defaultleave: ""
+defaultdeath: ""
+defaultrespawn: ""
+defaultafk: ""
+defaultgui: ""
+defaultTeleportOut: ""
+defaultTeleportIn: ""
+defaultKill: ""
+
+database:
+  enabled: false
+  host: localhost
+  port: 3306
+  name: minecraft
+  username: root
+  password: password
+
+
+TeleportAnimations:
+  enabled: true
+  listen-for: 160 #Timeout duration for teleport animations (In Ticks)
+  triggers:
+    - "/tp"
+    - "/teleport"
+
+# This camera is currently being used for the Join event
+Camera:
+  enabled: true
+  transition: true
+  forwards: 10
+  height: 5
+
+# Config option to switch the event trigger for the join animation between join and resource pack event
+trigger-on-join-event: true
+# This delay works for both resource pack event and join event from above. to disable just put 0
+JoinAnimDelay: 5
+
+# AFK Time in ticks (20 ticks per second)
+AFKTimeout: 6000
+
+disabled_worlds: []
+
+# Starter pack will automatically be downloaded
+download-starter-pack: true
