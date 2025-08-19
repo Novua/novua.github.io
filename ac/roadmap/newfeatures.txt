@@ -1,1 +1,1 @@
-New Configuration initializing. Now will detail if theres problems with individual animations as they load
+NewFeatures
