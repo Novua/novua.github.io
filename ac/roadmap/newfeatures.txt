@@ -1,1 +1,1 @@
-NewFeatures
+Defined spawn point for AnimationsCore to handle spawn locations of players i.e a Spawn world / Hub

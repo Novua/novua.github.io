@@ -1,5 +1,9 @@
-/test needs to be separated into play/test individual commands
-- play will play it exactly how it would naturally, Test will only spawn the 
-  mob in place
+/test needs to be separated into play/test individual commands -play will play it exactly how it would naturally, Test will only spawn the mob in place
 
-Currently when a user crouches, their fly speed is reset. this is interfering with peoples generic gameplay when animations weren't even being used in the first place 
+Currently when a user crouches, their fly speed is reset. this is interfering with peoples generic gameplay when animations weren't even being used in the first place
+
+Fix a bug with some entities being left behind from animations
+
+'Null' "java.util.UUID.toString()" because the return value of "net.novua.animationscore.AnimationManager.spawnAndGetAnimationId(...)" is null
+
+Fix Gui Items are not displaying Lore + Item Meta
