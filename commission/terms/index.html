@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commission Terms & Conditions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#171617;
+      --card:#1e1d1f;
+      --soft:#232225;
+      --text:#ffffff;
+      --muted:#b7b7c0;
+      --accent:#d4af37;
+      --accent-2:#ffd700;
+      --radius:16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 20px 96px;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 0.8s ease, transform 0.8s ease;
+    }
+    .wrap.visible{opacity:1;transform:translateY(0)}
+
+    header{text-align:center;margin-bottom:28px}
+    .logo{height:72px;width:auto;opacity:.95;filter: drop-shadow(0 6px 18px rgba(212,175,55,.25));}
+    .title{font-family:Oswald,Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-size:clamp(40px,6vw,60px);letter-spacing:.5px;margin:14px 0 8px}
+    .subtitle{color:var(--muted);max-width:760px;margin:0 auto 22px}
+
+    .note{background:linear-gradient(180deg,rgba(212,175,55,.12),rgba(212,175,55,.06));border:1px solid rgba(212,175,55,.25);padding:16px 18px;border-radius:var(--radius);margin:18px auto 34px;box-shadow:var(--shadow)}
+
+    .grid{display:grid;gap:18px;grid-template-columns:1fr}
+    @media(min-width:840px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+    .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a2930;border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow);opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s ease}
+    .card:nth-child(even){background:linear-gradient(180deg,var(--soft),var(--card))}
+    .card.visible{opacity:1;transform:translateY(0)}
+
+    h2{font-family:Oswald,sans-serif;font-size:26px;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+    h2 .pill{font:600 12px/1 Inter,sans-serif;color:#000;background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:6px 10px;border-radius:999px;letter-spacing:.4px}
+
+    p,li{color:#e9e9ef}
+    ul{margin:10px 0 0 18px}
+
+    .accordion{border-top:1px solid #2a2930;margin-top:8px}
+    details{border-bottom:1px solid #2a2930}
+    summary{list-style:none;cursor:pointer;user-select:none;padding:14px 4px;outline:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    summary::-webkit-details-marker{display:none}
+    .chev{transition:transform .2s ease}
+    details[open] .chev{transform:rotate(90deg)}
+    .acc-body{padding:0 4px 14px;color:#cfcfe7}
+
+    .cta-bar{position:sticky;bottom:18px;display:flex;justify-content:center;margin-top:26px}
+    .cta{display:inline-flex;gap:10px;align-items:center;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0a0a0f;text-decoration:none;font-weight:700;padding:14px 18px;border-radius:12px;box-shadow:0 8px 24px rgba(212,175,55,.35)}
+    .cta:focus-visible{outline:2px solid var(--accent-2);outline-offset:4px;border-radius:14px}
+
+    .links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+    .chip{border:1px solid #2a2930;border-radius:999px;padding:6px 10px;color:#dad8e8;text-decoration:none}
+    .chip:hover{border-color:var(--accent)}
+
+    /* Splash screen */
+    #splash{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 1s ease}
+    #splash.fade-out{opacity:0;pointer-events:none}
+    #splash img{max-width:220px;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <img src="logo.png" alt="Logo" />
+  </div>
+
+  <div class="wrap">
+    <header>
+      <img src="logo.png" alt="Logo" class="logo" onerror="this.style.display='none'"/>
+      <h1 class="title">Commission Terms & Conditions</h1>
+      <p class="subtitle">Please read these terms before placing an order. By commissioning me, you agree to the terms below.</p>
+      <div class="note">
+        <strong>Heads up:</strong> Each commission request is subject to review. I aim to accept and complete all work to full quality, but I may decline or delay a request due to personal circumstances.
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <h2><span class="pill">Payment</span></h2>
+        <ul>
+          <li><strong>50% upfront</strong> is required before work begins.</li>
+          <li>Payment via <strong>PayPal invoice only</strong>, unless otherwise agreed in special circumstances.</li>
+          <li>All quotes and invoices are in <strong>GBP (£)</strong>. Currency conversion/fees are the client's responsibility.</li>
+          <li><strong>No delivery</strong> of final files until <strong>100% payment</strong> is received and cleared.</li>
+        </ul>
+        <div class="accordion">
+          <details>
+            <summary><span>Why invoices?</span><span class="chev">▶</span></summary>
+            <div class="acc-body">Invoices keep everything secure, transparent, and include itemised scope, due dates, and licensing.</div>
+          </details>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Pricing</span></h2>
+        <ul>
+          <li>All commissions are <strong>quote-based</strong> unless a fixed price is explicitly stated.</li>
+          <li>Quotes are valid for 14 days and assume the brief you provide at the time of quoting.</li>
+          <li>Changes to scope may require a revised quote.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Revisions</span></h2>
+        <ul>
+          <li>Includes <strong>reasonable minor revisions</strong> at each milestone (e.g., sketch → draft → final).</li>
+          <li>Major changes or additional concepts not in the original brief may incur extra costs.</li>
+          <li>Requests must be made within 7 days of receiving a preview/draft.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Delivery</span></h2>
+        <ul>
+          <li>Estimated timelines are provided on acceptance and may shift for complex work or life events. I’ll keep you updated.</li>
+          <li>Delivery is digital unless agreed otherwise.</li>
+          <li>Working files or source files are provided only if included in your quote/licence.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Usage Rights & Licensing</span></h2>
+        <ul>
+          <li>Personal use is allowed by default.</li>
+          <li><strong>Commercial use</strong> (monetised channels, merch, branding, etc.) requires a commercial licence and may cost extra.</li>
+          <li>I retain copyright unless explicitly transferred in writing; I may display the work in my portfolio/socials unless you request otherwise.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Refunds & Cancellations</span></h2>
+        <ul>
+          <li>The upfront 50% payment becomes <strong>non-refundable</strong> once work has started.</li>
+          <li>If I cancel due to personal circumstances, I’ll refund any fees for work not delivered.</li>
+          <li>Refunds aren’t available after final files have been delivered.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">Client Responsibilities</span></h2>
+        <ul>
+          <li>Please provide clear references, deadlines, and usage context before work begins.</li>
+          <li>Timely feedback helps keep the schedule. Delays in replies may push delivery dates.</li>
+          <li>You confirm you have permission to use any materials you supply (logos, characters, music, etc.).</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2><span class="pill">File Release</span></h2>
+        <ul>
+          <li>Preview images may be watermarked or low-res.</li>
+          <li><strong>Final files are released only after full payment</strong>. Download links remain available for at least 14 days.</li>
+        </ul>
+      </article>
+    </section>
+
+    <article class="card" style="text-align:center;max-width:500px;margin:40px auto 0 auto;background:linear-gradient(180deg,var(--soft),var(--card))">
+      <h2><span class="pill">Enquire</span></h2>
+      <p>Have questions or want to start your commission? Contact me directly via Discord.</p>
+      <div class="links" style="justify-content:center">
+        <a class="chip" href="https://discord.gg/YsyZGZPttA" target="_blank">Contact on Discord</a>
+      </div>
+    </article>
+
+    <div class="cta-bar">
+      <a id="order" class="cta" href="https://discord.gg/YsyZGZPttA" target="_blank">✦ Start Your Commission</a>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const splash = document.getElementById('splash');
+      setTimeout(() => {
+        splash.classList.add('fade-out');
+        document.querySelector('.wrap').classList.add('visible');
+      }, 1500);
+    });
+
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.2});
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
