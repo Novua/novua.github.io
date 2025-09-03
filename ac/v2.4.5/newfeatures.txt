@@ -1,0 +1,18 @@
+## Defined spawn point system
+- Config: spawn-point.enabled, world, x, y, z, yaw, pitch.
+- Commands: /animcore setspawn (enable + save), /animcore spawn [player].
+- Join flow respects spawn point (teleports first; animation runs there).
+
+## /animcore play (separate from /test)
+- Plays animation with full flow.
+
+## Animation Selection GUI overhaul
+- Reads per-animation GUI: (icon, Displayname, Lore, ModelID).
+- AutoHideLocked option to always hide locked items and remove the toggle.
+- Auto-generate GUI sections for animations missing GUI: (default material/name/lore/model id).
+
+## Improved AFK handling
+- If a player has no AFK preference, AFK detection is silently ignored.
+
+## Spawn point manager improvements
+- Works with mixed numeric types (int/float/double) in config.

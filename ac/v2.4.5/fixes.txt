@@ -1,0 +1,8 @@
+Crouch/fly-speed issue during emotes fixed (sneak cancel only when emote active).
+Entities left behind – no longer reproducible in latest build.
+spawnAndGetAnimationId null-safety added; avoids NPEs and logs in debug.
+MythicMobs imports & API calls updated for compatibility.
+GUI item meta (material, name, lore, CustomModelData) reliably applied.
+JoinAnimation double-registration guard to prevent duplicate event handling.
+Spawn-point yaw/pitch misdetection fixed (treat config numeric types generically).
+JoinTrace logging reverted to debug-mode only, keeping console clean by default.
