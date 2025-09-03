@@ -1,3 +1,0 @@
-Fixed GUI showing "?"
-Updated version checker
-Test animation now will return previous gamemode instead of defaulting to survival
