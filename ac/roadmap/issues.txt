@@ -1,1 +1,0 @@
-Fix Gui Items are not displaying Lore + Item Meta
