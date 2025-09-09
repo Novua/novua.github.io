@@ -1,1 +1,1 @@
-Defined spawn point for AnimationsCore to handle spawn locations of players i.e a Spawn world / Hub
+Seperate animation triggers for different conditions (Death by certain creatures, and different GUI etc)
