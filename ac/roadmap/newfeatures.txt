@@ -1,1 +1,6 @@
 Seperate animation triggers for different conditions (Death by certain creatures, and different GUI etc)
+API to trigger animations
+
+New variable for capturing the exact user's name for easy skin capturing
+Custom animation category, No event connection and no player-facing command to trigger. only admin / API
+
