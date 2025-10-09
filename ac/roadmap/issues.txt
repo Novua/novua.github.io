@@ -1,0 +1,1 @@
+Entity being left behind when animation plays
