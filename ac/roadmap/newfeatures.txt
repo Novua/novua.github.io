@@ -5,3 +5,5 @@ New variable for capturing the exact user's name for easy skin capturing
 Custom animation category, No event connection and no player-facing command to trigger. only admin / API
 
 Emote together
+
+Mythicmobs integration for direct reliable player calling as targeter
