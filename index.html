@@ -1,55 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novua</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="fade-out" id="fade-out">
-        <img src="images/logo.png" class="logo" id="logo">
+<body class="no-scroll">
+    <div class="fade-out" id="fade-out" aria-hidden="false">
+        <img src="images/logo.png" class="logo" id="logo" alt="Novua logo">
     </div>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="images/logo.png" class="nav-logo">
-        </div>
-        <div class="navbar-right">
-            <a href="https://mcmodels.net/vendors/114/novua" class="nav-link" id="store-link">Store</a>
-        </div>
-    </nav>
 
-    <div class="other">
-        <div class="card">
-            <img src="images/card1.png" class="card-image">
-            <div class="card-content">
-                <h2 class="card-title">Mineblob</h2>
-                <p>Mineblob is a minecraft server in development providing a unique minigames experience unlike any other server.</p>
-                <br>
-                <p>With custom coded game modes, cosmetics and unique systems to ensure a one-of-a-kind experinece.</p>
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="#" class="brand" aria-label="Novua home">
+                <img src="images/logo.png" class="nav-logo" alt="Novua logo">
+                <span class="brand-text">Novua</span>
+            </a>
+            <div class="navbar-right">
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="https://mcmodels.net/vendors/114/novua" class="nav-link cta" id="store-link" data-store-link>Visit Store</a>
             </div>
-        </div>
-        <div class="card">
-            <img src="images/card2.png" class="card-image">
-            <div class="card-content">
-                <h2 class="card-title">AnimationsCore</h2>
-                <p>AnimationsCore is a Minecraft spigot plugin to work with ModelEngine & MythicMobs to create animations for events such as: Join, Leave, Death etc.</p>
-                <br>
-                <p>It is maintained for latest versions of minecraft with many new features and events being added regularly with Animation packs being available on MCmodels.net by a variety of vendors.</p>
+        </nav>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Voxel Forge Studio</p>
+                <div class="hero-divider" aria-hidden="true"></div>
+                <h1>Building bold Minecraft worlds one pixel-perfect block at a time.</h1>
+                <p class="hero-description">Novua sculpts immersive experiences for servers and creators—pairing cinematic storytelling with chunky charm, redstone wizardry, and playful animation that feels straight from the game.</p>
+                <div class="hero-actions">
+                    <a href="https://mcmodels.net/vendors/114/novua" class="btn primary" data-store-link>Visit the store</a>
+                    <a href="#projects" class="btn secondary">See our work</a>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <img src="images/card3.png" class="card-image">
-            <div class="card-content">
-                <h2 class="card-title">Project HOG</h2>
-                <p>Project HOG is a Minecraft server in development that takes the style inspired by many mobile games in the Tower Defense genre.</p>
-                <br>
-                <p>Utilising 3D models and custom plugin technology, crafting a completely new style of minecraft server experience like no other!</p>
+            <div class="hero-showcase" aria-hidden="true">
+                <div class="pixel-stack">
+                    <span class="pixel pixel-1"></span>
+                    <span class="pixel pixel-2"></span>
+                    <span class="pixel pixel-3"></span>
+                    <span class="pixel pixel-4"></span>
+                    <span class="pixel pixel-5"></span>
+                    <span class="pixel pixel-6"></span>
+                </div>
+                <div class="showcase-card">
+                    <p>Trusted by builders worldwide</p>
+                    <span>Voxel storylines • Custom models • Animated encounters</span>
+                </div>
+                <div class="pixel-orbit" aria-hidden="true">
+                    <span class="bit bit-1"></span>
+                    <span class="bit bit-2"></span>
+                    <span class="bit bit-3"></span>
+                    <span class="bit bit-4"></span>
+                </div>
             </div>
-        </div>
+        </section>
+    </header>
 
-        <!-- Add more cards here -->
-    </div>
-</div>
+    <main>
+        <section class="projects" id="projects">
+            <div class="section-heading">
+                <h2>Featured Projects</h2>
+                <p>From massive hubs to boutique plugins, each build mixes technical wizardry with that signature blocky glow.</p>
+            </div>
+            <div class="card-grid">
+                <article class="card">
+                    <img src="images/card1.png" class="card-image" alt="Mineblob project screenshot">
+                    <div class="card-content">
+                        <h3 class="card-title">Mineblob</h3>
+                        <p>Mineblob is a Minecraft server in development providing a unique minigames experience unlike any other server.</p>
+                        <p>With custom coded game modes, cosmetics, and unique systems to ensure a one-of-a-kind experience.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/card2.png" class="card-image" alt="AnimationsCore plugin artwork">
+                    <div class="card-content">
+                        <h3 class="card-title">AnimationsCore</h3>
+                        <p>AnimationsCore integrates ModelEngine & MythicMobs to create bespoke animation sequences for every moment—join, leave, death, and more.</p>
+                        <p>It is maintained for the latest versions of Minecraft with frequent feature updates and curated animation packs.</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <img src="images/card3.png" class="card-image" alt="Project HOG concept art">
+                    <div class="card-content">
+                        <h3 class="card-title">Project HOG</h3>
+                        <p>Project HOG is a tower-defense inspired Minecraft server, blending mobile design language with deeply custom gameplay loops.</p>
+                        <p>Utilising 3D models and custom plugin technology, it reimagines what’s possible within the Minecraft engine.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="year"></span> Novua. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
