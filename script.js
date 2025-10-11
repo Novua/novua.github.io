@@ -1,37 +1,54 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Wait for the DOM content to load
+document.addEventListener('DOMContentLoaded', () => {
     const fadeOut = document.getElementById('fade-out');
+    const storeLinks = document.querySelectorAll('[data-store-link]');
+    const body = document.body;
+    const yearElement = document.getElementById('year');
 
-    // Initial slide-up animation after a delay
-    setTimeout(function() {
-        fadeOut.classList.add('show');
-    }, 1500); // 3 seconds delay
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 
-    // Click event for the store link
-    document.getElementById('store-link').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-        
-        // Hide the fade-out overlay
-        fadeOut.classList.remove('show');
-        
-        // Prevent scrolling while the overlay is hidden
-        document.body.classList.remove('no-scroll');
-        
-        // Wait for the transition to complete
-        setTimeout(function() {
-            // Redirect to the store link after the slide-down animation completes
-            window.location.href = 'https://mcmodels.net/vendors/114/novua';
-        }, 1000); // Adjust this delay to match the transition duration in CSS (1.5 seconds in this example)
-    });
+    if (fadeOut) {
+        window.setTimeout(() => {
+            fadeOut.classList.add('hide');
+        }, 1200);
 
+        fadeOut.addEventListener('transitionend', () => {
+            if (fadeOut.classList.contains('hide')) {
+                body.classList.remove('no-scroll');
+                fadeOut.setAttribute('aria-hidden', 'true');
+            } else {
+                fadeOut.setAttribute('aria-hidden', 'false');
+            }
+        });
+    } else {
+        body.classList.remove('no-scroll');
+    }
 
-    
-    // Show/hide the no-scroll class based on the fade-out overlay
-    fadeOut.addEventListener('transitionend', function() {
-        if (!fadeOut.classList.contains('show')) {
-            document.body.classList.remove('no-scroll');
-        } else {
-            
+    const handleStoreNavigation = (event) => {
+        event.preventDefault();
+        const target = event.currentTarget;
+        const destination = target.getAttribute('href');
+
+        if (!destination) {
+            return;
         }
+
+        if (!fadeOut) {
+            window.location.href = destination;
+            return;
+        }
+
+        fadeOut.setAttribute('aria-hidden', 'false');
+        fadeOut.classList.remove('hide');
+        body.classList.add('no-scroll');
+
+        window.setTimeout(() => {
+            window.location.href = destination;
+        }, 650);
+    };
+
+    storeLinks.forEach((link) => {
+        link.addEventListener('click', handleStoreNavigation);
     });
 });
