@@ -1,0 +1,13 @@
+A new shared permission system now ensures that animations, the GUI, and commands check for all required permissions, allowing for multi-permission-protected features across the plugin.
+
+Startup has been restructured into modular bootstrap components that handle configuration defaults, resource setup, database initialization, listener and command registration, and player preference loading. This includes a reusable player-preference service and an improved join listener for smoother initialization.
+
+Player visibility and freezing are now managed by dedicated services with built-in debug logging, giving animations more consistent and reliable control over player states.
+
+Huge rewrite and restructure of many areas in the plugin
+
+New API!
+
+New Custom category, Only triggered via admin commands or API usage
+
+Improved Documentation

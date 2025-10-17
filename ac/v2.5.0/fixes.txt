@@ -1,0 +1,6 @@
+Preferences now reload only when valid data is found, preventing empty database responses from wiping player settings. 
+When saving to SQL, only the requesting player’s data is updated, keeping everyone else’s preferences safe and preserving nested settings for better reliability.
+Animation entities are now fully linked to their players and automatically cleaned up when logging out, teleporting, or shutting down the server — no more lingering Mythic mobs.
+The `/animcore set` command now respects permissions, saving only animations the player is allowed to use. 
+Leave and teleport animations also follow permission rules and always remove temporary Mythic mobs after playing, ensuring a clean and consistent experience.
+Better Error catching and handling
