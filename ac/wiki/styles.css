@@ -287,6 +287,15 @@ code {
     box-shadow: var(--shadow-subtle);
 }
 
+.callout.is-warning {
+    background: rgba(251, 191, 36, 0.12);
+    border-color: rgba(251, 191, 36, 0.45);
+}
+
+.callout.is-warning strong {
+    color: #facc15;
+}
+
 .callout strong {
     display: inline-block;
     margin-bottom: 6px;

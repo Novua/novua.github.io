@@ -55,11 +55,17 @@
             <li>Place <code>AnimationsCore.jar</code> and <code>MythicMobs.jar</code> inside <code>plugins/</code>, then restart the server.</li>
             <li>On first boot AnimationsCore generates <code>config.yml</code>, <code>player_preferences.yml</code>, and catalogue folders such as <code>joins/</code>, <code>leaves/</code>, <code>emotes/</code>, <code>teleport-ins/</code>, and more.</li>
             <li>Optional: leave <code>download-starter-pack: true</code> (default) enabled to pull the Novua starter Mythic pack. The flag flips to <code>false</code> after the download completes.</li>
+            <li>When the starter pack ZIP arrives, extract it and drop the labelled contents into the matching <code>plugins/ModelEngine</code>, <code>plugins/MythicMobs</code>, and <code>plugins/AnimationsCore</code> folders.</li>
+            <li>After the server reloads ModelEngine's resource pack, merge it with your existing pack instead of replacing it outright.</li>
             <li>Grant staff the <code>animcore.admin.*</code> suite so they can reload configs, manage preferences, and trigger cinematics.</li>
         </ol>
         <div class="callout">
             <strong>Tip</strong>
             <p>Animations can be disabled per-world through <code>disabled_worlds</code> in <code>config.yml</code>. Keep cinematic hubs pristine while leaving survival worlds untouched.</p>
+        </div>
+        <div class="callout is-warning">
+            <strong>Resource pack safety</strong>
+            <p>Do not delete <code>player_shader</code> when merging ModelEngine's generated resource pack with your own. Removing it breaks skin rendering for players.</p>
         </div>
     </section>
 
