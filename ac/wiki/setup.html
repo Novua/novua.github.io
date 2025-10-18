@@ -122,6 +122,10 @@ dependencies {
     compileOnly("net.novua:AnimationsCore:2.5.0:sources") // optional
     compileOnly("net.novua:AnimationsCore:2.5.0:javadoc") // optional
 }</code></pre>
+                <div class="callout">
+                    <strong>Authentication note</strong>
+                    <p>When consuming private packages, add <code>credentials { username = project.findProperty("gpr.user"); password = project.findProperty("gpr.key") }</code> to the repository block.</p>
+                </div>
             </div>
         </div>
     </section>
