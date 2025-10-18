@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Resolve common AnimationsCore issues covering MythicMobs integration, permissions, AFK triggers, and spawn handling.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link" href="setup.html">Setup</a>
+            <a class="nav-link" href="configuration.html">Configuration</a>
+            <a class="nav-link" href="operations.html">Player experience</a>
+            <a class="nav-link" href="api.html">API</a>
+            <a class="nav-link" href="systems.html">Systems</a>
+            <a class="nav-link is-active" href="support.html" aria-current="page">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">Support</span>
+                <span class="pill">Troubleshooting</span>
+            </div>
+            <h1>Diagnose common issues quickly</h1>
+            <p class="hero-summary">Use this checklist to resolve the most frequent configuration, permission, and MythicMobs pitfalls seen with AnimationsCore.</p>
+            <div class="quick-actions" role="list">
+                <a href="#troubleshooting">Troubleshooting checklist</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="troubleshooting">
+        <div class="section-heading">
+            <h2>Troubleshooting &amp; debugging</h2>
+            <p>Track down issues by enabling debug logging and checking the relevant YAML entries.</p>
+        </div>
+        <ul>
+            <li><strong>MythicMob not found:</strong> Enable <code>debug-mode</code> to see spawn attempts and verify the MythicMob ID in YAML matches your Mythic configuration.</li>
+            <li><strong>Animations fail in certain worlds:</strong> Make sure the world name is not listed under <code>disabled_worlds</code>.</li>
+            <li><strong>Permissions not recognised:</strong> Confirm the player has the nodes defined under an animation's <code>permissions</code> array or grant <code>animcore.admin.bypass</code> while testing.</li>
+            <li><strong>AFK never fires:</strong> Ensure <code>AFKTimeout</code> is reasonable and no plugins spam activity events (mount movement, anti-AFK scripts, etc.).</li>
+            <li><strong>Spawn teleport fails:</strong> Re-run <code>/animcore setspawn</code> to refresh coordinates and confirm the destination world is loaded.</li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <p>Return to the <a href="index.html">documentation overview</a> for setup guides, configuration, API usage, and more.</p>
+    </footer>
+</main>
+</body>
+</html>

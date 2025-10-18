@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Learn how AnimationsCore structures its data folder and configure every option exposed inside config.yml.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link" href="setup.html">Setup</a>
+            <a class="nav-link is-active" href="configuration.html" aria-current="page">Configuration</a>
+            <a class="nav-link" href="operations.html">Player experience</a>
+            <a class="nav-link" href="api.html">API</a>
+            <a class="nav-link" href="systems.html">Systems</a>
+            <a class="nav-link" href="support.html">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">Configuration</span>
+                <span class="pill">Server Owners</span>
+                <span class="pill">Content Teams</span>
+            </div>
+            <h1>Shape the AnimationsCore data model</h1>
+            <p class="hero-summary">Understand the generated directory structure, configure defaults, and use YAML templates to build cinematic catalogues that match your server's tone.</p>
+            <div class="quick-actions" role="list">
+                <a href="#data">Data folder layout</a>
+                <a href="#config">Configuration reference</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="data">
+        <div class="section-heading">
+            <h2>Data folder layout</h2>
+            <p>AnimationsCore provisions a consistent directory tree beneath <code>plugins/AnimationsCore/</code>. Each category stores MythicMob bindings and GUI metadata under <code>animations</code> keys.</p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>player_preferences.yml</code></td>
+                        <td>Per-player animation selections grouped by type.</td>
+                    </tr>
+                    <tr>
+                        <td><code>joins/joins.yml</code>, <code>leaves/leaves.yml</code>, <code>deaths/deaths.yml</code>, <code>respawns/respawns.yml</code></td>
+                        <td>Lifecycle animation catalogues. Keys underneath <code>animations.</code> map to MythicMob IDs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>afks/afks.yml</code></td>
+                        <td>AFK cinematics, including transition timings and permission gates.</td>
+                    </tr>
+                    <tr>
+                        <td><code>guis/guis.yml</code></td>
+                        <td>Layout and copy for the in-game selector GUI.</td>
+                    </tr>
+                    <tr>
+                        <td><code>teleport-ins/teleports.yml</code>, <code>teleport-outs/teleports.yml</code></td>
+                        <td>Teleport entry / exit cinematics triggered by monitored commands.</td>
+                    </tr>
+                    <tr>
+                        <td><code>emotes/emotes.yml</code></td>
+                        <td>Emote catalogue with duration, looping, and traversal metadata.</td>
+                    </tr>
+                    <tr>
+                        <td><code>bans/bans.yml</code></td>
+                        <td>Ban cinematics executed alongside moderation commands.</td>
+                    </tr>
+                    <tr>
+                        <td><code>kills/kills.yml</code></td>
+                        <td>Reserved for kill-event cinematics.</td>
+                    </tr>
+                    <tr>
+                        <td><code>customs/customs.yml</code></td>
+                        <td>Manual-only animations for scripted cutscenes or one-off events.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Use the following template to create new entries. Keep the key names consistent across YAML files, GUI slots, and API calls.</p>
+        <pre><code class="language-yaml">animations:
+  cinematic_a:
+    mm-id: NovuaJoinAnimation
+    permissions:
+      - animcore.join.cinematic_a
+    duration: 200
+    gui:
+      name: "&aNovua Arrival"
+      material: ENDER_EYE
+      slot: 10
+  cinematic_b:
+    mm-id: NovuaLeaveAnimation
+    permissions: []
+    duration: 120
+    gui:
+      name: "&bWave Goodbye"
+      material: BLAZE_ROD
+      slot: 11</code></pre>
+    </section>
+
+    <section id="config">
+        <div class="section-heading">
+            <h2>Configuration reference</h2>
+            <p>Core options from <code>config.yml</code>, summarised with defaults and behaviour notes.</p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>permission-message</code></td>
+                        <td><code>"You don't have permission to use this command."</code></td>
+                        <td>Fallback message for admin commands without bespoke feedback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>debug-mode</code></td>
+                        <td><code>false</code></td>
+                        <td>Verbose logging for Mythic spawns, AFK transitions, and spawn validation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>defaultanimations</code></td>
+                        <td><code>false</code></td>
+                        <td>Automatically apply the <code>default*</code> keys (join, leave, etc.) to first-time players.</td>
+                    </tr>
+                    <tr>
+                        <td><code>defaultjoin</code>, <code>defaultleave</code>, <code>defaultdeath</code>, ...</td>
+                        <td>Empty</td>
+                        <td>Choose the animation key granted when <code>defaultanimations</code> is enabled.</td>
+                    </tr>
+                    <tr>
+                        <td><code>database.*</code></td>
+                        <td>Disabled / localhost</td>
+                        <td>Mirror <code>player_preferences.yml</code> into MySQL. Toggle per API call using <code>syncDatabase</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>spawn-point.*</code></td>
+                        <td>Disabled</td>
+                        <td>Stores coordinates for <code>/animcore spawn</code>. Populated through <code>/animcore setspawn</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>TeleportAnimations.enabled</code></td>
+                        <td><code>true</code></td>
+                        <td>Turns teleport cinematics on or off globally.</td>
+                    </tr>
+                    <tr>
+                        <td><code>TeleportAnimations.listen-for</code></td>
+                        <td><code>160</code></td>
+                        <td>Number of ticks to watch for the teleport completion after a trigger command is used.</td>
+                    </tr>
+                    <tr>
+                        <td><code>TeleportAnimations.triggers</code></td>
+                        <td><code>["/tp", "/teleport"]</code></td>
+                        <td>Command list that starts the teleport cinematic handshake.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Camera.*</code></td>
+                        <td><code>enabled: true</code>, <code>transition: true</code>, <code>forwards: 10</code>, <code>height: 5</code></td>
+                        <td>Camera offsets applied to join cinematics.</td>
+                    </tr>
+                    <tr>
+                        <td><code>trigger-on-join-event</code></td>
+                        <td><code>true</code></td>
+                        <td>Start join cinematics immediately or wait for the resource pack event.</td>
+                    </tr>
+                    <tr>
+                        <td><code>JoinAnimDelay</code></td>
+                        <td><code>5</code></td>
+                        <td>Delay (ticks) before playing the join animation after the trigger.</td>
+                    </tr>
+                    <tr>
+                        <td><code>AFKTimeout</code></td>
+                        <td><code>6000</code></td>
+                        <td>Idle ticks (5 minutes) before AFK detection fires.</td>
+                    </tr>
+                    <tr>
+                        <td><code>disabled_worlds</code></td>
+                        <td><code>[]</code></td>
+                        <td>Worlds where AnimationsCore refuses to spawn MythicMobs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>download-starter-pack</code></td>
+                        <td><code>true</code></td>
+                        <td>Automatically download the Novua starter pack on next boot (flag resets after success).</td>
+                    </tr>
+                    <tr>
+                        <td><code>AutoHideLocked</code></td>
+                        <td><code>true</code></td>
+                        <td>Hide GUI entries if the viewer lacks the listed permissions.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout">
+            <strong>Performance hint</strong>
+            <p>Use <code>animation-triggers.*</code> in <code>config.yml</code> to disable listeners for categories you do not use. Skipping unused hooks trims event noise on larger servers.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Continue with <a href="operations.html">player experience &amp; staff workflows</a> once your catalogues are in place.</p>
+    </footer>
+</main>
+</body>
+</html>
