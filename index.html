@@ -6,53 +6,60 @@
     <title>Novua</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="no-scroll">
-    <div class="fade-out" id="fade-out" aria-hidden="false">
-        <img src="images/logo.png" class="logo" id="logo" alt="Novua logo">
+    <div class="splash" id="fade-out" aria-hidden="false">
+        <img src="images/logo.png" class="splash-logo" id="logo" alt="Novua logo">
     </div>
 
     <header class="site-header">
-        <nav class="navbar">
+        <nav class="navbar container">
             <a href="#" class="brand" aria-label="Novua home">
                 <img src="images/logo.png" class="nav-logo" alt="Novua logo">
                 <span class="brand-text">Novua</span>
             </a>
-            <div class="navbar-right">
+            <div class="navbar-links">
                 <a href="#projects" class="nav-link">Projects</a>
-                <a href="https://mcmodels.net/vendors/114/novua" class="nav-link cta" id="store-link" data-store-link>Visit Store</a>
+                <a href="https://mcmodels.net/vendors/114/novua" class="nav-link accent" id="store-link" data-store-link>Visit Store</a>
             </div>
         </nav>
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-divider" aria-hidden="true"></div>
-                <h1>Making unforgettable experiences since 2020</h1>
-                <p class="hero-description">From custom plugins re-defying mechanics and feel of the game to custom models and visuals</p>
+        <section class="hero container">
+            <div class="hero-copy">
+                <p class="hero-kicker">Premium Minecraft experiences</p>
+                <h1>Clean visuals. Seamless systems. Worlds that feel alive.</h1>
+                <p class="hero-description">Novua designs and engineers bespoke plugins, models, and animations crafted to elevate every touchpoint of your server experience.</p>
                 <div class="hero-actions">
                     <a href="https://mcmodels.net/vendors/114/novua" class="btn primary" data-store-link>Visit the store</a>
                     <a href="#projects" class="btn secondary">See my work</a>
                 </div>
+                <dl class="hero-metrics">
+                    <div class="metric">
+                        <dt>Since</dt>
+                        <dd>2020</dd>
+                    </div>
+                    <div class="metric">
+                        <dt>Deliverables</dt>
+                        <dd>Plugins · Models · Animations</dd>
+                    </div>
+                    <div class="metric">
+                        <dt>Clients</dt>
+                        <dd>Global creators & networks</dd>
+                    </div>
+                </dl>
             </div>
-            <div class="hero-showcase" aria-hidden="true">
-                <div class="pixel-stack">
-                    <span class="pixel pixel-1"></span>
-                    <span class="pixel pixel-2"></span>
-                    <span class="pixel pixel-3"></span>
-                    <span class="pixel pixel-4"></span>
-                    <span class="pixel pixel-5"></span>
-                    <span class="pixel pixel-6"></span>
+            <div class="hero-panel" aria-hidden="true">
+                <div class="panel-card">
+                    <h2>Focus Areas</h2>
+                    <ul>
+                        <li>Gameplay systems engineered for retention</li>
+                        <li>Immersive cosmetics and interaction design</li>
+                        <li>Modular asset libraries for scalable content</li>
+                    </ul>
                 </div>
-                <div class="showcase-card">
-                    <p>Trusted by creators worldwide</p>
-                    <span>Custom Models • Custom Plugins • 3D Animations • Pixelart</span>
-                </div>
-                <div class="pixel-orbit" aria-hidden="true">
-                    <span class="bit bit-1"></span>
-                    <span class="bit bit-2"></span>
-                    <span class="bit bit-3"></span>
-                    <span class="bit bit-4"></span>
+                <div class="panel-note">
+                    <p>Every engagement is tailored with a sharp eye on polish, performance, and player delight.</p>
                 </div>
             </div>
         </section>
@@ -60,41 +67,42 @@
 
     <main>
         <section class="projects" id="projects">
-            <div class="section-heading">
-                <h2>Featured Projects</h2>
-                <p>From massive hubs to boutique plugins, each build mixes technical wizardry with that signature blocky glow.</p>
-            </div>
-            <div class="card-grid">
-                <article class="card">
-                    <img src="images/card1.png" class="card-image" alt="Mineblob project screenshot">
-                    <div class="card-content">
-                        <h3 class="card-title">Mineblob</h3>
-                        <p>Mineblob is a Minecraft server in development providing a unique minigames experience unlike any other server.</p>
-                        <p>With custom coded game modes, cosmetics, and unique systems to ensure a one-of-a-kind experience.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/card2.png" class="card-image" alt="AnimationsCore plugin artwork">
-                    <div class="card-content">
-                        <h3 class="card-title">AnimationsCore</h3>
-                        <p>AnimationsCore integrates ModelEngine & MythicMobs to create bespoke animation sequences for every moment—join, leave, death, and more.</p>
-                        <p>It is maintained for the latest versions of Minecraft with frequent feature updates and curated animation packs.</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="images/card3.png" class="card-image" alt="Project HOG concept art">
-                    <div class="card-content">
-                        <h3 class="card-title">Project HOG</h3>
-                        <p>Project HOG is a tower-defense inspired Minecraft server, blending mobile design language with deeply custom gameplay loops.</p>
-                        <p>Utilising 3D models and custom plugin technology, it reimagines what’s possible within the Minecraft engine.</p>
-                    </div>
-                </article>
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Featured Projects</h2>
+                    <p>From global hubs to boutique experiences, each project blends technical engineering with cinematic presentation.</p>
+                </div>
+                <div class="card-grid">
+                    <article class="card">
+                        <img src="images/card1.png" class="card-image" alt="Mineblob project screenshot">
+                        <div class="card-content">
+                            <h3 class="card-title">Mineblob</h3>
+                            <p>Mineblob delivers a catalogue of bespoke minigames, balancing replayability with striking presentation to keep players coming back.</p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="images/card2.png" class="card-image" alt="AnimationsCore plugin artwork">
+                        <div class="card-content">
+                            <h3 class="card-title">AnimationsCore</h3>
+                            <p>AnimationsCore links ModelEngine and MythicMobs through curated animation packs, keeping networks agile with regular releases.</p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="images/card3.png" class="card-image" alt="Project HOG concept art">
+                        <div class="card-content">
+                            <h3 class="card-title">Project HOG</h3>
+                            <p>Project HOG reimagines tower defense with cinematic models, bespoke plugins, and smart onboarding loops tailored for retention.</p>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>© <span id="year"></span> Novua. All rights reserved.</p>
+        <div class="container">
+            <p>© <span id="year"></span> Novua. Crafted with precision.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
