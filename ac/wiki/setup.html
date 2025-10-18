@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup &amp; First Run &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Install AnimationsCore, satisfy dependencies, and bootstrap the runtime API inside your own Minecraft plugins.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link is-active" href="setup.html" aria-current="page">Setup</a>
+            <a class="nav-link" href="configuration.html">Configuration</a>
+            <a class="nav-link" href="operations.html">Player experience</a>
+            <a class="nav-link" href="api.html">API</a>
+            <a class="nav-link" href="systems.html">Systems</a>
+            <a class="nav-link" href="support.html">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">Setup</span>
+                <span class="pill">Server Owners</span>
+                <span class="pill">Plugin Developers</span>
+            </div>
+            <h1>Install &amp; bootstrap AnimationsCore</h1>
+            <p class="hero-summary">Follow these steps to deploy AnimationsCore on your server and wire the runtime API into your own plugins without shading or relocation headaches.</p>
+            <div class="quick-actions" role="list">
+                <a href="#installation">Installation</a>
+                <a href="#dependency">Dependency management</a>
+                <a href="#bootstrapping">Bootstrapping the API</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation">
+        <div class="section-heading">
+            <h2>Installation &amp; first run</h2>
+            <p>Drop the plugin into your Paper / Spigot stack, then let it provision the data directories it needs.</p>
+        </div>
+        <ol>
+            <li>Place <code>AnimationsCore.jar</code> and <code>MythicMobs.jar</code> inside <code>plugins/</code>, then restart the server.</li>
+            <li>On first boot AnimationsCore generates <code>config.yml</code>, <code>player_preferences.yml</code>, and catalogue folders such as <code>joins/</code>, <code>leaves/</code>, <code>emotes/</code>, <code>teleport-ins/</code>, and more.</li>
+            <li>Optional: leave <code>download-starter-pack: true</code> (default) enabled to pull the Novua starter Mythic pack. The flag flips to <code>false</code> after the download completes.</li>
+            <li>When the starter pack ZIP arrives, extract it and drop the labelled contents into the matching <code>plugins/ModelEngine</code>, <code>plugins/MythicMobs</code>, and <code>plugins/AnimationsCore</code> folders.</li>
+            <li>After the server reloads ModelEngine's resource pack, merge it with your existing pack instead of replacing it outright.</li>
+            <li>Grant staff the <code>animcore.admin.*</code> suite so they can reload configs, manage preferences, and trigger cinematics.</li>
+        </ol>
+        <div class="callout">
+            <strong>Tip</strong>
+            <p>Animations can be disabled per-world through <code>disabled_worlds</code> in <code>config.yml</code>. Keep cinematic hubs pristine while leaving survival worlds untouched.</p>
+        </div>
+        <div class="callout is-warning">
+            <strong>Resource pack safety</strong>
+            <p>Do not delete <code>player_shader</code> when merging ModelEngine's generated resource pack with your own. Removing it breaks skin rendering for players.</p>
+        </div>
+    </section>
+
+    <section id="dependency">
+        <div class="section-heading">
+            <h2>Add AnimationsCore as a dependency</h2>
+            <p>Pull the AnimationsCore API artefact from GitHub Packages so your own plugin can call into the runtime safely.</p>
+        </div>
+        <div class="two-column">
+            <div>
+                <h3>Maven</h3>
+                <pre><code class="language-xml">&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;github&lt;/id&gt;
+        &lt;url&gt;https://maven.pkg.github.com/Novua/AnimationsCoreAPI&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;classifier&gt;sources&lt;/classifier&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;classifier&gt;javadoc&lt;/classifier&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+            </div>
+            <div>
+                <h3>Gradle (Kotlin DSL)</h3>
+                <pre><code class="language-kotlin">repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/Novua/AnimationsCoreAPI")
+    }
+}
+
+dependencies {
+    compileOnly("net.novua:AnimationsCore:2.5.0")
+    compileOnly("net.novua:AnimationsCore:2.5.0:sources") // optional
+    compileOnly("net.novua:AnimationsCore:2.5.0:javadoc") // optional
+}</code></pre>
+                <div class="callout">
+                    <strong>Authentication note</strong>
+                    <p>When consuming private packages, add <code>credentials { username = project.findProperty("gpr.user"); password = project.findProperty("gpr.key") }</code> to the repository block.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bootstrapping">
+        <div class="section-heading">
+            <h2>Bootstrap the API in your plugin</h2>
+            <p>Depend on AnimationsCore without shading it into your own jar and guard against missing services at runtime.</p>
+        </div>
+        <ol>
+            <li>Add <code>AnimationsCore</code> to <code>depend:</code> or <code>softdepend:</code> inside <code>plugin.yml</code>.</li>
+            <li>Mark the dependency as <code>provided</code> (Maven) or <code>compileOnly</code> (Gradle) so only the server ships the jar.</li>
+            <li>Resolve the service inside <code>onEnable()</code> and disable your plugin gracefully if it is unavailable.</li>
+        </ol>
+        <pre><code class="language-java">public final class ExamplePlugin extends JavaPlugin {
+    private AnimationsCoreAPI animationsApi;
+
+    @Override
+    public void onEnable() {
+        animationsApi = Bukkit.getServicesManager().load(AnimationsCoreAPI.class);
+        if (animationsApi == null) {
+            getLogger().severe("AnimationsCore API not available, disabling plugin");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        registerCommands();
+    }
+
+    private void registerCommands() {
+        Objects.requireNonNull(getCommand("welcome"))
+            .setExecutor((sender, command, label, args) -> {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(ChatColor.RED + "Only players can use this.");
+                    return true;
+                }
+
+                animationsApi.playAnimation(player, "join", "defaultjoin");
+                animationsApi.openAnimationSelectionGui(player);
+                return true;
+            });
+    }
+}</code></pre>
+        <div class="callout">
+            <strong>Keep it modular</strong>
+            <p>Place AnimationsCore-specific adapters under packages such as <code>your.plugin.animations</code> so the rest of your project depends on higher-level services instead of raw Bukkit lookups.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Next up: <a href="configuration.html">review the generated configuration</a> and tailor the cinematic catalogue to your server.</p>
+    </footer>
+</main>
+</body>
+</html>

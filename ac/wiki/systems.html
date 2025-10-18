@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Systems &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Dive into AnimationsCore subsystems such as AFK automation, emotes, moderation utilities, spawn handling, and database sync.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link" href="setup.html">Setup</a>
+            <a class="nav-link" href="configuration.html">Configuration</a>
+            <a class="nav-link" href="operations.html">Player experience</a>
+            <a class="nav-link" href="api.html">API</a>
+            <a class="nav-link is-active" href="systems.html" aria-current="page">Systems</a>
+            <a class="nav-link" href="support.html">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">Systems</span>
+                <span class="pill">Automation</span>
+                <span class="pill">Moderation</span>
+            </div>
+            <h1>How AnimationsCore behaves in production</h1>
+            <p class="hero-summary">From AFK detection to moderation cinematics, these subsystems keep your worlds cinematic and consistent.</p>
+            <div class="quick-actions" role="list">
+                <a href="#afk">AFK automation</a>
+                <a href="#emotes">Emote system</a>
+                <a href="#moderation">Moderation tools</a>
+                <a href="#spawn">Spawn handling</a>
+                <a href="#database">Database sync</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="afk">
+        <div class="section-heading">
+            <h2>AFK automation</h2>
+            <p>The AFK subsystem monitors player activity and swaps them into Mythic-driven cinematics after a configurable timeout.</p>
+        </div>
+        <ul>
+            <li>Monitors movement, interactions, block breaking, commands, combat, and sneaking. After <code>AFKTimeout</code> ticks (default 6000) it resolves the player's configured AFK animation or the default fallback.</li>
+            <li>Players are hidden while AFK and reappear <em>transitionBackDelay</em> ticks after activity resumes.</li>
+            <li>Each entry inside <code>afks/*.yml</code> can define permissions. Leave the list empty to make an entry available to everyone.</li>
+            <li>Staff can force AFK with <code>/animcore test afk &lt;key&gt; &lt;player&gt;</code> or via <code>AnimationsCoreAPI#triggerAfk</code>.</li>
+        </ul>
+    </section>
+
+    <section id="emotes">
+        <div class="section-heading">
+            <h2>Emote system</h2>
+            <p>Mythic-powered emotes temporarily hide or freeze the performer and can follow their location.</p>
+        </div>
+        <ul>
+            <li><strong>Traversal emotes</strong> track the player's position every two ticks so the MythicMob follows them.</li>
+            <li><strong>Looping emotes</strong> run until the player sneaks; non-looping emotes stop automatically after their <code>duration</code>.</li>
+            <li><strong>Permission control</strong> mirrors the YAML definition under <code>emotes/*.yml</code>. Missing nodes hide entries in the GUI and block execution.</li>
+            <li><strong>Auto cleanup</strong> stops emotes on player quit, death, teleports outside AnimationsCore, or manual calls to <code>AnimationsCoreAPI#stopEmote</code>.</li>
+        </ul>
+    </section>
+
+    <section id="moderation">
+        <div class="section-heading">
+            <h2>Moderation &amp; admin utilities</h2>
+            <p>Deliver cinematic moderation moments while keeping testing fast.</p>
+        </div>
+        <h3>Ban cinematic workflow</h3>
+        <ol>
+            <li>Execute <code>/animcore ban &lt;player&gt; &lt;animationKey&gt;</code>.</li>
+            <li>Within 30 seconds, type the ban command in chat without a slash (for example <code>ban &lt;player&gt; &lt;reason&gt;</code>).</li>
+            <li>AnimationsCore plays the cinematic, hides the target, runs the supplied command from console, then reveals the player.</li>
+        </ol>
+        <p>Entries inside <code>bans/*.yml</code> must define <code>animations.&lt;key&gt;.mm-id</code> and <code>duration</code> (ticks) to drive the workflow.</p>
+        <h3>Testing helpers</h3>
+        <ul>
+            <li><code>/animcore test ...</code> pulls Mythic IDs directly from YAML, bypassing stored preferences for rapid iteration.</li>
+            <li><code>/animcore play ...</code> exercises the public API path, respecting permissions unless <code>bypass</code> is granted.</li>
+            <li><code>/animcore reload</code> rereads every YAML file so you can adjust cinematics without restarting the server.</li>
+        </ul>
+    </section>
+
+    <section id="spawn">
+        <div class="section-heading">
+            <h2>Spawn point handling</h2>
+            <p>A dedicated spawn manager keeps cinematic hubs consistent.</p>
+        </div>
+        <ul>
+            <li><code>/animcore setspawn</code> stores the executor's current location in <code>config.yml</code> and flips <code>spawn-point.enabled</code> to true.</li>
+            <li><code>/animcore spawn [player]</code> teleports the target (or self) to that location. Console executions must specify a player.</li>
+            <li>Access is controlled by <code>animcore.admin.spawn</code> or <code>animcore.admin.bypass</code>.</li>
+            <li>Enable <code>debug-mode</code> to log why a spawn might be rejected (missing world, disabled feature, incomplete coordinates).</li>
+        </ul>
+    </section>
+
+    <section id="database">
+        <div class="section-heading">
+            <h2>Database synchronisation</h2>
+            <p>Mirror player preferences to MySQL when you need shared state across servers.</p>
+        </div>
+        <ul>
+            <li>Enable <code>database.enabled</code> in <code>config.yml</code> and supply host, port, name, username, and password.</li>
+            <li>AnimationsCore saves a YAML payload per player containing only their preference subtree.</li>
+            <li>The connection opens on demand and closes immediately after each sync to minimise resource usage.</li>
+            <li>Skip database writes per call by passing <code>false</code> for <code>syncDatabase</code> when invoking API methods.</li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <p>Need help diagnosing issues? Jump to the <a href="support.html">troubleshooting checklist</a>.</p>
+    </footer>
+</main>
+</body>
+</html>
