@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-    --bg-primary: #0b1120;
+    --bg-primary: #171617;
     --bg-overlay: rgba(13, 23, 42, 0.85);
     --bg-surface: #111b2f;
     --bg-elevated: #15213a;
@@ -15,7 +15,7 @@
     --border-strong: rgba(148, 187, 255, 0.6);
     --shadow-soft: 0 18px 36px rgba(8, 12, 24, 0.45);
     --shadow-subtle: 0 6px 18px rgba(8, 12, 24, 0.32);
-    --code-bg: rgba(12, 21, 40, 0.94);
+    --code-bg: rgba(15, 18, 24, 0.94);
 }
 
 * {
@@ -31,7 +31,7 @@ html {
 body {
     min-height: 100vh;
     background: radial-gradient(circle at 12% 18%, rgba(77, 124, 255, 0.12), transparent 45%),
-        linear-gradient(180deg, #0b1120 0%, #0f172a 85%);
+        linear-gradient(90deg, #3d3b3d 0%, #171716 85%);
     color: var(--text-primary);
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     line-height: 1.7;
