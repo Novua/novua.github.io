@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime API &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Trigger animations, manage preferences, and listen to events with the AnimationsCore API.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link" href="setup.html">Setup</a>
+            <a class="nav-link" href="configuration.html">Configuration</a>
+            <a class="nav-link" href="operations.html">Player experience</a>
+            <a class="nav-link is-active" href="api.html" aria-current="page">API</a>
+            <a class="nav-link" href="systems.html">Systems</a>
+            <a class="nav-link" href="support.html">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">API</span>
+                <span class="pill">Developers</span>
+            </div>
+            <h1>Drive cinematics from your code</h1>
+            <p class="hero-summary">Once the service is registered you have full control over Mythic animations, preference storage, GUI access, and lifecycle events.</p>
+            <div class="quick-actions" role="list">
+                <a href="#playback">Animation playback</a>
+                <a href="#preferences">Preference helpers</a>
+                <a href="#afk">AFK &amp; emotes</a>
+                <a href="#events">Events</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="playback">
+        <div class="section-heading">
+            <h2>Animation playback</h2>
+            <p>These methods give you direct control over Mythic animations and higher-level catalogue lookups.</p>
+        </div>
+        <div class="callout">
+            <strong>Import tips</strong>
+            <ul>
+                <li>Maven: run <code>mvn dependency:purge-local-repository</code> if IntelliJ struggles to resolve GitHub Packages after token changes.</li>
+                <li>Never relocate AnimationsCore classes; always request the service from Bukkit.</li>
+            </ul>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>UUID playAnimation(Player player, Location location, String mmId)</code></td>
+                        <td>Spawn a MythicMob immediately at the given location and return its UUID for later control.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void playAnimationLater(..., int delayTicks)</code></td>
+                        <td>Schedule an animation for future execution.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void playTemporaryAnimation(..., int durationTicks)</code></td>
+                        <td>Spawn and automatically remove the MythicMob after <code>durationTicks</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean playAnimation(Player target, String type, String key)</code></td>
+                        <td>Resolve an animation through YAML (permission-aware) and play it for the target.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean playAnimation(Player target, String type, String key, boolean bypassPermissions)</code></td>
+                        <td>Admin variant used by commands. Set the boolean to <code>true</code> to ignore permission checks.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void moveAnimation(UUID id, Location newLocation)</code></td>
+                        <td>Teleport a live animation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void removeAnimation(UUID id)</code></td>
+                        <td>Despawn a MythicMob and release any AnimatedPlayerService bindings.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void spawnAnimation(Location location, String mmId)</code></td>
+                        <td>Spawn without player context (no permission checks, honours disabled worlds).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Example:</strong> trigger a landing cinematic and clean up after 15 seconds.</p>
+        <pre><code class="language-java">public void launchLanding(Player player) {
+    Location pad = player.getLocation().add(0, 0.5, 0);
+    UUID mobId = animationsApi.playAnimation(player, pad, "NovuaLanding");
+
+    Bukkit.getScheduler().runTaskLater(this, () -> animationsApi.removeAnimation(mobId), 15 * 20L);
+}</code></pre>
+    </section>
+
+    <section id="preferences">
+        <div class="section-heading">
+            <h2>Preferences &amp; GUI helpers</h2>
+            <p>Read catalogue metadata, check permissions, and update stored preferences.</p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Optional&lt;AnimationSpec&gt; resolveAnimationSpec(type, key)</code></td>
+                        <td>Read YAML metadata (MythicMob ID, permissions, duration hints).</td>
+                    </tr>
+                    <tr>
+                        <td><code>List&lt;String&gt; getAvailableAnimations(type)</code></td>
+                        <td>Enumerate keys under <code>animations.</code> for the chosen catalogue.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean playerHasAnimationPermission(player, type, key)</code></td>
+                        <td>Verify permission gates before storing or playing an animation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void openAnimationSelectionGui(player[, resetState])</code></td>
+                        <td>Open the selector GUI, optionally retaining paging state.</td>
+                    </tr>
+                    <tr>
+                        <td><code>FileConfiguration loadPreferences()</code> / <code>savePreferences(...)</code></td>
+                        <td>Load or persist <code>player_preferences.yml</code> (with optional SQL sync).</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean setPreference(player, type, key, syncDatabase[, skipPermissionCheck])</code></td>
+                        <td>Store a preference for the player, optionally bypassing permission checks and DB sync.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void clearPreference(UUID playerId, String type, boolean syncDatabase)</code></td>
+                        <td>Remove a stored preference and fire <code>PlayerAnimationPreferenceChangeEvent</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Workflow example:</strong> remember a favourite emote when a player confirms a menu choice.</p>
+        <pre><code class="language-java">public void rememberFavourite(Player player, String emoteKey) {
+    if (!animationsApi.playerHasAnimationPermission(player, "emote", emoteKey)) {
+        player.sendMessage(ChatColor.RED + "You have not unlocked that emote yet.");
+        return;
+    }
+
+    boolean saved = animationsApi.setPreference(player, "emote", emoteKey, true);
+    if (saved) {
+        player.sendMessage(ChatColor.GREEN + "Saved " + emoteKey + " as your default emote.");
+    }
+}</code></pre>
+    </section>
+
+    <section id="afk">
+        <div class="section-heading">
+            <h2>AFK &amp; emote helpers</h2>
+            <p>Manually trigger AFK sequences or stop active emotes.</p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>void triggerAfk(Player player)</code></td>
+                        <td>Launch the player's configured AFK animation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void triggerAfk(Player player, String key)</code></td>
+                        <td>Force a specific AFK animation, ignoring stored preferences.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean triggerAfkAnimation(Player player, String key)</code></td>
+                        <td>Returns whether the requested AFK cinematic could be started.</td>
+                    </tr>
+                    <tr>
+                        <td><code>void stopEmote(Player player)</code></td>
+                        <td>Stop any active emote, revealing and unfreezing the player.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="section-heading">
+            <h2>Listen for AnimationsCore events</h2>
+            <p>Hook into preference changes to audit or trigger downstream behaviour.</p>
+        </div>
+        <pre><code class="language-java">public class PreferenceAuditListener implements Listener {
+    @EventHandler
+    public void onPreferenceChange(PlayerAnimationPreferenceChangeEvent event) {
+        Bukkit.getLogger().info(() -> String.format(
+            "Player %s changed %s from %s to %s",
+            event.getPlayerId(),
+            event.getType(),
+            Objects.toString(event.getOldValue(), "<unset>"),
+            Objects.toString(event.getNewValue(), "<unset>")
+        ));
+    }
+}</code></pre>
+    </section>
+
+    <footer class="footer">
+        <p>For system behaviour details such as AFK automation and moderation tools, continue to the <a href="systems.html">core systems guide</a>.</p>
+    </footer>
+</main>
+</body>
+</html>

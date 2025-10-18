@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Experience &amp; Staff Workflows &mdash; AnimationsCore Documentation</title>
+    <meta name="description" content="Review every AnimationsCore command, permission, and workflow that shapes the player experience.">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../../index.html">
+            <img src="../../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link" href="index.html">Overview</a>
+            <a class="nav-link" href="setup.html">Setup</a>
+            <a class="nav-link" href="configuration.html">Configuration</a>
+            <a class="nav-link is-active" href="operations.html" aria-current="page">Player experience</a>
+            <a class="nav-link" href="api.html">API</a>
+            <a class="nav-link" href="systems.html">Systems</a>
+            <a class="nav-link" href="support.html">Support</a>
+        </div>
+        <a class="nav-cta" href="https://mcmodels.net/vendors/114/novua" target="_blank" rel="noopener">Visit Store</a>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">Player experience</span>
+                <span class="pill">Staff tooling</span>
+            </div>
+            <h1>Empower players and moderators</h1>
+            <p class="hero-summary">Commands, permissions, and preference flows that keep your cinematic experience intuitive for players while giving staff the tools they need.</p>
+            <div class="quick-actions" role="list">
+                <a href="#commands">Commands &amp; permissions</a>
+                <a href="#preferences">Player preferences</a>
+                <a href="#custom-category">Custom catalogue</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="commands">
+        <div class="section-heading">
+            <h2>Commands &amp; permissions</h2>
+            <p>Players interact with AnimationsCore primarily through the selector GUI and emote command, while staff gain deeper access through <code>/animcore</code>.</p>
+        </div>
+        <h3>Player-facing</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                        <th>Permission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>/animations</code></td>
+                        <td>Opens the selector GUI. Player-only.</td>
+                        <td>None (GUI honours per-animation permissions).</td>
+                    </tr>
+                    <tr>
+                        <td><code>/emote &lt;name&gt;</code></td>
+                        <td>Runs a Mythic emote linked to the player. Sneak or wait for the duration to end.</td>
+                        <td>Per-emote permission defined in <code>emotes/*.yml</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Admin subcommands (<code>/animcore ...</code>)</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subcommand</th>
+                        <th>Usage</th>
+                        <th>Permission</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>reload</code></td>
+                        <td><code>/animcore reload</code></td>
+                        <td><code>animcore.admin.reload</code></td>
+                        <td>Reload <code>config.yml</code>, GUI layouts, AFK settings, and all animation YAML.</td>
+                    </tr>
+                    <tr>
+                        <td><code>set</code></td>
+                        <td><code>/animcore set &lt;player&gt; &lt;type&gt; [value]</code></td>
+                        <td><code>animcore.admin.set</code></td>
+                        <td>Apply or clear another player's preference (join, leave, death, respawn, AFK, GUI, teleport-in/out, kill).</td>
+                    </tr>
+                    <tr>
+                        <td><code>ban</code></td>
+                        <td><code>/animcore ban &lt;player&gt; &lt;animation&gt;</code></td>
+                        <td><code>animcore.admin.ban</code></td>
+                        <td>Queues a ban cinematic and awaits the console command typed in chat.</td>
+                    </tr>
+                    <tr>
+                        <td><code>test</code></td>
+                        <td><code>/animcore test &lt;type&gt; &lt;animation&gt; &lt;player&gt;</code></td>
+                        <td><code>animcore.admin.test</code></td>
+                        <td>Spawns the Mythic animation directly from YAML. Includes <code>custom</code> support.</td>
+                    </tr>
+                    <tr>
+                        <td><code>play</code></td>
+                        <td><code>/animcore play &lt;type&gt; &lt;animation&gt; &lt;player&gt;</code></td>
+                        <td><code>animcore.admin.play</code> or <code>animcore.admin.bypass</code></td>
+                        <td>Runs through the API path, respecting permissions unless bypass is granted.</td>
+                    </tr>
+                    <tr>
+                        <td><code>emote</code></td>
+                        <td><code>/animcore emote &lt;name&gt;</code></td>
+                        <td>Same as <code>/emote</code></td>
+                        <td>Shares tab completion with the standalone command.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setspawn</code></td>
+                        <td><code>/animcore setspawn</code></td>
+                        <td><code>animcore.admin.setspawn</code> or <code>animcore.admin.bypass</code></td>
+                        <td>Stores the executor's location in <code>config.yml</code> and enables the spawn feature.</td>
+                    </tr>
+                    <tr>
+                        <td><code>spawn</code></td>
+                        <td><code>/animcore spawn [player]</code></td>
+                        <td><code>animcore.admin.spawn</code> or <code>animcore.admin.bypass</code></td>
+                        <td>Teleports the target (or self) to the configured spawn point.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="preferences">
+        <div class="section-heading">
+            <h2>Player preferences &amp; GUI</h2>
+            <p>Preferences live in <code>player_preferences.yml</code> under the player's UUID. The <code>PlayerPreferenceService</code> keeps YAML, SQL, and GUI state aligned.</p>
+        </div>
+        <pre><code class="language-yaml">&lt;uuid&gt;:
+  join: cinematic_a
+  leave: cinematic_b
+  afk: idle_pose</code></pre>
+        <ul>
+            <li><strong>Permission-aware suggestions.</strong> Both the GUI and <code>/animcore set</code> only expose keys when the target has the required permissions listed in YAML.</li>
+            <li><strong>Default assignment.</strong> Enable <code>defaultanimations</code> to seed the defaults defined in <code>config.yml</code> for first-time joiners.</li>
+            <li><strong>GUI refresh.</strong> <code>/animcore reload</code> re-reads <code>guis/*.yml</code> so you can iterate on layout without rebooting.</li>
+        </ul>
+        <h3>Setting preferences</h3>
+        <ol>
+            <li><strong>In-game GUI.</strong> Players run <code>/animations</code>, browse unlocked entries, and the plugin writes the selection to their profile.</li>
+            <li><strong>Admin command.</strong> Staff run <code>/animcore set &lt;player&gt; &lt;type&gt; &lt;key&gt;</code>. Use <code>none</code> or omit the key to clear.</li>
+            <li><strong>API call.</strong> Other plugins call <code>animationsApi.setPreference(player, type, key, true)</code>. Pass <code>false</code> to skip database sync during bulk imports.</li>
+        </ol>
+        <div class="callout">
+            <strong>Type map</strong>
+            <p>join, leave, death, respawn, afk, gui, teleport-in, teleport-out, kill. Disable unused categories with <code>animation-triggers.*</code> in <code>config.yml</code> to save listener overhead.</p>
+        </div>
+    </section>
+
+    <section id="custom-category">
+        <div class="section-heading">
+            <h2>Custom animation category</h2>
+            <p>Populate <code>customs/customs.yml</code> with MythicMob IDs for cinematics that should never trigger automatically.</p>
+        </div>
+        <ul>
+            <li>No automated triggers point to <code>custom</code>. Launch them with <code>/animcore play custom &lt;animation&gt; &lt;player&gt;</code> or <code>/animcore test custom ...</code>.</li>
+            <li>Other plugins can call <code>animationsApi.playAnimation(target, "custom", key)</code> to embed bespoke cutscenes.</li>
+            <li>The category is excluded from player preferences, keeping manual selections safe from accidental overrides.</li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <p>Ready to extend AnimationsCore from code? Head to the <a href="api.html">runtime API reference</a>.</p>
+    </footer>
+</main>
+</body>
+</html>
