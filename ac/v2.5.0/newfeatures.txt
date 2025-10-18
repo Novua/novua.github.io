@@ -11,3 +11,5 @@ New API!
 New Custom category, Only triggered via admin commands or API usage
 
 Improved Documentation
+
+New Configuration section to fully disable animation categories to save performance
