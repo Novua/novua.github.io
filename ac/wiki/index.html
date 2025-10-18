@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimationsCore – Full Usage Guide</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+        }
+        body {
+            margin: 0;
+            padding: 0 1.5rem 4rem;
+            max-width: 960px;
+            margin-inline: auto;
+            background: var(--page-bg, transparent);
+        }
+        header {
+            padding: 3rem 0 2rem;
+            border-bottom: 2px solid rgba(128, 128, 128, 0.2);
+        }
+        header h1 {
+            margin: 0 0 0.5rem;
+            font-size: clamp(2.5rem, 4vw, 3rem);
+        }
+        header p {
+            margin: 0.25rem 0;
+        }
+        nav ul {
+            padding-left: 1.2rem;
+        }
+        nav li {
+            margin: 0.25rem 0;
+        }
+        section {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+        }
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            margin-top: 0;
+        }
+        h3 {
+            margin-top: 2rem;
+            font-size: 1.35rem;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            background: rgba(128, 128, 128, 0.15);
+            border-radius: 0.75rem;
+        }
+        code {
+            font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", ui-monospace, monospace;
+            font-size: 0.95rem;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: rgba(128, 128, 128, 0.1);
+        }
+        .callout {
+            border-left: 4px solid #42a5f5;
+            padding: 1rem 1.25rem;
+            background: rgba(66, 165, 245, 0.1);
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .checklist li {
+            margin-bottom: 0.35rem;
+        }
+        footer {
+            padding: 3rem 0 1rem;
+            font-size: 0.9rem;
+            color: rgba(128, 128, 128, 0.8);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>AnimationsCore</h1>
+    <p>Complete guide to installing, configuring, and extending the AnimationsCore Minecraft plugin.</p>
+    <p><strong>Server target:</strong> Paper / Spigot 1.19+ with <a href="https://www.mythicmobs.net/">MythicMobs</a> installed.</p>
+</header>
+
+<nav>
+    <h2>Table of contents</h2>
+    <ul>
+        <li><a href="#overview">1. Overview</a></li>
+        <li><a href="#install">2. Installation &amp; first run</a></li>
+        <li><a href="#dependency">3. Adding AnimationsCore as a dependency</a></li>
+        <li><a href="#bootstrapping">4. Bootstrapping the API in your plugin</a></li>
+        <li><a href="#data">5. Data folder layout</a></li>
+        <li><a href="#config">6. Configuration reference</a></li>
+        <li><a href="#commands">7. Commands &amp; permissions</a></li>
+        <li><a href="#preferences">8. Player preferences &amp; GUI</a></li>
+        <li><a href="#custom-category">8a. Custom animation category (manual-only)</a></li>
+        <li><a href="#api">9. Runtime API surface</a></li>
+        <li><a href="#afk">10. AFK automation</a></li>
+        <li><a href="#emotes">11. Emote system</a></li>
+        <li><a href="#moderation">12. Moderation &amp; admin utilities</a></li>
+        <li><a href="#spawn">13. Spawn point handling</a></li>
+        <li><a href="#database">14. Database synchronisation</a></li>
+        <li><a href="#events">15. Listening for plugin events</a></li>
+        <li><a href="#troubleshooting">16. Troubleshooting &amp; debugging</a></li>
+    </ul>
+</nav>
+
+<section id="overview">
+    <h2>1. Overview</h2>
+    <p>AnimationsCore centralises every cinematic animation used by Novua plugins and exposes them to the server via MythicMobs. The plugin ships with an API, a Mythic-driven playback engine, a selection GUI, AFK handling, emote playback, and a complete set of admin commands for testing and moderation scenarios.</p>
+    <ul class="checklist">
+        <li>Requires Java 17+ (matching the Paper / Spigot 1.19 runtime).</li>
+        <li>Depends on MythicMobs – all animation definitions resolve to MythicMob IDs.</li>
+        <li>Registers a <code>AnimationsCoreAPI</code> service with Bukkit for other plugins to consume.</li>
+        <li>Ships default configuration files and YAML directories for animation catalogues.</li>
+    </ul>
+    <div class="callout">
+        <strong>Quick start:</strong>
+        <ol>
+            <li>Install the plugin and let it generate the data folders on first boot.</li>
+            <li>Drop MythicMobs packs that contain the referenced animation IDs into <code>MythicMobs/</code>.</li>
+            <li>Set the default join/leave/AFK animations in <code>config.yml</code> and use <code>/animcore reload</code>.</li>
+            <li>Open the in-game menu with <code>/animations</code> to verify the GUI structure.</li>
+        </ol>
+        <p>This page walks you through each of those steps in depth so you can replicate the Novua experience on your server or extend it for your own plugins.</p>
+    </div>
+</section>
+
+<section id="install">
+    <h2>2. Installation &amp; first run</h2>
+    <ol>
+        <li>Drop the AnimationsCore jar into <code>plugins/</code> alongside MythicMobs and restart the server.</li>
+        <li>On first boot the plugin provisions the following in <code>plugins/AnimationsCore/</code>:
+            <ul>
+                <li><code>config.yml</code> with global settings and defaults.</li>
+                <li>Animation catalog folders such as <code>joins/</code>, <code>leaves/</code>, <code>afks/</code>, <code>emotes/</code>, etc.</li>
+                <li><code>player_preferences.yml</code> for storing per-player selections.</li>
+            </ul>
+        </li>
+        <li>Optional: set <code>download-starter-pack: true</code> (default) to let the plugin pull the Novua starter pack automatically. The flag resets to <code>false</code> after download.</li>
+        <li>Grant staff the appropriate <code>animcore.admin.*</code> permissions (see the command matrix below).</li>
+    </ol>
+    <div class="callout">
+        <strong>Tip:</strong> Animations may be disabled per-world using <code>disabled_worlds</code> in <code>config.yml</code>. Use this to keep lobby servers cinematic while leaving survival untouched.
+    </div>
+</section>
+
+<section id="dependency">
+    <h2>3. Adding AnimationsCore as a dependency</h2>
+    <p>When you want to call the runtime API from another plugin, depend on the published API artefact. Use the GitHub Packages repository <code>https://maven.pkg.github.com/Novua/AnimationsCoreAPI</code>.</p>
+    <h3>Maven</h3>
+    <pre><code class="language-xml">&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;github&lt;/id&gt;
+        &lt;url&gt;https://maven.pkg.github.com/Novua/AnimationsCoreAPI&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Optional: IDE helpers --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;classifier&gt;sources&lt;/classifier&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.novua&lt;/groupId&gt;
+        &lt;artifactId&gt;AnimationsCore&lt;/artifactId&gt;
+        &lt;version&gt;2.5.0&lt;/version&gt;
+        &lt;classifier&gt;javadoc&lt;/classifier&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+    <h3>Gradle (Kotlin DSL)</h3>
+    <pre><code class="language-kotlin">repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/Novua/AnimationsCoreAPI")
+    }
+}
+
+dependencies {
+    compileOnly("net.novua:AnimationsCore:2.5.0")
+    compileOnly("net.novua:AnimationsCore:2.5.0:sources") // optional
+    compileOnly("net.novua:AnimationsCore:2.5.0:javadoc") // optional
+}</code></pre>
+</section>
+
+<section id="bootstrapping">
+    <h2>4. Bootstrapping the API in your plugin</h2>
+    <p>When embedding AnimationsCore into a custom plugin, structure your project so that the runtime jar is present at compile time but not shaded inside your own jar:</p>
+    <ol>
+        <li>Declare the dependency in your <code>plugin.yml</code>:</li>
+    </ol>
+    <pre><code class="language-yaml">depend: [AnimationsCore]</code></pre>
+    <ol start="2">
+        <li>Mark the dependency as <code>provided</code> (Maven) or <code>compileOnly</code> (Gradle) so the server supplies the jar.</li>
+        <li>Look up the API via Bukkit's service manager in <code>onEnable()</code>:</li>
+    </ol>
+    <p>Remember to import <code>java.util.Objects</code> and <code>net.md_5.bungee.api.ChatColor</code> (or <code>org.bukkit.ChatColor</code>, depending on your preference) when using the snippet below.</p>
+    <pre><code class="language-java">public final class ExamplePlugin extends JavaPlugin {
+    private AnimationsCoreAPI animationsApi;
+
+    @Override
+    public void onEnable() {
+        animationsApi = Bukkit.getServicesManager().load(AnimationsCoreAPI.class);
+        if (animationsApi == null) {
+            getLogger().severe("AnimationsCore API not available, disabling plugin");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        registerCommands();
+    }
+
+    private void registerCommands() {
+        Objects.requireNonNull(getCommand("welcome"))
+            .setExecutor((sender, command, label, args) -> {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(ChatColor.RED + "Only players can use this.");
+                    return true;
+                }
+
+                animationsApi.playAnimation(player, "join", "defaultjoin");
+                animationsApi.openAnimationSelectionGui(player);
+                return true;
+            });
+    }
+}</code></pre>
+    <p>The plugin registers its API during <code>onEnable()</code>, so the service lookup is safe after server startup. Always guard against a <code>null</code> return value to support soft dependencies. Use helper methods to keep command registration, listeners, and API wiring separated so your project remains maintainable.</p>
+    <p><strong>Suggested package layout:</strong> keep AnimationsCore-specific adapters under <code>your.plugin.animations</code> (command executors, listeners) and expose higher-level services to the rest of your plugin so the rest of your code never touches the Bukkit service lookup directly.</p>
+</section>
+
+<section id="data">
+    <h2>5. Data folder layout</h2>
+    <p>On startup AnimationsCore ensures a consistent directory tree for configuration and animation definitions:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>player_preferences.yml</code></td>
+            <td>Stores per-player animation choices grouped by type.</td>
+        </tr>
+        <tr>
+            <td><code>joins/joins.yml</code>, <code>leaves/leaves.yml</code>, <code>deaths/deaths.yml</code>, <code>respawns/respawns.yml</code></td>
+            <td>Join, leave, death, and respawn animation catalogues (keys under <code>animations.</code>).</td>
+        </tr>
+        <tr>
+            <td><code>afks/afks.yml</code></td>
+            <td>AFK animation definitions, including permission gates and transition timings.</td>
+        </tr>
+        <tr>
+            <td><code>guis/guis.yml</code></td>
+            <td>Layout for the in-game animation selection GUI.</td>
+        </tr>
+        <tr>
+            <td><code>teleport-ins/teleports.yml</code>, <code>teleport-outs/teleports.yml</code></td>
+            <td>Mythic animation triggers for inbound/outbound teleports.</td>
+        </tr>
+        <tr>
+            <td><code>emotes/emotes.yml</code></td>
+            <td>Emote catalogue with duration, permissions, traversal, and looping metadata.</td>
+        </tr>
+        <tr>
+            <td><code>bans/bans.yml</code></td>
+            <td>Ban cinematic definitions with MythicMob IDs and durations.</td>
+        </tr>
+        <tr>
+            <td><code>kills/kills.yml</code></td>
+            <td>Reserved for kill event cinematics.</td>
+        </tr>
+        <tr>
+            <td><code>customs/customs.yml</code></td>
+            <td>Animations that are never auto-triggered; run exclusively through commands or the API.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Each folder contains a <code>animations</code> section. Use the template below as a starting point for new categories:</p>
+    <pre><code class="language-yaml">animations:
+  cinematic_a:
+    mm-id: NovuaJoinAnimation
+    permissions:
+      - animcore.join.cinematic_a
+    duration: 200
+    gui:
+      name: "&aNovua Arrival"
+      material: ENDER_EYE
+      slot: 10
+  cinematic_b:
+    mm-id: NovuaLeaveAnimation
+    permissions: []
+    duration: 120
+    gui:
+      name: "&bWave Goodbye"
+      material: BLAZE_ROD
+      slot: 11</code></pre>
+    <p>Files inside <code>guis/</code> point to these keys. Keep the same key name across all references so permission checks, GUI entries, and API calls stay aligned.</p>
+</section>
+
+<section id="config">
+    <h2>6. Configuration reference</h2>
+    <h3>Core settings (config.yml)</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>permission-message</code></td>
+            <td><code>"You don't have permission to use this command."</code></td>
+            <td>Fallback message for admin commands without bespoke text.</td>
+        </tr>
+        <tr>
+            <td><code>debug-mode</code></td>
+            <td><code>false</code></td>
+            <td>Enables verbose logging for Mythic spawns, AFK transitions, and spawn point validation.</td>
+        </tr>
+        <tr>
+            <td><code>defaultanimations</code></td>
+            <td><code>false</code></td>
+            <td>If <code>true</code>, new players inherit the <code>default*</code> keys below when joining.</td>
+        </tr>
+        <tr>
+            <td><code>defaultjoin/defaultleave/defaultdeath/... </code></td>
+            <td>Empty</td>
+            <td>Define the default animation key per type when <code>defaultanimations</code> is enabled.</td>
+        </tr>
+        <tr>
+            <td><code>database.*</code></td>
+            <td>Disabled / localhost</td>
+            <td>Configure MySQL export for <code>player_preferences.yml</code>. When enabled, preferences are mirrored to SQL.</td>
+        </tr>
+        <tr>
+            <td><code>spawn-point.*</code></td>
+            <td>Disabled</td>
+            <td>Controls the dedicated AnimationsCore spawn point (<code>/animcore setspawn</code> &amp; <code>/animcore spawn</code>).</td>
+        </tr>
+        <tr>
+            <td><code>TeleportAnimations.enabled</code></td>
+            <td><code>true</code></td>
+            <td>Activates teleport in/out cinematics triggered by configured commands.</td>
+        </tr>
+        <tr>
+            <td><code>TeleportAnimations.listen-for</code></td>
+            <td><code>160</code></td>
+            <td>Timeout (ticks) for pairing command use with the teleport completion.</td>
+        </tr>
+        <tr>
+            <td><code>TeleportAnimations.triggers</code></td>
+            <td><code>["/tp", "/teleport"]</code></td>
+            <td>Command list that initiates teleport cinematic detection.</td>
+        </tr>
+        <tr>
+            <td><code>Camera.*</code></td>
+            <td><code>enabled: true</code>, <code>transition: true</code>, <code>forwards: 10</code>, <code>height: 5</code></td>
+            <td>Parameters used by join cinematics for camera offsets.</td>
+        </tr>
+        <tr>
+            <td><code>trigger-on-join-event</code></td>
+            <td><code>true</code></td>
+            <td>Switch between immediate join trigger vs. waiting for the resource-pack event.</td>
+        </tr>
+        <tr>
+            <td><code>JoinAnimDelay</code></td>
+            <td><code>5</code></td>
+            <td>Delay (ticks) after the join/resource-pack event before the animation starts.</td>
+        </tr>
+        <tr>
+            <td><code>AFKTimeout</code></td>
+            <td><code>6000</code></td>
+            <td>Idle ticks (5 minutes by default) before AFK detection fires.</td>
+        </tr>
+        <tr>
+            <td><code>disabled_worlds</code></td>
+            <td><code>[]</code></td>
+            <td>World names where AnimationsCore refuses to spawn MythicMobs.</td>
+        </tr>
+        <tr>
+            <td><code>download-starter-pack</code></td>
+            <td><code>true</code></td>
+            <td>Downloads the bundled Novua starter Mythic pack the next time the plugin boots.</td>
+        </tr>
+        <tr>
+            <td><code>AutoHideLocked</code></td>
+            <td><code>true</code></td>
+            <td>Automatically hides GUI entries that the player lacks permission for.</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="commands">
+    <h2>7. Commands &amp; permissions</h2>
+    <h3>Player-facing</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Command</th>
+            <th>Description</th>
+            <th>Permission</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>/animations</code></td>
+            <td>Opens the animation selection GUI. Player-only.</td>
+            <td>None (GUI respects per-animation permissions).</td>
+        </tr>
+        <tr>
+            <td><code>/emote &lt;name&gt;</code></td>
+            <td>Starts a Mythic emote tied to the executing player. Sneak or wait for duration to end.</td>
+            <td>Permission checks are defined per-emote in <code>emotes/*.yml</code>.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Admin subcommands (<code>/animcore ...</code>)</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Subcommand</th>
+            <th>Usage</th>
+            <th>Permission</th>
+            <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>reload</code></td>
+            <td><code>/animcore reload</code></td>
+            <td><code>animcore.admin.reload</code></td>
+            <td>Reloads <code>config.yml</code>, GUI layouts, AFK settings, and all animation YAML via <code>ReloadTarget</code>.</td>
+        </tr>
+        <tr>
+            <td><code>set</code></td>
+            <td><code>/animcore set &lt;player&gt; &lt;type&gt; [value]</code></td>
+            <td><code>animcore.admin.set</code></td>
+            <td>Writes or clears another player's preference (types: join, leave, death, respawn, afk, gui, teleport-in/out, kill).</td>
+        </tr>
+        <tr>
+            <td><code>ban</code></td>
+            <td><code>/animcore ban &lt;player&gt; &lt;animation&gt;</code></td>
+            <td><code>animcore.admin.ban</code></td>
+            <td>Queues a ban cinematic; the executor supplies the console command in chat (no leading slash).</td>
+        </tr>
+        <tr>
+            <td><code>test</code></td>
+            <td><code>/animcore test &lt;type&gt; &lt;animation&gt; &lt;player&gt;</code></td>
+            <td><code>animcore.admin.test</code></td>
+            <td>Spawns the Mythic animation directly from YAML (bypasses permissions except AFK which defers to the AFK system). Supports <code>custom</code> for one-off cinematics.</td>
+        </tr>
+        <tr>
+            <td><code>play</code></td>
+            <td><code>/animcore play &lt;type&gt; &lt;animation&gt; &lt;player&gt;</code></td>
+            <td><code>animcore.admin.play</code> or <code>animcore.admin.bypass</code></td>
+            <td>Resolves via the API, respecting permissions unless <code>bypass</code> is granted. Use the <code>custom</code> type for manual-only cinematics.</td>
+        </tr>
+        <tr>
+            <td><code>emote</code></td>
+            <td><code>/animcore emote &lt;name&gt;</code></td>
+            <td>Same as <code>/emote</code>; exposed here for completion.</td>
+            <td>Shares tab completion with the standalone command.</td>
+        </tr>
+        <tr>
+            <td><code>setspawn</code></td>
+            <td><code>/animcore setspawn</code></td>
+            <td><code>animcore.admin.setspawn</code> or <code>animcore.admin.bypass</code></td>
+            <td>Saves the executor's location into <code>config.yml</code> and enables the spawn feature.</td>
+        </tr>
+        <tr>
+            <td><code>spawn</code></td>
+            <td><code>/animcore spawn [player]</code></td>
+            <td><code>animcore.admin.spawn</code> or <code>animcore.admin.bypass</code></td>
+            <td>Teleports the target (or self) to the configured spawn point.</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="preferences">
+    <h2>8. Player preferences &amp; GUI</h2>
+    <p>Player choices are persisted inside <code>player_preferences.yml</code> under their UUID, grouped by type:</p>
+    <pre><code class="language-yaml">&lt;uuid&gt;:
+  join: cinematic_a
+  leave: cinematic_b
+  afk: idle_pose</code></pre>
+    <p>The <code>PlayerPreferenceService</code> powers preference lookups, validation, and sync to SQL (when enabled). Key capabilities:</p>
+    <ul>
+        <li><strong>Permission-aware suggestions.</strong> The GUI and <code>/animcore set</code> only show keys for which the target has the required permissions defined in the YAML entry.</li>
+        <li><strong>Default assignment.</strong> Enable <code>defaultanimations</code> to pre-populate the keys above for first-time joiners.</li>
+        <li><strong>GUI refresh.</strong> <code>/animcore reload</code> re-reads <code>guis/*.yml</code> so you can hot-swap the menu layout.</li>
+    </ul>
+    <h3>Setting preferences</h3>
+    <p>Choose the workflow that suits your tooling:</p>
+    <ol>
+        <li><strong>In-game GUI:</strong> players run <code>/animations</code>, select a category, and click an unlocked entry. The plugin validates permissions, writes the key to <code>player_preferences.yml</code>, and syncs to SQL when enabled.</li>
+        <li><strong>Admin command:</strong> staff run <code>/animcore set &lt;player&gt; &lt;type&gt; &lt;key&gt;</code>. Use <code>none</code> or omit the key to clear the stored value. This is ideal for support tickets.</li>
+        <li><strong>API call:</strong> other plugins call <code>animationsApi.setPreference(player, type, key, true)</code>. Pass <code>false</code> as the last argument to skip database sync when batch-importing many records.</li>
+    </ol>
+    <p>Whenever a value changes the <code>PlayerAnimationPreferenceChangeEvent</code> fires, making it easy to react inside your own codebase.</p>
+    <div class="callout">
+        <strong>Type map:</strong> join, leave, death, respawn, afk, gui, teleport-in, teleport-out, kill (matching the folders created by the provisioner).
+        <br />
+        <em>Tip:</em> <code>config.yml</code> now ships with an <code>animation-triggers</code> section. Set any entry to <code>false</code> (for example <code>animation-triggers.leave</code>) to skip registering the corresponding listener entirely, avoiding event processing for categories you do not use.
+    </div>
+
+    <h3 id="custom-category">Custom animation category</h3>
+    <p>The <code>custom</code> catalogue is designed for sequences that should never run automatically. Populate <code>customs/customs.yml</code> with Mythic IDs, permissions, and metadata just like any other category, but note the following:</p>
+    <ul>
+        <li>No automated triggers (join, leave, AFK, etc.) point to <code>custom</code>. Use <code>/animcore play custom &lt;animation&gt; &lt;player&gt;</code> or <code>/animcore test custom ...</code> to launch them in-game.</li>
+        <li>Other plugins can call <code>animationsApi.playAnimation(target, "custom", key)</code> for bespoke scripting or cutscenes.</li>
+        <li>The catalogue is excluded from the player preference system; keep custom picks manual-only.</li>
+    </ul>
+</section>
+
+<section id="api">
+    <h2>9. Runtime API surface</h2>
+    <p>Once you have the <code>AnimationsCoreAPI</code> instance you gain direct control over Mythic animations, preferences, and GUIs.</p>
+    <div class="callout">
+        <strong>Import tips:</strong>
+        <ul>
+            <li>With Maven, run <code>mvn dependency:purge-local-repository</code> if IntelliJ struggles to resolve the GitHub Packages artefact after authentication changes.</li>
+            <li>With Gradle, add <code>credentials { username = project.findProperty("gpr.user") as String; password = project.findProperty("gpr.key") as String }</code> to the <code>maven</code> block when accessing private packages.</li>
+            <li>Never relocate AnimationsCore classes; rely on the Bukkit service to inject the runtime instance at load time.</li>
+        </ul>
+    </div>
+    <h3>Animation playback</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>UUID playAnimation(Player player, Location location, String mmId)</code></td>
+            <td>Spawn a MythicMob immediately at the location, returning the mob UUID for later control.</td>
+        </tr>
+        <tr>
+            <td><code>void playAnimationLater(..., int delayTicks)</code></td>
+            <td>Schedules an animation after a delay.</td>
+        </tr>
+        <tr>
+            <td><code>void playTemporaryAnimation(..., int durationTicks)</code></td>
+            <td>Spawns and automatically removes the mob after <code>durationTicks</code>.</td>
+        </tr>
+        <tr>
+            <td><code>boolean playAnimation(Player target, String type, String key)</code></td>
+            <td>Resolves via the configured YAML entry (permission-aware) and plays the animation.</td>
+        </tr>
+        <tr>
+            <td><code>boolean playAnimation(Player target, String type, String key, boolean bypassPermissions)</code></td>
+            <td>Variant used by admin tooling. Set the boolean to <code>true</code> for scripted cutscenes where permissions should not block playback.</td>
+        </tr>
+        <tr>
+            <td><code>void moveAnimation(UUID id, Location newLocation)</code></td>
+            <td>Teleports a live Mythic animation.</td>
+        </tr>
+        <tr>
+            <td><code>void removeAnimation(UUID id)</code></td>
+            <td>Despawns the mob and releases AnimatedPlayerService bindings.</td>
+        </tr>
+        <tr>
+            <td><code>void spawnAnimation(Location location, String mmId)</code></td>
+            <td>Spawn without player context (no permission check, but honours disabled worlds).</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>Example sequence:</strong> trigger a landing cinematic and clean up after 15 seconds.</p>
+    <pre><code class="language-java">public void launchLanding(Player player) {
+    Location pad = player.getLocation().add(0, 0.5, 0);
+    UUID mobId = animationsApi.playAnimation(player, pad, "NovuaLanding");
+
+    Bukkit.getScheduler().runTaskLater(this, () -> animationsApi.removeAnimation(mobId), 15 * 20L);
+}</code></pre>
+
+    <h3>Preferences &amp; GUI helpers</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Method</th>
+            <th>Usage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>Optional&lt;AnimationSpec&gt; resolveAnimationSpec(type, key)</code></td>
+            <td>Read the YAML metadata (MythicMob ID, permissions, duration hints).</td>
+        </tr>
+        <tr>
+            <td><code>List&lt;String&gt; getAvailableAnimations(type)</code></td>
+            <td>Enumerate keys under <code>animations.</code> in the relevant folder.</td>
+        </tr>
+        <tr>
+            <td><code>boolean playerHasAnimationPermission(player, type, key)</code></td>
+            <td>Checks YAML permissions before storing or playing an animation.</td>
+        </tr>
+        <tr>
+            <td><code>void openAnimationSelectionGui(player[, resetState])</code></td>
+            <td>Opens the selector menu, optionally retaining paging state.</td>
+        </tr>
+        <tr>
+            <td><code>FileConfiguration loadPreferences()</code> / <code>savePreferences(...)</code></td>
+            <td>Load and persist the entire <code>player_preferences.yml</code> file (with optional DB sync).</td>
+        </tr>
+        <tr>
+            <td><code>boolean setPreference(player, type, key, syncDatabase[, skipPermissionCheck])</code></td>
+            <td>Store a preference for the player, optionally bypassing permission checks for trusted automation.</td>
+        </tr>
+        <tr>
+            <td><code>void clearPreference(UUID playerId, String type, boolean syncDatabase)</code></td>
+            <td>Removes a stored preference, firing a <code>PlayerAnimationPreferenceChangeEvent</code>.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>Workflow example:</strong> store a favourite emote when a player enters a custom menu.</p>
+    <pre><code class="language-java">public void rememberFavourite(Player player, String emoteKey) {
+    if (!animationsApi.playerHasAnimationPermission(player, "emote", emoteKey)) {
+        player.sendMessage(ChatColor.RED + "You have not unlocked that emote yet.");
+        return;
+    }
+
+    boolean saved = animationsApi.setPreference(player, "emote", emoteKey, true);
+    if (saved) {
+        player.sendMessage(ChatColor.GREEN + "Saved " + emoteKey + " as your default emote.");
+    }
+}</code></pre>
+
+    <h3>AFK &amp; emote helpers</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>void triggerAfk(Player player)</code> / <code>triggerAfk(player, key)</code> / <code>boolean triggerAfkAnimation(player, key)</code></td>
+            <td>Manually launch AFK cinematics (respecting player preference or forcing a key).</td>
+        </tr>
+        <tr>
+            <td><code>void stopEmote(Player player)</code></td>
+            <td>Force-stop any active emote and reveal/unfreeze the player.</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="afk">
+    <h2>10. AFK automation</h2>
+    <p>The AFK subsystem watches player movement, interactions, block breaking, commands, combat, and sneaking. After <code>AFKTimeout</code> ticks of inactivity it resolves the player's configured AFK animation (or the default) and spawns the matching MythicMob.</p>
+    <ul>
+        <li>Players are hidden while AFK; they are revealed <em>transitionBackDelay</em> ticks after activity resumes.</li>
+        <li>Each animation entry in <code>afks/*.yml</code> may define permissions. If none are listed the entry is available to everyone.</li>
+        <li>Server operators can force AFK via <code>/animcore test afk &lt;key&gt; &lt;player&gt;</code> or the API.</li>
+    </ul>
+</section>
+
+<section id="emotes">
+    <h2>11. Emote system</h2>
+    <p>Emotes are Mythic-driven animations that temporarily hide or freeze the executing player. Key behaviours:</p>
+    <ul>
+        <li><strong>Traversal emotes:</strong> track the player's position every 2 ticks so the MythicMob follows them.</li>
+        <li><strong>Looping emotes:</strong> run until the player sneaks; non-looping emotes stop automatically after <code>duration</code> ticks.</li>
+        <li><strong>Permission control:</strong> Each entry in <code>emotes/*.yml</code> lists the required permission nodes; lacking them hides the suggestion and blocks execution.</li>
+        <li><strong>Auto cleanup:</strong> Emotes stop on player quit, death, teleport (non-plugin cause), or manual stop via <code>AnimationsCoreAPI#stopEmote</code>.</li>
+    </ul>
+</section>
+
+<section id="moderation">
+    <h2>12. Moderation &amp; admin utilities</h2>
+    <h3>Ban cinematic workflow</h3>
+    <ol>
+        <li>Run <code>/animcore ban &lt;player&gt; &lt;animationKey&gt;</code>.</li>
+        <li>Within 30 seconds, type the ban command in chat without the slash (e.g. <code>ban &lt;player&gt; &lt;reason&gt;</code>).</li>
+        <li>The plugin plays the cinematic, hides the target, executes the supplied command from console, then re-shows the player.</li>
+    </ol>
+    <p>Entries in <code>bans/*.yml</code> must define <code>animations.&lt;key&gt;.mm-id</code> and <code>duration</code> (ticks) to drive the workflow.</p>
+
+    <h3>Testing helpers</h3>
+    <ul>
+        <li><code>/animcore test ...</code> pulls MythicMob IDs straight from YAML, bypassing stored preferences for rapid iteration.</li>
+        <li><code>/animcore play ...</code> exercises the public API path, ensuring permissions and AnimatedPlayerService bindings behave as expected.</li>
+        <li><code>/animcore reload</code> ensures all configs are re-read when you tweak YAML.</li>
+    </ul>
+</section>
+
+<section id="spawn">
+    <h2>13. Spawn point handling</h2>
+    <p>The plugin ships with a dedicated spawn manager:</p>
+    <ul>
+        <li><code>/animcore setspawn</code> stores your current location in <code>config.yml</code>, enabling <code>spawn-point.enabled</code>.</li>
+        <li><code>/animcore spawn [player]</code> teleports the target to that location. When called from console you must specify a player.</li>
+        <li>Spawn teleport respects <code>animcore.admin.spawn</code> (or <code>animcore.admin.bypass</code>).</li>
+        <li>Debug mode logs why a spawn might be rejected (missing world, disabled feature, incomplete coordinates).</li>
+    </ul>
+</section>
+
+<section id="database">
+    <h2>14. Database synchronisation</h2>
+    <p>Enabling <code>database.enabled</code> in <code>config.yml</code> mirrors <code>player_preferences.yml</code> to a MySQL table via <code>DatabaseManager</code>. The plugin:</p>
+    <ul>
+        <li>Connects with the supplied host/port/name/username/password on demand.</li>
+        <li>Saves a YAML payload per player containing just their preference subtree.</li>
+        <li>Disconnects immediately after each sync to keep resource usage low.</li>
+    </ul>
+    <p>Disable SQL synchronisation by setting <code>syncDatabase</code> to <code>false</code> when calling API methods, or leave <code>database.enabled</code> false.</p>
+</section>
+
+<section id="events">
+    <h2>15. Listening for plugin events</h2>
+    <p>Register a listener for <code>PlayerAnimationPreferenceChangeEvent</code> to react whenever a player's stored animation preference changes (command, GUI, or API call).</p>
+    <pre><code class="language-java">public class PreferenceAuditListener implements Listener {
+    @EventHandler
+    public void onPreferenceChange(PlayerAnimationPreferenceChangeEvent event) {
+        Bukkit.getLogger().info(() -&gt; String.format(
+            "Player %s changed %s from %s to %s",
+            event.getPlayerId(),
+            event.getType(),
+            Objects.toString(event.getOldValue(), "&lt;unset&gt;"),
+            Objects.toString(event.getNewValue(), "&lt;unset&gt;")
+        ));
+    }
+}</code></pre>
+</section>
+
+<section id="troubleshooting">
+    <h2>16. Troubleshooting &amp; debugging</h2>
+    <ul>
+        <li><strong>MythicMob not found:</strong> Enable <code>debug-mode</code> to see spawn attempts and ensure the MythicMob ID in YAML matches your MythicMobs configuration.</li>
+        <li><strong>Animations fail in certain worlds:</strong> Verify the world name is not listed in <code>disabled_worlds</code>.</li>
+        <li><strong>Permissions not recognised:</strong> Confirm the player has the nodes listed under the animation's <code>permissions</code> array. Use <code>animcore.admin.bypass</code> to override for testing.</li>
+        <li><strong>AFK never fires:</strong> Ensure <code>AFKTimeout</code> is not excessively high and that player activity events are not constantly firing (e.g., moving mounts).</li>
+        <li><strong>Spawn teleport fails:</strong> Run <code>/animcore setspawn</code> again to refresh coordinates and make sure the target world is loaded.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>AnimationsCore &mdash; documentation generated for repository contributors and plugin consumers.</p>
+</footer>
+</body>
+</html>
