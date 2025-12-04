@@ -1,0 +1,117 @@
+LightTheNight Firework Setup Guide
+=================================
+
+Purpose
+-------
+Use this guide to build, organize, and trigger fireworks for LightTheNight using Blockbench animations and YAML definitions. The formatting is Markdown-friendly so you can paste it directly into a webpage or wiki.
+
+Folder Layout (on your Minecraft server)
+----------------------------------------
+- `plugins/LightTheNight/` — Plugin root.
+- `plugins/LightTheNight/models/` — Store `.bbmodel` files referenced by sequences.
+- `plugins/LightTheNight/fireworks/` — Place firework set YAMLs. Each top-level key becomes a set id.
+- `plugins/LightTheNight/sequences/` — Place sequence YAMLs (one per animation). Each file links a model, animation, and trigger rules.
+
+Model Preparation in Blockbench
+--------------------------------
+- Use Blockbench to animate your model and export the `.bbmodel` into `plugins/LightTheNight/models/`.
+- Choose a consistent origin bone (e.g., `RocketOrigin`) that represents the default launch point. Reference it as `defaultBone` in the sequence YAML.
+- Add firework trigger bones and name them `<boneName>_<fireworkSetId>` (example: `RocketOrigin_cluster-red`). This suffix connects the bone to a firework set defined in the `fireworks/` folder.
+- Add scale keyframes that reach **1.0005** on the trigger bones at the exact frame you want fireworks to launch. The plugin listens for this scale threshold to fire.
+
+Animation Sequences (`plugins/LightTheNight/sequences/*.yml`)
+-------------------------------------------------------------
+- Create one YAML per animation sequence.
+- Required fields:
+  - `id` — Unique sequence id.
+  - `file` — Path to the `.bbmodel` relative to the plugin folder (e.g., `models/celebrate.bbmodel`).
+  - `defaultBone` — The origin bone used as a reference for relative firing positions.
+  - `animation` — The Blockbench animation name to play.
+  - `speed` — Playback speed multiplier.
+  - `triggers` — A list of ways to activate the sequence (e.g., `command`).
+- Example:
+```yml
+id: celebration
+file: "models/celebrate.bbmodel"
+defaultBone: "RocketOrigin"
+animation: "LaunchSequence"
+speed: 1.0
+triggers:
+  - command
+```
+- Reload sequences after edits with `/ltn reload`.
+
+Firework Sets (`plugins/LightTheNight/fireworks/*.yml`)
+-------------------------------------------------------
+- Add any number of YAML files; every top-level key in a file is a firework **set id**.
+- Bones named `<boneName>_<setId>` will launch that set when the animation hits the 1.0005 scale keyframe.
+- You can also test manually with `/ltn firework <setId>`.
+- Within each set, define one or more entries under `fireworks:`; each entry fires together unless a `delay` staggers them.
+- Common fields per firework entry:
+  - `type`: `BALL`, `BALL_LARGE`, `STAR`, `BURST`, or `CREEPER`.
+  - `colors` / `fade`: Hex strings like `"#00ffc3"` or `"r,g,b"`.
+  - `power`: Flight power; `life` or `maxLife` for duration (ticks).
+  - `trail`, `flicker`: Boolean effects.
+  - `count`, `spread`: Quantity and scatter radius.
+  - `delay`: Ticks to wait before launching.
+  - Offsets: `xo`, `yo`, `zo` (global XYZ), `rx`, `ry` (rotation tweaks), `fo`, `ho` (forward/back and up/down relative to facing).
+- Minimal example (two bursts with a delay):
+```yml
+cluster-red:
+  fireworks:
+    scatter:
+      type: BALL
+      colors: ["#ff2d2d", "#b00000"]
+      fade: ["#ff9f9f"]
+      count: 10
+      spread: 1.2
+      power: 1
+      trail: true
+      flicker: true
+      fo: 0.15
+      ho: 0.25
+    bursts:
+      type: BURST
+      colors: ["#ff6b6b"]
+      count: 4
+      spread: 0.6
+      power: 1
+      trail: true
+      flicker: true
+      delay: 8
+      fo: 0.2
+      ho: 0.4
+```
+
+Blockbench Keyframe Scripts (optional, alternative trigger)
+-----------------------------------------------------------
+- Instead of the 1.0005 scale trigger, you can attach a Blockbench keyframe script to fire directly from the animated bone.
+- Template:
+```js
+LightTheNight.firework({
+  "type": "STAR",          // BALL, BALL_LARGE, STAR, BURST, CREEPER
+  "power": 2,               // Flight power
+  "colors": ["#00ffc3"],   // Primary colors (hex or "r,g,b")
+  "fade": ["#ff7b00"],     // Optional fade colors
+  "trail": true,            // Enable trail
+  "flicker": false          // Enable flicker
+});
+```
+- The firework spawns at the animated bone's position and uses the keyframe rotation for launch direction. If absent, the plugin falls back to marker-based triggers (scale-based bones).
+
+Putting It All Together
+-----------------------
+1. Model and animate in Blockbench; add trigger bones with `_<setId>` suffix and 1.0005 scale keyframes.
+2. Export the `.bbmodel` into `plugins/LightTheNight/models/`.
+3. Create a sequence YAML in `plugins/LightTheNight/sequences/` that points to the model, animation, `defaultBone`, and triggers.
+4. Define firework sets in `plugins/LightTheNight/fireworks/` that match the bone suffixes used in your model.
+5. Reload with `/ltn reload` and test triggers in-game via animation playback or `/ltn firework <setId>`.
+
+Tips and Troubleshooting
+------------------------
+- Keep bone names consistent; the suffix must exactly match the firework set id.
+- Use `fo`/`ho` offsets in firework YAMLs to fine-tune launch positions relative to player facing.
+- Use `rx`/`ry` when the animation’s rotation needs a slight adjustment for the launch direction.
+- Stagger multiple bursts within a set using `delay` values to build layered effects.
+- Keep `power` low for ground fountains and higher for skybursts.
+
