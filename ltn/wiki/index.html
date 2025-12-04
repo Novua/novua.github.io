@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightTheNight Firework Guide</title>
+    <meta name="description" content="How to build, organise, and trigger LightTheNight fireworks with Blockbench animations and YAML definitions.">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="doc-header">
+    <nav class="doc-nav" aria-label="Primary">
+        <a class="brand" href="../index.html">
+            <img src="../images/logo.png" alt="Novua logo">
+            <span>Novua</span>
+        </a>
+        <div class="nav-links" role="list">
+            <a class="nav-link is-active" href="index.html">Firework setup</a>
+        </div>
+        <span class="nav-cta" aria-hidden="true">LightTheNight</span>
+    </nav>
+</header>
+
+<main class="doc-main">
+    <section class="doc-hero">
+        <div class="inline-grid">
+            <div class="hero-meta" role="list">
+                <span class="pill">LightTheNight</span>
+                <span class="pill">Blockbench + YAML</span>
+            </div>
+            <h1>Firework Setup Guide</h1>
+            <p class="hero-summary">Use this guide to build, organise, and trigger fireworks for LightTheNight with Blockbench animations and YAML definitions.</p>
+            <div class="quick-actions" role="list">
+                <a href="#folders">Check the folder layout</a>
+                <a href="#sequences">Define sequences</a>
+                <a href="#fireworks">Build firework sets</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="folders">
+        <div class="section-heading">
+            <h2>Plugin folders</h2>
+            <p>Place models and YAMLs inside the plugin directory so sequences and firework sets can reference each other.</p>
+        </div>
+        <div class="two-column">
+            <div>
+                <ul>
+                    <li><code>plugins/LightTheNight/</code> — Plugin root.</li>
+                    <li><code>plugins/LightTheNight/models/</code> — Store <code>.bbmodel</code> files referenced by sequences.</li>
+                    <li><code>plugins/LightTheNight/fireworks/</code> — Place firework set YAMLs; each top-level key becomes a set id.</li>
+                    <li><code>plugins/LightTheNight/sequences/</code> — Place sequence YAMLs (one per animation) with model, animation, and trigger rules.</li>
+                </ul>
+            </div>
+            <div class="callout">
+                <strong>Reload tip</strong>
+                <p>After editing sequences, use <code>/ltn reload</code>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blockbench">
+        <div class="section-heading">
+            <h2>Model preparation in Blockbench</h2>
+            <p>Set up bones and keyframes so LightTheNight can launch fireworks at the right frame.</p>
+        </div>
+        <div class="feature-list" role="list">
+            <div class="feature-item">
+                <h4>Export correctly</h4>
+                <p>Animate your model in Blockbench and export the <code>.bbmodel</code> into <code>plugins/LightTheNight/models/</code>.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Origin bone</h4>
+                <p>Pick a consistent origin bone (e.g., <code>RocketOrigin</code>) and reference it as <code>defaultBone</code> in the sequence YAML.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Trigger naming</h4>
+                <p>Name firework trigger bones as <code>&lt;boneName&gt;_&lt;fireworkSetId&gt;</code> (example: <code>RocketOrigin_cluster-red</code>) so they match set ids.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Keyframe timing</h4>
+                <p>Add scale keyframes that reach <strong>1.0005</strong> on trigger bones at the exact frame you want to launch fireworks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sequences">
+        <div class="section-heading">
+            <h2>Animation sequences</h2>
+            <p>Create one YAML per animation in <code>plugins/LightTheNight/sequences/</code>.</p>
+        </div>
+        <div class="two-column">
+            <div>
+                <ul>
+                    <li><strong>id</strong> — Unique sequence id.</li>
+                    <li><strong>file</strong> — Path to the <code>.bbmodel</code> relative to the plugin folder (e.g., <code>models/celebrate.bbmodel</code>).</li>
+                    <li><strong>defaultBone</strong> — Origin bone used for relative firing positions.</li>
+                    <li><strong>animation</strong> — Blockbench animation name.</li>
+                    <li><strong>speed</strong> — Playback speed multiplier.</li>
+                    <li><strong>triggers</strong> — List of ways to activate the sequence (e.g., <code>command</code>).</li>
+                </ul>
+            </div>
+            <div class="callout">
+                <strong>Example</strong>
+                <pre><code>id: celebration
+file: "models/celebrate.bbmodel"
+defaultBone: "RocketOrigin"
+animation: "LaunchSequence"
+speed: 1.0
+triggers:
+  - command
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="fireworks">
+        <div class="section-heading">
+            <h2>Firework sets</h2>
+            <p>Define sets in <code>plugins/LightTheNight/fireworks/</code>; every top-level key becomes a set id.</p>
+        </div>
+        <div class="card-grid" role="list">
+            <div class="doc-card">
+                <h3>How sets trigger</h3>
+                <p>Bones named <code>&lt;boneName&gt;_&lt;setId&gt;</code> launch that set when the animation hits the <strong>1.0005</strong> scale keyframe. Test manually with <code>/ltn firework &lt;setId&gt;</code>.</p>
+            </div>
+            <div class="doc-card">
+                <h3>Entry fields</h3>
+                <p>Under each set, entries in <code>fireworks:</code> launch together unless a <code>delay</code> staggers them. Common fields include <code>type</code>, <code>colors</code>, <code>fade</code>, <code>power</code>, <code>trail</code>, <code>flicker</code>, <code>count</code>, <code>spread</code>, <code>delay</code>, and offsets (<code>xo</code>, <code>yo</code>, <code>zo</code>, <code>rx</code>, <code>ry</code>, <code>fo</code>, <code>ho</code>).</p>
+            </div>
+            <div class="doc-card">
+                <h3>Types</h3>
+                <p>Available <code>type</code> values: <code>BALL</code>, <code>BALL_LARGE</code>, <code>STAR</code>, <code>BURST</code>, <code>CREEPER</code>.</p>
+            </div>
+            <div class="doc-card">
+                <h3>Sample set</h3>
+                <pre><code>cluster-red:
+  fireworks:
+    scatter:
+      type: BALL
+      colors: ["#ff2d2d", "#b00000"]
+      fade: ["#ff9f9f"]
+      count: 10
+      spread: 1.2
+      power: 1
+      trail: true
+      flicker: true
+      fo: 0.15
+      ho: 0.25
+    bursts:
+      type: BURST
+      colors: ["#ff6b6b"]
+      count: 4
+      spread: 0.6
+      power: 1
+      trail: true
+      flicker: true
+      delay: 8
+      fo: 0.2
+      ho: 0.4
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="scripts" class="callout" aria-label="Keyframe scripts">
+        <strong>Blockbench keyframe scripts (optional)</strong>
+        <p>Instead of the 1.0005 scale trigger, attach a Blockbench keyframe script to fire directly from the animated bone:</p>
+<pre><code>LightTheNight.firework({
+  "type": "STAR",          // BALL, BALL_LARGE, STAR, BURST, CREEPER
+  "power": 2,               // Flight power
+  "colors": ["#00ffc3"],   // Primary colors (hex or "r,g,b")
+  "fade": ["#ff7b00"],     // Optional fade colors
+  "trail": true,            // Enable trail
+  "flicker": false          // Enable flicker
+});
+</code></pre>
+        <p>The firework spawns at the animated bone's position and uses the keyframe rotation for launch direction. If absent, the plugin falls back to marker-based triggers.</p>
+    </section>
+
+    <section id="workflow">
+        <div class="section-heading">
+            <h2>Workflow</h2>
+            <p>Follow these steps to connect models, sequences, and firework sets.</p>
+        </div>
+        <ol>
+            <li>Model and animate in Blockbench; add trigger bones with <code>_&lt;setId&gt;</code> suffix and 1.0005 scale keyframes.</li>
+            <li>Export the <code>.bbmodel</code> into <code>plugins/LightTheNight/models/</code>.</li>
+            <li>Create a sequence YAML in <code>plugins/LightTheNight/sequences/</code> that points to the model, animation, <code>defaultBone</code>, and triggers.</li>
+            <li>Define firework sets in <code>plugins/LightTheNight/fireworks/</code> that match the bone suffixes.</li>
+            <li>Reload with <code>/ltn reload</code> and test triggers via animation playback or <code>/ltn firework &lt;setId&gt;</code>.</li>
+        </ol>
+    </section>
+
+    <section id="tips" class="callout" aria-label="Tips">
+        <strong>Tips and troubleshooting</strong>
+        <ul>
+            <li>Keep bone names consistent; the suffix must match the firework set id.</li>
+            <li>Use <code>fo</code>/<code>ho</code> offsets in firework YAMLs to fine-tune launch positions relative to player facing.</li>
+            <li>Use <code>rx</code>/<code>ry</code> when the animation needs a slight launch rotation adjustment.</li>
+            <li>Stagger multiple bursts within a set using <code>delay</code> values.</li>
+            <li>Keep <code>power</code> low for ground fountains and higher for skybursts.</li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <p>LightTheNight firework guide — built for quick setup with Blockbench and YAML.</p>
+    </footer>
+</main>
+</body>
+</html>
