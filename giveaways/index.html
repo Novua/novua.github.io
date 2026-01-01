@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giveaway Active</title>
+  <style>
+    :root {
+      /* Adjust this number to scale the logo (1 = 100%, 0.5 = 50%, 2 = 200%) */
+      --logo-scale: 0.55;
+      --logo-base-size: 140px;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text-color: #e2e8f0;
+      --accent: #38bdf8;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #0b1224, #050814 60%);
+      color: var(--text-color);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      width: min(520px, 90vw);
+      padding: 32px 28px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 16px auto;
+      width: calc(var(--logo-base-size) * var(--logo-scale));
+      height: auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      margin: 6px 0;
+      line-height: 1.5;
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    .note a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .note a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    const redirectUrl = 'https://example.com/giveaway';
+    const redirectDelayMs = 400;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const link = document.getElementById('redirect-link');
+      if (link) {
+        link.href = redirectUrl;
+      }
+
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, redirectDelayMs);
+    });
+  </script>
+</head>
+<body>
+  <main class="card">
+    <img src="../logo.png" alt="Logo" class="logo" />
+    <h1>Giveaway Active!</h1>
+    <p>You caught us at the right time. An active giveaway is live.</p>
+    <p class="note">You'll be redirected automatically. If not, <a id="redirect-link" href="https://example.com/giveaway">tap here to continue.</a></p>
+  </main>
+</body>
+</html>
