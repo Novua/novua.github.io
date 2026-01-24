@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Camera Settings Quick Reference</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 2rem; max-width: 960px; }
+    h1, h2, h3 { color: #1f3b4d; }
+    code, pre { background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    pre { padding: 1rem; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    th, td { border: 1px solid #d0d7de; padding: 0.6rem; vertical-align: top; }
+    th { background: #eef3f9; text-align: left; }
+    ul { margin: 0.5rem 0 1rem 1.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Camera Settings Quick Reference</h1>
+  <p>This page summarises the options available when defining cameras for DirectorsCut. Each camera entry lives inside a YAML file under <code>DirectorsCut/examples/cameras</code> (or your plugin data folder at runtime). The new <code>camera_options_showcase.yml</code> example demonstrates every combination below.</p>
+
+  <h2>File-Level Keys</h2>
+  <table>
+    <tr><th>Key</th><th>Description</th></tr>
+    <tr>
+      <td><code>pack</code></td>
+      <td>Optional label shared by all cameras declared in the file. Packs can inform resource pack swaps or GUI grouping.</td>
+    </tr>
+    <tr>
+      <td><code>cameras</code></td>
+      <td>Map of camera IDs to their settings. Each key becomes the internal camera identifier. Duplicate IDs overwrite earlier ones.</td>
+    </tr>
+  </table>
+
+  <h2>Per-Camera Settings</h2>
+  <h3><code>label</code></h3>
+  <p>Friendly name presented to players. Defaults to the camera ID when omitted.</p>
+
+  <h3><code>anchor</code></h3>
+  <p>Defines the base location that positioning calculations stem from.</p>
+  <ul>
+    <li><strong><code>type</code></strong> &mdash; <code>player</code>, <code>entity</code>, or <code>absolute</code>. Defaults to <code>entity</code>.</li>
+    <li><strong><code>source</code></strong> (for <code>player</code>/<code>entity</code>) &mdash; choose <code>self</code> (the viewing player), <code>interacted</code> (the entity that triggered the sequence), <code>targeter</code> / <code>mythicmobs_targeter</code> (the injected targeter entity or location from external triggers), or <code>mythicmobs:&lt;id&gt;</code> (any mob spawned earlier in the sequence).</li>
+    <li><strong><code>absolute</code></strong> block (for <code>type: absolute</code>) &mdash; supply <code>world</code>, <code>x</code>, <code>y</code>, <code>z</code>, <code>yaw</code>, <code>pitch</code> to lock the camera to a fixed position.</li>
+  </ul>
+
+  <h3><code>look_at</code></h3>
+  <p>Optional. Uses the same structure as <code>anchor</code>. When provided, the camera rotates to face the resolved target plus any configured pitch offset.</p>
+  <ul>
+    <li>Use <code>type: none</code> (or the legacy alias <code>relative</code>) to keep the stored yaw and pitch without tracking a player or entity.</li>
+    <li>When no look target can be resolved, the final rotation depends on the positioning mode (see below).</li>
+  </ul>
+
+  <h3><code>positioning</code></h3>
+  <p>Controls where the camera sits relative to the anchor.</p>
+  <ul>
+    <li><strong><code>mode</code></strong> &mdash; <code>relative</code> (default), <code>anchored</code>, or <code>absolute</code>.</li>
+    <li><strong><code>relative</code> mode</strong> &mdash; offsets rotate with the anchor's yaw.
+      <ul>
+        <li><code>distance</code> &mdash; blocks forward/back from the anchor facing direction (negative values move behind).</li>
+        <li><code>yaw_offset</code> &mdash; degrees to rotate the offset arc; also nudges final yaw if no look target is found.</li>
+        <li><code>y_offset</code> &mdash; vertical offset from the anchor.</li>
+        <li><code>pitch</code> &mdash; pitch offset applied after look-at adjustment, or as absolute pitch if no target is resolved (including <code>look_at: { type: none }</code>).</li>
+      </ul>
+    </li>
+    <li><strong><code>anchored</code> mode</strong> &mdash; offsets are treated as world-space differences from the anchor location. The stored <code>yaw_offset</code> and <code>pitch</code> are used verbatim when there is no look target, making the preview match what the creator recorded.</li>
+    <li><strong>Absolute mode</strong> &mdash; supply an <code>absolute</code> block with world, coordinates, yaw, and pitch. The camera always spawns at those values before any look-at correction.</li>
+  </ul>
+  <p>The in-game creator saves new cameras in <code>anchored</code> mode so the test preview and live playback line up exactly.</p>
+  <p>Example using a MythicMobs targeter anchor with relative offsets:</p>
+  <pre><code>anchor: { type: entity, source: mythicmobs_targeter }
+positioning: { mode: relative, distance: 3.0, yaw_offset: 15, y_offset: 1.0, pitch: -10 }</code></pre>
+  <p>The <code>mythicmobs_targeter</code> source resolves to the entity targeted by the MythicMobs skill trigger. Relative positioning offsets are then applied around that target, rotating with its facing direction.</p>
+
+  <p><strong>Note:</strong> Cameras are purely positional. Transition timing, glide lengths, and delays are configured inside sequence scripts.</p>
+
+  <h3><code>lock_player</code></h3>
+  <p>Optional block controlling player input while the camera is active. Omit to leave movement/look unlocked unless the sequence globally freezes players.</p>
+  <ul>
+    <li><code>move</code> &mdash; true disables WASD input.</li>
+    <li><code>look</code> &mdash; true disables mouse look.</li>
+  </ul>
+
+  <h2>Complete Example</h2>
+  <p>The snippet below is lifted from <code>DirectorsCut/examples/cameras/camera_options_showcase.yml</code> and combines each feature.</p>
+  <pre><code>pack: camera_options_pack
+
+cameras:
+  player_self_relative:
+    label: Player Self Relative
+    anchor: { type: player, source: self }
+    look_at: { type: entity, source: interacted }
+    positioning: { mode: relative, distance: 2.0, yaw_offset: 25, pitch: -15, y_offset: 1.2 }
+    lock_player: { move: true, look: false }
+
+  absolute_showcase:
+    label: Absolute Showcase
+    anchor:
+      type: absolute
+      absolute: { world: world, x: 120.5, y: 85.0, z: -10.5, yaw: 135.0, pitch: -25.0 }
+    look_at: { type: player, source: self }
+    positioning:
+      mode: absolute
+      absolute: { world: world, x: 118.0, y: 90.0, z: -8.0, yaw: 160.0, pitch: -30.0 }
+    lock_player: { move: false, look: false }
+</code></pre>
+
+  <p>Refer to the YAML file itself for additional variations using <code>interacted</code> or <code>targeter</code> anchors, MythicMobs sources, and absolute look targets.</p>
+
+  <h2>Sequence Script Instructions</h2>
+  <p>Sequences are plain-text scripts located in <code>DirectorsCut/sequences</code>. Each non-empty line inside the main <code>script</code> list is parsed into one of the instructions below. An optional <code>endscript</code> list runs after the sequence ends and accepts the same instruction syntax&mdash;perfect for cleanup logic.</p>
+  <table>
+    <tr><th>Instruction</th><th>Purpose</th><th>Example</th></tr>
+    <tr>
+      <td><code>static(id)</code></td>
+      <td>Teleport the viewer to the specified camera instantly. Use <code>delay</code> instructions to hold the shot, and <code>glide</code> for eased transitions.</td>
+      <td><code>static(amonde_skeleton_boss-intro1)</code></td>
+    </tr>
+    <tr>
+      <td><code>glide(from,to,duration)</code></td>
+      <td>Ease between two cameras over <em>duration</em> ticks. The third value is the authoritative animation length&mdash;camera files ignore the legacy <code>duration_ticks</code> field.</td>
+      <td><code>glide(intro1,intro2,40)</code></td>
+    </tr>
+    <tr>
+      <td><code>delay &lt;ticks&gt;</code></td>
+      <td>Pause script execution for the specified number of ticks (20 ticks = 1 second).</td>
+      <td><code>delay 60</code></td>
+    </tr>
+    <tr>
+      <td><code>spawnmob &lt;mythic_id&gt;</code></td>
+      <td>Spawn a MythicMobs entity and register it for later camera targets via <code>look_at: { source: mythicmobs:&lt;id&gt; }</code>.</td>
+      <td><code>spawnmob skeleton_boss</code></td>
+    </tr>
+    <tr>
+      <td><code>command(c="...",asplayer=&lt;bool&gt;,asop=&lt;bool&gt;)</code></td>
+      <td>Run any Bukkit command. Set <code>asplayer</code> to true to run as the viewer, and <code>asop</code> to true to elevate temporarily.</td>
+      <td><code>command(c="mm m spawn skeleton_boss 1 void,280,101,58,139.5,0",asplayer=false)</code></td>
+    </tr>
+    <tr>
+      <td><code>showtitle(fadeIn,stay,fadeOut,"text")</code></td>
+      <td>Display a title to the viewer. Use <code>showsubtitle</code> or <code>showactionbar</code> with the same signature for other overlays.</td>
+      <td><code>showtitle(20,60,20,"&amp;6Beware!")</code></td>
+    </tr>
+    <tr>
+      <td><code>clearmobs</code></td>
+      <td>Despawn any MythicMobs spawned by <code>spawnmob</code> earlier in the sequence.</td>
+      <td><code>clearmobs</code></td>
+    </tr>
+    <tr>
+      <td><code>end</code></td>
+      <td>Terminate the sequence immediately (the same as an <code>endscript</code> marker). Useful for optional cutaways.</td>
+      <td><code>end</code></td>
+    </tr>
+    <tr>
+      <td><code>conditionend</code></td>
+      <td>End the current conditional branch while allowing the main script to continue.</td>
+      <td><code>conditionend</code></td>
+    </tr>
+  </table>
+
+  <p>Example clean-up block that despawns MythicMobs and returns the player to survival mode:</p>
+  <pre><code>endscript:
+  - clearmobs
+  - command(c="gamemode survival %player%",asplayer=false)
+  - delay 5
+  - command(c="title %player% clear",asplayer=false)
+</code></pre>
+
+  <p>Lines beginning with <code>#</code> are treated as comments. Escape quotes in command and title strings with <code>\"</code>, and use <code>\n</code> for new lines where supported.</p>
+</body>
+</html>
