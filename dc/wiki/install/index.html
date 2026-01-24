@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install &amp; Quick Start - DirectorsCut Wiki</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
+    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 900px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
+    h1, h2 { color: var(--ink); }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-soft); }
+    .callout { background: #1b1b28; border-left: 4px solid var(--accent); padding: 0.75rem 1rem; border-radius: 6px; color: var(--muted); }
+    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    pre { padding: 1rem; overflow-x: auto; }
+    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
+    <a href="../index.html">← Back to wiki home</a>
+  </div>
+  <h1>Install &amp; Quick Start</h1>
+  <ol>
+    <li>Drop the DirectorsCut jar into your server’s <code>plugins/</code> folder.</li>
+    <li>Start or reload the server to generate <code>plugins/DirectorsCut</code>.</li>
+    <li>Copy the example YAML files from <code>DirectorsCut/examples</code> into your plugin data folder.</li>
+    <li>Run <code>/directorscut reload</code> to load cameras and sequences.</li>
+    <li>Test with <code>/directorscut play &lt;sequenceId&gt;</code> or enter camera creator mode.</li>
+  </ol>
+  <p class="callout">Need details on camera YAML fields? Open <code>camera_settings.html</code> at the repo root for a full reference.</p>
+</body>
+</html>

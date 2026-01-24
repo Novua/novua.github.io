@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commands &amp; Permissions - DirectorsCut Wiki</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
+    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
+    h1 { color: var(--ink); }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-soft); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
+    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
+    th { background: var(--panel); }
+    code { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
+    <a href="../index.html">← Back to wiki home</a>
+  </div>
+  <h1>Commands &amp; Permissions</h1>
+  <table>
+    <tr><th>Command</th><th>Description</th><th>Permission</th></tr>
+    <tr><td><code>/directorscut play &lt;sequence&gt; [player]</code></td><td>Play a sequence for yourself or another player.</td><td><code>directorscut.play</code> / <code>directorscut.play.other</code></td></tr>
+    <tr><td><code>/directorscut reload</code></td><td>Reload cameras and sequences from disk.</td><td><code>directorscut.reload</code></td></tr>
+    <tr><td><code>/directorscut debugcamera &lt;cameraId&gt;</code></td><td>Print camera resolution/debug info.</td><td><code>directorscut.debug</code></td></tr>
+    <tr><td><code>/directorscut testcamera &lt;cameraId&gt;</code></td><td>Preview a camera for 3 seconds.</td><td><code>directorscut.debug</code></td></tr>
+    <tr><td><code>/directorscut creator</code></td><td>Enable the in-game camera creator mode.</td><td><code>directorscut.creator</code></td></tr>
+  </table>
+</body>
+</html>

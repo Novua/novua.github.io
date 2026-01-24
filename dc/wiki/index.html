@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DirectorsCut Wiki</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f2ff;
+      --muted: #9aa0b4;
+      --accent: #ffffff;
+      --accent-soft: #d8b4fe;
+      --panel: #15151d;
+      --border: #2c2c3a;
+      --bg: #0b0b10;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      margin: 2rem auto;
+      max-width: 980px;
+      padding: 0 1.5rem 3rem;
+      color: #e6e3f2;
+      background: var(--bg);
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+    }
+
+    h1, h2 {
+      color: var(--ink);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #0f0f18;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 18px rgba(133, 3, 255, 0.5);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      background: var(--panel);
+      box-shadow: 0 0 20px rgba(157, 7, 249, 0.254);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .card a:hover {
+      color: var(--accent-soft);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .quicklinks {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .quicklinks li {
+      margin: 0.4rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img class="logo" src="../logo.png" alt="DirectorsCut logo" onerror="this.style.display='none'">
+      <div>
+        <h1>DirectorsCut Wiki</h1>
+        <p class="muted">Welcome! This wiki explains how to install DirectorsCut, create cameras, build sequences, and integrate with MythicMobs. Choose a section below to get started.</p>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Shortcuts</h2>
+    <div class="card-grid">
+      <div class="card">
+        <a href="install/index.html">Install &amp; Quick Start</a>
+        <p class="muted">Install the plugin, generate data folders, and load your first sequence.</p>
+      </div>
+      <div class="card">
+        <a href="folders/index.html">Folder Layout</a>
+        <p class="muted">See where camera, sequence, and generated files live.</p>
+      </div>
+      <div class="card">
+        <a href="cameras/index.html">Create Cameras</a>
+        <p class="muted">Define camera YAML files and use the in-game creator.</p>
+      </div>
+      <div class="card">
+        <a href="relativity/index.html">Switch Relativity</a>
+        <p class="muted">Swap between player- and mob-relative camera anchors.</p>
+      </div>
+      <div class="card">
+        <a href="sequences/index.html">Create Sequences</a>
+        <p class="muted">Author scripts with delays, glides, titles, and commands.</p>
+      </div>
+      <div class="card">
+        <a href="instructions/index.html">Instruction Reference</a>
+        <p class="muted">All supported sequence instructions at a glance.</p>
+      </div>
+      <div class="card">
+        <a href="conditions/index.html">End Conditions</a>
+        <p class="muted">Configure ways to end sequences early.</p>
+      </div>
+      <div class="card">
+        <a href="commands/index.html">Commands &amp; Permissions</a>
+        <p class="muted">Reference the DirectorsCut commands and permissions.</p>
+      </div>
+      <div class="card">
+        <a href="integration/index.html">MythicMobs Integration</a>
+        <p class="muted">Trigger sequences and target MythicMobs entities.</p>
+      </div>
+      <div class="card">
+        <a href="tips/index.html">Tips &amp; Troubleshooting</a>
+        <p class="muted">Common gotchas and recommended workflows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Also helpful</h2>
+    <ul class="quicklinks">
+      <li><a href="../camera_settings.html">Camera settings quick reference</a></li>
+    </ul>
+  </section>
+</body>
+</html>

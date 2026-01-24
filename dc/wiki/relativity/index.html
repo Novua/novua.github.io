@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Switch Relativity - DirectorsCut Wiki</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
+    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
+    h1, h2 { color: var(--ink); }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-soft); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
+    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
+    th { background: var(--panel); }
+    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    pre { padding: 1rem; overflow-x: auto; }
+    .callout { background: #1b1b28; border-left: 4px solid var(--accent); padding: 0.75rem 1rem; border-radius: 6px; color: var(--muted); }
+    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
+    <a href="../index.html">← Back to wiki home</a>
+  </div>
+  <h1>Switch Relativity (Players ↔ Mobs)</h1>
+  <p>Relativity is controlled by the <code>anchor</code> and <code>look_at</code> sources. Swap these sources to follow players, NPCs, or MythicMobs entities.</p>
+
+  <table>
+    <tr><th>Goal</th><th>Anchor / Look At</th><th>Notes</th></tr>
+    <tr>
+      <td>Follow the viewer</td>
+      <td><code>anchor: { type: player, source: self }</code></td>
+      <td>Ideal for player POV or shoulder cams.</td>
+    </tr>
+    <tr>
+      <td>Follow the interacted entity</td>
+      <td><code>anchor: { type: entity, source: interacted }</code></td>
+      <td>Use when a player interacts with an NPC or block-based trigger.</td>
+    </tr>
+    <tr>
+      <td>Follow a MythicMobs spawn</td>
+      <td><code>anchor: { type: entity, source: mythicmobs:&lt;id&gt; }</code></td>
+      <td>The ID comes from earlier <code>spawnmob</code> instructions.</td>
+    </tr>
+    <tr>
+      <td>Follow a MythicMobs skill targeter</td>
+      <td><code>anchor: { type: entity, source: mythicmobs_targeter }</code></td>
+      <td>Uses the entity targeted by the MythicMobs mechanic.</td>
+    </tr>
+    <tr>
+      <td>Use a fixed point in the world</td>
+      <td><code>anchor: { type: absolute, absolute: { world, x, y, z, yaw, pitch } }</code></td>
+      <td>Great for static establishing shots.</td>
+    </tr>
+  </table>
+
+  <p class="callout">To switch a shot from a player-relative camera to a mob-relative camera, keep the same <code>positioning</code> block and replace <code>anchor.source</code> (and optionally <code>look_at.source</code>) with the mob target you want.</p>
+
+  <pre><code># Player-relative
+anchor: { type: player, source: self }
+look_at: { type: player, source: self }
+positioning: { mode: relative, distance: 2.5, yaw_offset: 20, y_offset: 1.2, pitch: -5 }
+
+# Mob-relative (switch to spawned MythicMob)
+anchor: { type: entity, source: mythicmobs:cinematic_dummy }
+look_at: { type: entity, source: mythicmobs:cinematic_dummy }
+positioning: { mode: relative, distance: 2.5, yaw_offset: 20, y_offset: 1.2, pitch: -5 }
+</code></pre>
+</body>
+</html>

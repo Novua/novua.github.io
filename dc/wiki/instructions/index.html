@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instruction Reference - DirectorsCut Wiki</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
+    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
+    h1, h2 { color: var(--ink); }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-soft); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
+    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
+    th { background: var(--panel); }
+    code { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
+    <a href="../index.html">← Back to wiki home</a>
+  </div>
+  <h1>Sequence Instruction Reference</h1>
+
+  <table>
+    <tr><th>Instruction</th><th>What it does</th><th>Example</th></tr>
+    <tr>
+      <td><code>static(id)</code></td>
+      <td>Instantly jump to a camera.</td>
+      <td><code>static(village_intro)</code></td>
+    </tr>
+    <tr>
+      <td><code>glide(from,to,duration)</code></td>
+      <td>Smoothly transition between cameras over a number of ticks.</td>
+      <td><code>glide(intro1,intro2,80)</code></td>
+    </tr>
+    <tr>
+      <td><code>delay &lt;ticks&gt;</code></td>
+      <td>Pause the script for a number of ticks (20 ticks = 1 second).</td>
+      <td><code>delay 40</code></td>
+    </tr>
+    <tr>
+      <td><code>spawnmob &lt;mythic_id&gt;</code></td>
+      <td>Spawn a MythicMobs mob and register it for camera targeting.</td>
+      <td><code>spawnmob cinematic_dummy</code></td>
+    </tr>
+    <tr>
+      <td><code>command(c="...",asplayer=&lt;bool&gt;,asop=&lt;bool&gt;)</code></td>
+      <td>Execute any Bukkit command.</td>
+      <td><code>command(c="gamemode adventure %player%",asplayer=false)</code></td>
+    </tr>
+    <tr>
+      <td><code>showtitle(...)</code></td>
+      <td>Show a title overlay (also <code>showsubtitle</code>, <code>showactionbar</code>).</td>
+      <td><code>showtitle(10,40,10,"&amp;eIncoming!")</code></td>
+    </tr>
+    <tr>
+      <td><code>clearmobs</code></td>
+      <td>Despawns any MythicMobs created by <code>spawnmob</code>.</td>
+      <td><code>clearmobs</code></td>
+    </tr>
+    <tr>
+      <td><code>end</code></td>
+      <td>Immediately end the sequence.</td>
+      <td><code>end</code></td>
+    </tr>
+    <tr>
+      <td><code>conditionend</code></td>
+      <td>Terminate the current conditional branch and continue.</td>
+      <td><code>conditionend</code></td>
+    </tr>
+  </table>
+
+  <p>Need to stop a sequence early? See <a href="../conditions/index.html">end conditions</a>.</p>
+</body>
+</html>

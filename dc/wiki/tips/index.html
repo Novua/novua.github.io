@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tips &amp; Troubleshooting - DirectorsCut Wiki</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
+    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 900px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
+    h1 { color: var(--ink); }
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-soft); }
+    code { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
+    <a href="../index.html">← Back to wiki home</a>
+  </div>
+  <h1>Tips &amp; Troubleshooting</h1>
+  <ul>
+    <li>Use <code>/directorscut reload</code> after editing YAML files.</li>
+    <li>Camera definitions are merged by ID — duplicate IDs will override earlier entries.</li>
+    <li>If a camera fails to resolve, validate that the anchor and look-at sources exist in the current context.</li>
+    <li>Use <code>lock_player</code> or <code>freeze_player</code> when you need to keep players from breaking the cinematic.</li>
+    <li>Try the example YAML files from <code>DirectorsCut/examples</code> if you want a working starting point.</li>
+  </ul>
+</body>
+</html>
