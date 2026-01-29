@@ -1,0 +1,13 @@
+Fixed teleport animations triggering even when players were hidden.
+
+Fixed teleport animations not triggering on plugin‑driven teleports.
+
+Normalized teleport command matching so aliases and variants work reliably.
+
+Improved teleport animations by freezing players during the sequence.
+
+Cleaned up how animation tasks run to match standard Bukkit scheduling.
+
+Added extra debug logging to help diagnose teleport animation issues.
+
+Removed legacy Folia scheduler handling. - Tempermental, will be in next update

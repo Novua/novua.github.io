@@ -1,0 +1,5 @@
+Added/expanded language and message customization options (editable message files for localization and accessibility).
+
+Added default teleport animation entries and configuration defaults.
+
+Improved internal interpolation behavior.
