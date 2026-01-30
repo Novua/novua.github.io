@@ -11,9 +11,21 @@ defaultdeath: ""
 defaultrespawn: ""
 defaultafk: ""
 defaultgui: ""
-defaultTeleportOut: ""
-defaultTeleportIn: ""
+defaultTeleportOut: "default"
+defaultTeleportIn: "default"
 defaultKill: ""
+
+
+animation-triggers:
+  join: true
+  leave: true
+  death: true
+  kill: true
+  respawn: true
+  afk: true
+  gui: true
+  teleport-in: true
+  teleport-out: true
 
 database:
   enabled: false
@@ -23,11 +35,22 @@ database:
   username: root
   password: password
 
+spawn-point:
+  enabled: false
+  world: ""
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  yaw: 0.0
+  pitch: 0.0
 
 TeleportAnimations:
   enabled: true
   listen-for: 160 #Timeout duration for teleport animations (In Ticks)
+  wrap-plugin-teleports: false # Allow non-command teleports (plugin/portal) to trigger animations.
   triggers:
+    # Add every teleport command you want to trigger animations (warp/spawn/tpa, etc.).
+    # You can also add aliases per entry using |, e.g. "/tp|/minecraft:tp".
     - "/tp"
     - "/teleport"
 
@@ -50,15 +73,5 @@ disabled_worlds: []
 
 # Starter pack will automatically be downloaded
 download-starter-pack: true
-
-spawn-point:
-  enabled: false
-  world: ""
-  x: 0.0
-  y: 0.0
-  z: 0.0
-  yaw: 0.0
-  pitch: 0.0
-
 
 AutoHideLocked: true
