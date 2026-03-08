@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Library Pack - DirectorsCut Wiki</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0b10;
+      --panel: #15151d;
+      --panel-soft: #1b1b26;
+      --border: #2c2c3a;
+      --ink: #f5f2ff;
+      --muted: #a5acc2;
+      --accent: #d8b4fe;
+      --accent-strong: #f0abfc;
+      --code: #11111a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+      background: radial-gradient(circle at top right, #1f1135 0%, var(--bg) 32%);
+      color: #e8e6f3;
+    }
+
+    .layout {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1.1rem;
+    }
+
+    .sidebar,
+    .section,
+    .hero {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(21, 21, 29, 0.9);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 1rem;
+      align-self: start;
+      padding: 1rem;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.03rem;
+      color: var(--ink);
+    }
+
+    .sidebar ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    .sidebar li { margin: 0.45rem 0; }
+
+    .sidebar a,
+    a { color: var(--accent); }
+
+    .sidebar a:hover,
+    a:hover { color: var(--accent-strong); }
+
+    main { min-width: 0; }
+
+    .hero {
+      padding: 1.2rem 1.3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(145deg, rgba(29, 29, 42, 0.95), rgba(17, 17, 26, 0.95));
+    }
+
+    .hero h1 {
+      margin: 0 0 0.45rem;
+      color: var(--ink);
+      font-size: clamp(1.35rem, 2.8vw, 2rem);
+    }
+
+    .muted { color: var(--muted); }
+
+    .section {
+      padding: 1.05rem 1.2rem;
+      margin-bottom: 0.95rem;
+    }
+
+    h2, h3 {
+      color: var(--ink);
+      margin-top: 0.2rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .tile {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+      background: var(--panel-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.4rem;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.6rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: #191927; }
+
+    pre {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem;
+      overflow-x: auto;
+    }
+
+    code { font-family: Consolas, "Courier New", monospace; }
+
+    @media (max-width: 940px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>On this page</h2>
+      <ul>
+        <li><a href="#snapshot">Plugin snapshot</a></li>
+        <li><a href="#formats">Sequence format versions</a></li>
+        <li><a href="#commands">Commands & permissions</a></li>
+        <li><a href="#camera-schema">Camera YAML schema</a></li>
+        <li><a href="#sequence-schema">Sequence YAML + DSL</a></li>
+        <li><a href="#prompt-template">Prompt template</a></li>
+      </ul>
+      <p class="muted"><a href="../index.html">← Back to wiki home</a></p>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <h1>Codex Library Pack</h1>
+        <p class="muted">This page is built for wiki authors. Copy from here into Codex to generate docs that stay aligned with how the plugin currently behaves.</p>
+      </section>
+
+      <section class="section" id="snapshot">
+        <h2>Plugin snapshot</h2>
+        <div class="grid">
+          <div class="tile"><strong>Name:</strong> <code>DirectorsCut</code></div>
+          <div class="tile"><strong>Command root:</strong> <code>/directorscut</code></div>
+          <div class="tile"><strong>Paper API:</strong> <code>1.20.x</code> (<code>api-version: 1.20</code>)</div>
+          <div class="tile"><strong>Soft dependency:</strong> <code>MythicMobs</code></div>
+          <div class="tile"><strong>Cameras folder:</strong> <code>plugins/DirectorsCut/cameras</code></div>
+          <div class="tile"><strong>Sequences folder:</strong> <code>plugins/DirectorsCut/sequences</code></div>
+        </div>
+      </section>
+
+      <section class="section" id="formats">
+        <h2>Sequence format versions (up-to-date)</h2>
+        <p>Supported values are <code>format: 1</code> and <code>format: 2</code>. If format is omitted or invalid, loading falls back to format 1.</p>
+        <table>
+          <tr>
+            <th>Format</th>
+            <th>Behavior</th>
+            <th>Update notes</th>
+            <th>When to use</th>
+          </tr>
+          <tr>
+            <td><code>1</code></td>
+            <td><code>glide(...)</code> blocks script progression until the glide finishes.</td>
+            <td>Legacy/default behavior kept for backward compatibility.</td>
+            <td>Older sequences where timing depends on glide completion before next lines execute.</td>
+          </tr>
+          <tr>
+            <td><code>2</code></td>
+            <td><code>glide(...)</code> no longer blocks; script can continue during movement.</td>
+            <td>Introduced to support layered timing and richer cinematic pacing.</td>
+            <td>New sequences that need title/command/effect overlap while camera movement continues.</td>
+          </tr>
+        </table>
+      </section>
+
+      <section class="section" id="commands">
+        <h2>Commands & permissions</h2>
+        <div class="grid">
+          <div class="tile">
+            <h3>Playback</h3>
+            <ul>
+              <li><code>/directorscut play &lt;sequenceId&gt; [player]</code></li>
+              <li><code>directorscut.play</code></li>
+              <li><code>directorscut.play.other</code></li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Maintenance</h3>
+            <ul>
+              <li><code>/directorscut reload</code></li>
+              <li><code>directorscut.reload</code></li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Camera helpers</h3>
+            <ul>
+              <li><code>/directorscut debugcamera &lt;cameraId&gt;</code></li>
+              <li><code>/directorscut testcamera &lt;cameraId&gt;</code></li>
+              <li><code>/directorscut editsequence makecamera</code></li>
+              <li><code>directorscut.debug</code>, <code>directorscut.sequence.edit</code></li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Sequence editor</h3>
+            <ul>
+              <li><code>/directorscut editsequence &lt;sequenceId&gt;</code></li>
+              <li><code>/directorscut editsequence preview|next|prev|delay|glide|save|cancel</code></li>
+              <li><code>directorscut.sequence.edit</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="camera-schema">
+        <h2>Camera YAML schema</h2>
+<pre><code>pack: optional_pack_id
+
+cameras:
+  camera_id:
+    label: Human Readable Name
+    anchor:
+      type: player | entity | absolute | none
+      source: self | interacted | targeter | mythicmobs_targeter | mythicmobs:&lt;internalName&gt;
+      absolute:  # required when type: absolute
+        world: world
+        x: 0.0
+        y: 64.0
+        z: 0.0
+        yaw: 0.0
+        pitch: 0.0
+    look_at:     # optional; defaults to anchor
+      type: player | entity | absolute | none
+      source: self
+    positioning:
+      mode: relative | anchored | absolute
+      distance_x: 0.0
+      distance_y: 1.5
+      distance_z: -3.0
+      # OR legacy style:
+      distance: 4.0
+      y_offset: 1.2
+      yaw_offset: 180
+      pitch: -10.0
+      absolute:  # required when mode: absolute
+        world: world
+        x: 0.0
+        y: 70.0
+        z: 0.0
+        yaw: 90.0
+        pitch: -20.0
+    lock_player:
+      move: false
+      look: false</code></pre>
+      </section>
+
+      <section class="section" id="sequence-schema">
+        <h2>Sequence YAML + script DSL</h2>
+<pre><code>sequence: sequence_id
+format: 1 | 2
+
+settings:
+  allow_exit: false
+  freeze_player: false
+  hide_gui: false
+
+script:
+  - static(camera_id)
+  - delay 20
+  - glide(from_camera,to_camera,60)
+  - glide(from,to,80,curve=2.0,curve2=-1.0)
+  - showtitle(10,60,10,"&6Title")
+  - showsubtitle(10,60,10,"&7Subtitle")
+  - showactionbar(0,40,10,"&fActionbar")
+  - command(c="say hello", asPlayer=false, asOp=false)
+  - spawnmob mob_internal_name
+  - clearmobs
+  - conditionend
+  - end
+
+endconditions:
+  - offhandswap
+  - sneak
+  - hotbarkey(0)
+
+endscript:
+  - command(c="say sequence ended")</code></pre>
+      </section>
+
+      <section class="section" id="prompt-template">
+        <h2>Copy/paste prompt template for Codex</h2>
+<pre><code>You are documenting the DirectorsCut plugin wiki.
+Use only the facts below and produce practical docs for server admins.
+
+FACTS:
+- Command root: /directorscut
+- Data folders: plugins/DirectorsCut/cameras and plugins/DirectorsCut/sequences
+- Supported sequence formats:
+  - format 1: glide blocks script progression
+  - format 2: glide does not block script progression
+- Camera schema: [paste the camera schema section]
+- Sequence schema: [paste the sequence schema section]
+
+STYLE REQUIREMENTS:
+- Write for server admins (clear and practical).
+- Include one valid YAML example.
+- Include a "Common mistakes" section.
+- Include a short "Validation checklist" at the end.
+
+TASK:
+Write/refresh the wiki page named: [PAGE NAME].</code></pre>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

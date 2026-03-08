@@ -47,12 +47,13 @@
     lock_player: { move: true, look: false }
 </code></pre>
 
-  <h2>In-game camera creator</h2>
+  <h2>In-game camera creation (sequence editor)</h2>
   <ol>
-    <li>Run <code>/directorscut creator</code> (requires the <code>directorscut.creator</code> permission).</li>
-    <li>Move to the desired camera location.</li>
-    <li>Press <kbd>F</kbd> (swap offhand) to save.</li>
-    <li>The camera YAML is written to <code>plugins/DirectorsCut/create/generated</code>.</li>
+    <li>Enter edit mode: <code>/directorscut editsequence &lt;sequenceId&gt;</code>.</li>
+    <li>Run <code>/directorscut editsequence makecamera</code>.</li>
+    <li>Type a camera ID in chat when prompted.</li>
+    <li>The camera is created at your current location and saved to <code>plugins/DirectorsCut/cameras/editor-&lt;cameraId&gt;.yml</code>.</li>
+    <li>Use that ID in <code>addstatic</code> or <code>addglide</code> instructions.</li>
   </ol>
 
   <p>For every supported camera option, see the <a href="../../camera_settings.html">camera settings quick reference</a>.</p>
