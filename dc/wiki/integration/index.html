@@ -22,12 +22,26 @@
     <a href="../index.html">← Back to wiki home</a>
   </div>
   <h1>MythicMobs Integration</h1>
-  <p>When MythicMobs is installed, DirectorsCut registers a mechanic named <code>DirectorsCut</code> (also accepted as <code>Action</code>) that can trigger sequences for a specific player.</p>
+  <p>When MythicMobs is installed, DirectorsCut registers a mechanic named <code>directorscut</code> (aliases: <code>directors_cut</code>, <code>dcscene</code>) that can trigger sequences for a specific player.</p>
 
-  <h2>Example MythicMobs skill</h2>
+  <h2>DirectorsCut mechanic examples</h2>
   <pre><code>Skills:
-  - DirectorsCut{sequence=castle_intro;player=&lt;target.name&gt;}
+  - directorscut{sequence=drawbridge-openclose;player=&lt;trigger.name&gt;} @trigger
+  - directorscut{sequence=&lt;trigger.var.scene&gt;;player=&lt;trigger.name&gt;} @trigger
+  - directorscut{sequence=drawbridge-openclose} @trigger
 </code></pre>
+
+  <p>Both <code>sequence=</code> and <code>player=</code> support Mythic variable placeholders. If <code>player=</code> cannot be resolved, DirectorsCut now attempts fallback context in this order: explicit player expression, targeted player, trigger player, then caster player.</p>
+
+  <h2>Using spawnmob from sequence scripts</h2>
+  <pre><code>script:
+  - spawnmob ZombieKnight
+  - spawnmob{mob=ZombieKnight;client=true}
+</code></pre>
+  <ul>
+    <li><code>client=false</code> (or omitted) keeps MythicMob spawns shared/global.</li>
+    <li><code>client=true</code> scopes visibility so only the sequence viewer sees that spawned mob.</li>
+  </ul>
 
   <h2>Targeter context</h2>
   <p>During this skill, the entity targeted by MythicMobs becomes the <code>mythicmobs_targeter</code>. Cameras can anchor or look at it with <code>source: mythicmobs_targeter</code>.</p>

@@ -209,7 +209,7 @@
             <h3>Playback</h3>
             <ul>
               <li><code>/directorscut play &lt;sequenceId&gt; [player]</code></li>
-              <li><code>directorscut.play</code></li>
+              <li><code>directorscut.admin.play</code></li>
               <li><code>directorscut.play.other</code></li>
             </ul>
           </div>
@@ -217,7 +217,11 @@
             <h3>Maintenance</h3>
             <ul>
               <li><code>/directorscut reload</code></li>
+              <li><code>/directorscut version</code> / <code>/directorscut update</code></li>
+              <li><code>/directorscut support</code></li>
               <li><code>directorscut.reload</code></li>
+              <li><code>directorscut.version</code></li>
+              <li><code>directorscut.support</code></li>
             </ul>
           </div>
           <div class="tile">
@@ -302,6 +306,9 @@ script:
   - showactionbar(0,40,10,"&fActionbar")
   - command(c="say hello", asPlayer=false, asOp=false)
   - spawnmob mob_internal_name
+  - spawnmob(mob_internal_name)
+  - spawnmob{mob=mob_internal_name;client=false}
+  - spawnmob{mob=mob_internal_name;client=true}
   - clearmobs
   - conditionend
   - end

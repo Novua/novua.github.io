@@ -23,7 +23,7 @@
     <a href="../index.html">← Back to wiki home</a>
   </div>
   <h1>Create Sequences</h1>
-  <p>Sequences are YAML files in <code>sequences/*.yml</code> that define a list of instructions to play cameras over time.</p>
+  <p>Sequences are YAML files in <code>sequences/*.yml</code> that define a list of instructions to play cameras over time. The bundled examples now include polished mini-scenarios you can copy directly into production.</p>
 
   <h2>Sequence template</h2>
   <pre><code>sequence: castle_intro
@@ -36,13 +36,23 @@ settings:
 script:
   - static(courtyard_wide)
   - delay 40
+  - spawnmob{mob=gate_guard;client=false}
   - glide(courtyard_wide,gate_closeup,60)
+  - spawnmob{mob=illusion_guard;client=true}
   - showtitle(20,60,20,"&amp;6Welcome to the keep")
   - end
 
 endscript:
   - command(c="title %player% clear",asplayer=false)
 </code></pre>
+
+  <h2>Bundled polished examples</h2>
+  <ul>
+    <li><code>landscape_hero_intro</code> — layered reveal with titles and chained glides.</li>
+    <li><code>delivery_to_npc</code> — interaction cinematic for NPC dialogue hooks.</li>
+    <li><code>over_shoulder_birds_eye</code> — over-shoulder to top-down pivot + end conditions.</li>
+    <li><code>treasure_cutscene</code> — objective reveal format for quests and loot.</li>
+  </ul>
 
   <h2>Settings explained</h2>
   <ul>
@@ -52,5 +62,6 @@ endscript:
   </ul>
 
   <p>For a full list of instruction lines, visit the <a href="../instructions/index.html">instruction reference</a>.</p>
+  <p><code>spawnmob</code> defaults to shared/global visibility. Use <code>client=true</code> when a spawned mob should only be visible to the sequence viewer.</p>
 </body>
 </html>

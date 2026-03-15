@@ -43,9 +43,9 @@
       <td><code>delay 40</code></td>
     </tr>
     <tr>
-      <td><code>spawnmob &lt;mythic_id&gt;</code></td>
-      <td>Spawn a MythicMobs mob and register it for camera targeting.</td>
-      <td><code>spawnmob cinematic_dummy</code></td>
+      <td><code>spawnmob &lt;mythic_id&gt;</code><br><code>spawnmob(&lt;mythic_id&gt;)</code><br><code>spawnmob{mob=&lt;mythic_id&gt;;client=&lt;true|false&gt;}</code></td>
+      <td>Spawn a MythicMobs mob and register it for camera targeting. <code>client</code> defaults to <code>false</code> (shared/global spawn). Set <code>client=true</code> to only show the mob to the sequence viewer.</td>
+      <td><code>spawnmob ZombieKnight</code><br><code>spawnmob{mob=ZombieKnight;client=true}</code></td>
     </tr>
     <tr>
       <td><code>command(c="...",asplayer=&lt;bool&gt;,asop=&lt;bool&gt;)</code></td>
@@ -73,6 +73,13 @@
       <td><code>conditionend</code></td>
     </tr>
   </table>
+
+  <h2>Spawnmob visibility modes</h2>
+  <ul>
+    <li><code>spawnmob(ZombieKnight)</code> or <code>spawnmob ZombieKnight</code> → shared/global spawn (default).</li>
+    <li><code>spawnmob{mob=ZombieKnight;client=false}</code> → shared/global spawn.</li>
+    <li><code>spawnmob{mob=ZombieKnight;client=true}</code> → only visible to the player currently viewing the sequence.</li>
+  </ul>
 
   <p>Need to stop a sequence early? See <a href="../conditions/index.html">end conditions</a>.</p>
 </body>
