@@ -1,40 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Commands &amp; Permissions - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 1000px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.8rem; }
-    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
-    th { background: var(--panel); }
-    code { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-  </style>
-</head>
-<body>
-  <a href="../index.html">← Back to wiki home</a>
-  <h1>Commands &amp; Permissions</h1>
-  <p>All admin commands are under <code>/directorscut</code>.</p>
-
-  <h2>Command reference</h2>
-  <table>
-    <tr><th>Command</th><th>Description</th><th>Permission</th></tr>
-    <tr><td><code>/directorscut play &lt;sequence&gt; [player]</code></td><td>Play a sequence for yourself or another player (admin workflow).</td><td><code>directorscut.admin.play</code> (+ <code>directorscut.play.other</code> for [player])</td></tr>
-    <tr><td><code>/directorscut reload</code></td><td>Reload cameras and sequences from disk.</td><td><code>directorscut.reload</code></td></tr>
-    <tr><td><code>/directorscut version</code> or <code>/directorscut update</code></td><td>Check the latest published version from <code>https://novua.net/dc/latest.txt</code>.</td><td><code>directorscut.version</code></td></tr>
-    <tr><td><code>/directorscut support</code></td><td>Shows support Discord and a generated support ID (click to copy in chat).</td><td><code>directorscut.support</code></td></tr>
-    <tr><td><code>/directorscut debugcamera &lt;cameraId&gt;</code></td><td>Print camera resolution/debug info.</td><td><code>directorscut.debug</code></td></tr>
-    <tr><td><code>/directorscut testcamera &lt;cameraId&gt;</code></td><td>Preview a camera for 3 seconds.</td><td><code>directorscut.debug</code></td></tr>
-    <tr><td><code>/directorscut editsequence ...</code></td><td>Create, modify, preview, and save sequence scripts in-game.</td><td><code>directorscut.sequence.edit</code></td></tr>
-  </table>
-
-  <h2>Support ID placeholder format</h2>
-  <p>The support command uses predefined storefront placeholders and does not read editable config fields:</p>
-  <p><code>((USER_NAME))-((ORDER_UUID))-((USER))</code></p>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Commands</title><style>body{font-family:Arial;background:#0f1117;color:#e6edf3;margin:0}main{max-width:1100px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #30363d;padding:8px;vertical-align:top}code{background:#11161d;padding:2px 6px;border-radius:4px}a{color:#7cc7ff}</style></head><body><main>
+<h1>Commands & Permissions</h1>
+<table>
+<tr><th>Command</th><th>Description</th><th>Permission</th></tr>
+<tr><td><code>/directorscut play &lt;sequenceId&gt; [player]</code></td><td>Plays a sequence for self or a specified target player.</td><td><code>directorscut.admin.play</code> + <code>directorscut.play.other</code> for other target.</td></tr>
+<tr><td><code>/directorscut reload</code></td><td>Reloads camera, sequence, and QTE definitions from disk.</td><td><code>directorscut.reload</code></td></tr>
+<tr><td><code>/directorscut debugcamera &lt;cameraId&gt;</code></td><td>Prints resolved world/xyz/yaw/pitch for current context.</td><td><code>directorscut.debug</code></td></tr>
+<tr><td><code>/directorscut testcamera &lt;cameraId&gt;</code></td><td>3-second spectator preview through an invisible display entity.</td><td><code>directorscut.debug</code></td></tr>
+<tr><td><code>/directorscut editsequence ...</code></td><td>In-game sequence editor session workflow.</td><td><code>directorscut.sequence.edit</code></td></tr>
+<tr><td><code>/directorscut support</code></td><td>Shows Discord and clickable support ID.</td><td><code>directorscut.support</code></td></tr>
+<tr><td><code>/directorscut version</code> / <code>update</code></td><td>Checks latest DirectorsCut version asynchronously.</td><td><code>directorscut.version</code></td></tr>
+</table>
+<h2>EditSequence actions</h2>
+<p><code>create</code>, <code>preview</code>, <code>next</code>, <code>prev</code>, <code>delay</code>, <code>glide</code>, <code>addstatic</code>, <code>addglide</code>, <code>adddelay</code>, <code>addcommand</code>, <code>remove</code>, <code>makecamera</code>, <code>save</code>, <code>cancel</code>.</p>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>

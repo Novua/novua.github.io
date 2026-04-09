@@ -1,86 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Instruction Reference - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
-    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
-    th { background: var(--panel); }
-    code { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
-    <a href="../index.html">← Back to wiki home</a>
-  </div>
-  <h1>Sequence Instruction Reference</h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Instruction DSL</title><style>body{font-family:Arial;background:#0f1117;color:#e6edf3;margin:0}main{max-width:1150px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #30363d;padding:8px;vertical-align:top}code,pre{background:#11161d;border:1px solid #30363d;border-radius:6px}pre{padding:12px;overflow:auto}a{color:#7cc7ff}</style></head><body><main>
+<h1>Sequence Instruction Reference (Current Parser)</h1>
+<table>
+<tr><th>Instruction</th><th>Purpose</th><th>Example</th></tr>
+<tr><td><code>static(cameraId)</code></td><td>Instant camera snap.</td><td><code>static(hero_close)</code></td></tr>
+<tr><td><code>delay &lt;ticks&gt;</code></td><td>Wait tick count.</td><td><code>delay 20</code></td></tr>
+<tr><td><code>glide(from,to,ticks[,curve=...][,curve2=...])</code></td><td>Smooth transition; optional curve offsets for arc movement.</td><td><code>glide(a,b,40,curve=1.2,curve2=0.3)</code></td></tr>
+<tr><td><code>showtitle(fadeIn,stay,fadeOut,"msg")</code></td><td>Title text.</td><td><code>showtitle(10,40,10,"&6Boss")</code></td></tr>
+<tr><td><code>showsubtitle(...)</code></td><td>Subtitle text.</td><td><code>showsubtitle(10,40,10,"&7Prepare")</code></td></tr>
+<tr><td><code>showactionbar(...)</code></td><td>Actionbar text.</td><td><code>showactionbar(0,30,0,"&eRun!")</code></td></tr>
+<tr><td><code>command(c="...",asplayer=&lt;bool&gt;,asop=&lt;bool&gt;)</code></td><td>Dispatch Bukkit command as console or player/op.</td><td><code>command(c="effect give %player% speed 2 1",asplayer=false)</code></td></tr>
+<tr><td><code>end</code></td><td>Stops sequence immediately.</td><td><code>end</code></td></tr>
+<tr><td><code>conditionend</code></td><td>Evaluates configured end conditions and exits if any are met.</td><td><code>conditionend</code></td></tr>
+<tr><td><code>spawnmob{mob=ID;id=alias;client=true|false}</code></td><td>MythicMob spawn with optional client-only visibility mode.</td><td><code>spawnmob{mob=Bandit;id=enemy1;client=true}</code></td></tr>
+<tr><td><code>spawnmob(mobId[,alias])</code></td><td>MythicMob spawn shorthand.</td><td><code>spawnmob(Bandit,enemy1)</code></td></tr>
+<tr><td><code>clearmobs</code></td><td>Removes DirectorsCut-tracked spawned mobs.</td><td><code>clearmobs</code></td></tr>
+<tr><td><code>qte(qteId)</code> / <code>qte(id=qteId)</code></td><td>Runs QTE definition from <code>qtes/</code>.</td><td><code>qte(id=jump_open)</code></td></tr>
+<tr><td><code>sendqteresult(alias)</code></td><td>Sends last QTE result metadata to mob alias context (for integrations).</td><td><code>sendqteresult(enemy1)</code></td></tr>
+<tr><td><code>camspawn(instance,model[,bone][,animation])</code></td><td>Spawn ModelEngine model and register bone camera instance.</td><td><code>camspawn(camBoss,boss_model,cam_camBoss,idle)</code></td></tr>
+<tr><td><code>camattach(instance,mobAlias[,bone][,animation])</code></td><td>Attach ModelEngine camera instance to existing spawned/target mob.</td><td><code>camattach(camBoss,enemy1,cam_camBoss)</code></td></tr>
+<tr><td><code>camplay(instance)</code></td><td>Switch player view to active model bone camera instance.</td><td><code>camplay(camBoss)</code></td></tr>
+<tr><td><code>camclear(instance)</code></td><td>Clear model camera instance and restore normal flow.</td><td><code>camclear(camBoss)</code></td></tr>
+</table>
 
-  <table>
-    <tr><th>Instruction</th><th>What it does</th><th>Example</th></tr>
-    <tr>
-      <td><code>static(id)</code></td>
-      <td>Instantly jump to a camera.</td>
-      <td><code>static(village_intro)</code></td>
-    </tr>
-    <tr>
-      <td><code>glide(from,to,duration[,curve=&lt;offset&gt;][,curve2=&lt;offset&gt;])</code></td>
-      <td>Smoothly transition between cameras over a number of ticks. Optional curve offsets add a vertical arc to the glide.</td>
-      <td><code>glide(intro1,intro2,80,curve=1.2)</code></td>
-    </tr>
-    <tr>
-      <td><code>delay &lt;ticks&gt;</code></td>
-      <td>Pause the script for a number of ticks (20 ticks = 1 second).</td>
-      <td><code>delay 40</code></td>
-    </tr>
-    <tr>
-      <td><code>spawnmob &lt;mythic_id&gt;</code><br><code>spawnmob(&lt;mythic_id&gt;)</code><br><code>spawnmob{mob=&lt;mythic_id&gt;;client=&lt;true|false&gt;}</code></td>
-      <td>Spawn a MythicMobs mob and register it for camera targeting. <code>client</code> defaults to <code>false</code> (shared/global spawn). Set <code>client=true</code> to only show the mob to the sequence viewer.</td>
-      <td><code>spawnmob ZombieKnight</code><br><code>spawnmob{mob=ZombieKnight;client=true}</code></td>
-    </tr>
-    <tr>
-      <td><code>command(c="...",asplayer=&lt;bool&gt;,asop=&lt;bool&gt;)</code></td>
-      <td>Execute any Bukkit command.</td>
-      <td><code>command(c="gamemode adventure %player%",asplayer=false)</code></td>
-    </tr>
-    <tr>
-      <td><code>showtitle(...)</code></td>
-      <td>Show a title overlay (also <code>showsubtitle</code>, <code>showactionbar</code>).</td>
-      <td><code>showtitle(10,40,10,"&amp;eIncoming!")</code></td>
-    </tr>
-    <tr>
-      <td><code>clearmobs</code></td>
-      <td>Despawns any MythicMobs created by <code>spawnmob</code>.</td>
-      <td><code>clearmobs</code></td>
-    </tr>
-    <tr>
-      <td><code>end</code></td>
-      <td>Immediately end the sequence.</td>
-      <td><code>end</code></td>
-    </tr>
-    <tr>
-      <td><code>conditionend</code></td>
-      <td>Terminate the current conditional branch and continue.</td>
-      <td><code>conditionend</code></td>
-    </tr>
-  </table>
-
-  <h2>Spawnmob visibility modes</h2>
-  <ul>
-    <li><code>spawnmob(ZombieKnight)</code> or <code>spawnmob ZombieKnight</code> → shared/global spawn (default).</li>
-    <li><code>spawnmob{mob=ZombieKnight;client=false}</code> → shared/global spawn.</li>
-    <li><code>spawnmob{mob=ZombieKnight;client=true}</code> → only visible to the player currently viewing the sequence.</li>
-  </ul>
-
-  <p>Need to stop a sequence early? See <a href="../conditions/index.html">end conditions</a>.</p>
-</body>
-</html>
+<h2>QTE file schema (<code>plugins/DirectorsCut/qtes/*.yml</code>)</h2>
+<pre><code>id: jump_open
+duration: 40
+type: SPAM        # SPAM | HOLD | TIMED_PRESS
+input: JUMP       # JUMP|SNEAK|SPRINT|FORWARD|BACKWARD|LEFT|RIGHT
+required_presses: 8
+required_hold_ticks: 20
+debounce_ticks: 2
+success_window_start: 10
+success_window_end: 30
+success_sequence: qte_success
+fail_sequence: qte_fail
+timeout_as_fail: true
+title_prompt: "&aMash Jump!"
+subtitle_prompt: "&7Don't stop"</code></pre>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>

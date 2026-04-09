@@ -3,194 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DirectorsCut Wiki</title>
+  <title>DirectorsCut Docs (Current)</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b0b10;
-      --panel: #15151d;
-      --panel-soft: #1b1b26;
-      --border: #2c2c3a;
-      --ink: #f5f2ff;
-      --muted: #a5acc2;
-      --accent: #d8b4fe;
-      --accent-strong: #f0abfc;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
-      line-height: 1.6;
-      color: #e8e6f3;
-      background: radial-gradient(circle at top right, #21123a 0%, var(--bg) 35%);
-    }
-
-    .shell {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1.2rem 1rem 2.8rem;
-    }
-
-    .hero {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1rem 1.2rem;
-      background: linear-gradient(145deg, rgba(27, 27, 38, 0.95), rgba(17, 17, 26, 0.95));
-      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
-      margin-bottom: 1rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      width: 96px;
-      height: 96px;
-      object-fit: contain;
-      border-radius: 12px;
-      background: #0f0f18;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 24px rgba(168, 85, 247, 0.4);
-    }
-
-    h1, h2, h3 { color: var(--ink); }
-
-    h1 { margin: 0 0 0.3rem; }
-
-    .muted { color: var(--muted); }
-
-    .section {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(21, 21, 29, 0.9);
-      padding: 1rem 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 0.9rem;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.85rem;
-      background: var(--panel-soft);
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: #5b4a74;
-    }
-
-    .card a {
-      text-decoration: none;
-      color: var(--accent);
-      font-weight: 650;
-    }
-
-    .card a:hover { color: var(--accent-strong); }
-
-    .highlight {
-      border-left: 4px solid #a855f7;
-      padding-left: 0.8rem;
-      margin-top: 0.3rem;
-    }
-
-    .quicklinks { list-style: none; padding-left: 0; margin: 0; }
-    .quicklinks li { margin: 0.4rem 0; }
-    .quicklinks a { color: var(--accent); }
+    body { font-family: Inter, Arial, sans-serif; margin: 0; background: #0f1117; color: #e6edf3; }
+    main { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    a { color: #7cc7ff; }
+    .card { border: 1px solid #30363d; border-radius: 10px; padding: 14px; background: #161b22; margin: 10px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    code, pre { background: #11161d; border: 1px solid #30363d; border-radius: 6px; }
+    pre { padding: 12px; overflow-x: auto; }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header class="hero">
-      <div class="brand">
-        <img class="logo" src="../logo.png" alt="DirectorsCut logo" onerror="this.style.display='none'">
-        <div>
-          <h1>DirectorsCut Wiki</h1>
-          <p class="muted">Practical guides for installation, camera setup, sequence authoring, and integrations.</p>
-        </div>
-      </div>
-      <p class="highlight"><strong>Format update:</strong> Sequences currently support <code>format: 1</code> (glide blocks script) and <code>format: 2</code> (glide runs while script continues). See the Codex Library Pack for the full version notes.</p>
-    </header>
+<main>
+  <h1>DirectorsCut Documentation</h1>
+  <p>This docs set has been refreshed to match the current plugin codebase (command set, sequence DSL, QTE system, ModelEngine bone cameras, MythicMobs integration, and editor flow).</p>
 
-    <section class="section">
-      <h2>Start here</h2>
-      <div class="card-grid">
-        <div class="card">
-          <a href="install/index.html">Install &amp; Quick Start</a>
-          <p class="muted">Install the plugin, generate folders, and run your first sequence.</p>
-        </div>
-        <div class="card">
-          <a href="folders/index.html">Folder Layout</a>
-          <p class="muted">Where camera, sequence, and output files are stored.</p>
-        </div>
-        <div class="card">
-          <a href="commands/index.html">Commands &amp; Permissions</a>
-          <p class="muted">Fast reference for every command and required permission.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Build cinematics</h2>
-      <div class="card-grid">
-        <div class="card">
-          <a href="cameras/index.html">Create Cameras</a>
-          <p class="muted">Define camera YAML and use in-game sequence editor workflow.</p>
-        </div>
-        <div class="card">
-          <a href="relativity/index.html">Switch Relativity</a>
-          <p class="muted">Move between player-relative and mob-relative anchors.</p>
-        </div>
-        <div class="card">
-          <a href="sequences/index.html">Create Sequences</a>
-          <p class="muted">Script camera playback with delays, glides, and overlays.</p>
-        </div>
-        <div class="card">
-          <a href="instructions/index.html">Instruction Reference</a>
-          <p class="muted">Complete DSL reference with examples.</p>
-        </div>
-        <div class="card">
-          <a href="conditions/index.html">End Conditions</a>
-          <p class="muted">Configure early-exit triggers and condition handling.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Advanced & tools</h2>
-      <div class="card-grid">
-        <div class="card">
-          <a href="integration/index.html">MythicMobs Integration</a>
-          <p class="muted">Trigger sequences from mechanics and target MythicMobs entities.</p>
-        </div>
-        <div class="card">
-          <a href="codex/index.html">Codex Library Pack</a>
-          <p class="muted">Copy-ready docs source including sequence format version notes and update guidance.</p>
-        </div>
-        <div class="card">
-          <a href="tips/index.html">Tips &amp; Troubleshooting</a>
-          <p class="muted">Common issues and fixes from real setup workflows.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Also helpful</h2>
-      <ul class="quicklinks">
-        <li><a href="../camera_settings.html">Camera settings quick reference</a></li>
-      </ul>
-    </section>
+  <div class="card">
+    <strong>Version baseline</strong>
+    <ul>
+      <li>Plugin version: <code>1.0.2</code></li>
+      <li>Minecraft API target: <code>1.21</code></li>
+      <li>Soft dependencies: <code>MythicMobs</code>, <code>ModelEngine</code></li>
+      <li>Folia supported: <code>true</code></li>
+    </ul>
   </div>
+
+  <h2>Start here</h2>
+  <div class="grid">
+    <div class="card"><a href="install/index.html">Install & Quick Start</a></div>
+    <div class="card"><a href="folders/index.html">Folder Layout</a></div>
+    <div class="card"><a href="commands/index.html">Commands & Permissions</a></div>
+  </div>
+
+  <h2>Authoring</h2>
+  <div class="grid">
+    <div class="card"><a href="cameras/index.html">Camera Definitions</a></div>
+    <div class="card"><a href="sequences/index.html">Sequence Format</a></div>
+    <div class="card"><a href="instructions/index.html">Instruction DSL</a></div>
+    <div class="card"><a href="conditions/index.html">End Conditions</a></div>
+  </div>
+
+  <h2>Advanced systems</h2>
+  <div class="grid">
+    <div class="card"><a href="integration/index.html">MythicMobs + ModelEngine + QTE integration</a></div>
+    <div class="card"><a href="relativity/index.html">Anchor/Look Relativity</a></div>
+    <div class="card"><a href="tips/index.html">Troubleshooting</a></div>
+    <div class="card"><a href="codex/index.html">Change log notes</a></div>
+  </div>
+</main>
 </body>
 </html>

@@ -1,61 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Cameras - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2, h3 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
-    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; vertical-align: top; }
-    th { background: var(--panel); }
-    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-    pre { padding: 1rem; overflow-x: auto; }
-    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
-    <a href="../index.html">← Back to wiki home</a>
-  </div>
-  <h1>Create Cameras</h1>
-  <p>Cameras are stored as YAML entries inside <code>cameras/*.yml</code>. Each file contains a <code>cameras</code> map of camera IDs and their options.</p>
-
-  <h2>Core camera fields</h2>
-  <table>
-    <tr><th>Field</th><th>Purpose</th></tr>
-    <tr><td><code>label</code></td><td>Friendly display name (defaults to the camera ID).</td></tr>
-    <tr><td><code>anchor</code></td><td>Defines the base location. Supports <code>player</code>, <code>entity</code>, or <code>absolute</code>.</td></tr>
-    <tr><td><code>look_at</code></td><td>Optional target to face. Use <code>type: none</code> to keep stored yaw/pitch.</td></tr>
-    <tr><td><code>positioning</code></td><td>Defines offsets (relative, anchored, or absolute) and yaw/pitch offsets.</td></tr>
-    <tr><td><code>lock_player</code></td><td>Lock movement or look input while the camera is active.</td></tr>
-  </table>
-
-  <h2>Example camera</h2>
-  <pre><code>cameras:
-  village_intro:
-    label: Village Intro
-    anchor: { type: player, source: self }
-    look_at: { type: entity, source: interacted }
-    positioning: { mode: relative, distance: 3.0, yaw_offset: 30, y_offset: 1.0, pitch: -10 }
-    lock_player: { move: true, look: false }
-</code></pre>
-
-  <h2>In-game camera creation (sequence editor)</h2>
-  <ol>
-    <li>Enter edit mode: <code>/directorscut editsequence &lt;sequenceId&gt;</code>.</li>
-    <li>Run <code>/directorscut editsequence makecamera</code>.</li>
-    <li>Type a camera ID in chat when prompted.</li>
-    <li>The camera is created at your current location and saved to <code>plugins/DirectorsCut/cameras/editor-&lt;cameraId&gt;.yml</code>.</li>
-    <li>Use that ID in <code>addstatic</code> or <code>addglide</code> instructions.</li>
-  </ol>
-
-  <p>For every supported camera option, see the <a href="../../camera_settings.html">camera settings quick reference</a>.</p>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cameras</title><style>body{font-family:Arial;background:#0f1117;color:#e6edf3;margin:0}main{max-width:980px;margin:auto;padding:24px}code,pre{background:#11161d;border:1px solid #30363d;border-radius:6px}pre{padding:12px;overflow:auto}a{color:#7cc7ff}</style></head><body><main>
+<h1>Camera Definitions</h1>
+<p>Camera files are loaded from <code>plugins/DirectorsCut/cameras/*.yml</code> with structure <code>pack</code> + <code>cameras:</code> map.</p>
+<pre><code>pack: demo_pack
+cameras:
+  intro_shot:
+    label: Intro Shot
+    anchor:
+      type: entity
+      source: self
+    look_at:
+      type: entity
+      source: self
+    positioning:
+      mode: relative
+      distance: 5.0
+      y_offset: 1.8
+      yaw_offset: 180
+      pitch: 10
+    lock_player:
+      move: true
+      look: false</code></pre>
+<h2>Target types</h2>
+<ul>
+<li><code>entity</code> (default): use <code>source</code> such as <code>self</code>, spawned mob alias, or integration target entity.</li>
+<li><code>location</code>: resolve from integration target location context.</li>
+<li><code>absolute</code>: requires <code>absolute.world/x/y/z/yaw/pitch</code>.</li>
+<li><code>none</code>: no source lookup.</li>
+</ul>
+<h2>Positioning modes</h2>
+<ul>
+<li><code>relative</code>: offset from anchor (supports <code>distance</code> + <code>yaw_offset</code> + <code>y_offset</code>, or direct <code>distance_x/y/z</code>).</li>
+<li><code>absolute</code>: fixed <code>absolute.world/x/y/z/yaw/pitch</code>.</li>
+</ul>
+<p><strong>Note:</strong> legacy <code>duration_ticks</code> in camera files is ignored; sequence script timing controls transitions now.</p>
+<h2>In-game creation</h2>
+<ol><li>Run <code>/directorscut editsequence &lt;sequenceId&gt;</code> or <code>create &lt;id&gt;</code>.</li><li>Run <code>/directorscut editsequence makecamera</code>.</li><li>Enter camera ID in chat; file is saved as <code>editor-&lt;id&gt;.yml</code>.</li></ol>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>

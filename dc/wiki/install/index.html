@@ -1,36 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Install &amp; Quick Start - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 900px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    .callout { background: #1b1b28; border-left: 4px solid var(--accent); padding: 0.75rem 1rem; border-radius: 6px; color: var(--muted); }
-    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-    pre { padding: 1rem; overflow-x: auto; }
-    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
-    <a href="../index.html">← Back to wiki home</a>
-  </div>
-  <h1>Install &amp; Quick Start</h1>
-  <ol>
-    <li>Drop the DirectorsCut jar into your server’s <code>plugins/</code> folder.</li>
-    <li>Start or reload the server to generate <code>plugins/DirectorsCut</code>.</li>
-    <li>Copy the example YAML files from <code>DirectorsCut/examples</code> into your plugin data folder.</li>
-    <li>Run <code>/directorscut reload</code> to load cameras and sequences.</li>
-    <li>Test with <code>/directorscut play &lt;sequenceId&gt;</code> (admin permission required) or enter camera sequence editor workflow.</li>
-    <li>Optional: run <code>/directorscut version</code> to compare your build against the latest release and <code>/directorscut support</code> to grab your support ID for Discord help.</li>
-  </ol>
-  <p class="callout">Need details on camera YAML fields? Open <code>camera_settings.html</code> at the repo root for a full reference.</p>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Install</title><style>body{font-family:Arial,sans-serif;background:#0f1117;color:#e6edf3;margin:0}main{max-width:980px;margin:auto;padding:24px}code,pre{background:#11161d;border:1px solid #30363d;border-radius:6px}pre{padding:12px;overflow:auto}a{color:#7cc7ff}</style></head><body><main>
+<h1>Install & Quick Start</h1>
+<ol>
+<li>Drop <code>DirectorsCut.jar</code> into <code>plugins/</code> and restart/start server once.</li>
+<li>Confirm folders generate: <code>plugins/DirectorsCut/cameras</code>, <code>sequences</code>, <code>qtes</code>.</li>
+<li>Put YAML files into those folders (examples are in <code>DirectorsCut/examples</code> in this repository).</li>
+<li>Run <code>/directorscut reload</code>.</li>
+<li>Play a sequence: <code>/directorscut play &lt;sequenceId&gt; [player]</code>.</li>
+</ol>
+<h2>Required/optional plugin stack</h2>
+<ul>
+<li><strong>Required for core cameras/sequences:</strong> DirectorsCut only.</li>
+<li><strong>Required for mob instructions:</strong> MythicMobs (<code>spawnmob</code>, <code>clearmobs</code>).</li>
+<li><strong>Required for model bone cameras:</strong> ModelEngine (<code>camspawn</code>, <code>camattach</code>, <code>camplay</code>, <code>camclear</code>).</li>
+<li><strong>QTE:</strong> built-in (no external plugin needed).</li>
+</ul>
+<h2>Config highlights (<code>config.yml</code>)</h2>
+<pre><code>debug:
+  enabled: false
+  verbose: false
+
+model_engine:
+  camera_rotation:
+    yaw_offset: 0.0
+    pitch_offset: 0.0
+
+qte:
+  indicator:
+    defaults: ...
+    type_overrides: ...</code></pre>
+<p>Use <code>yaw_offset</code>/<code>pitch_offset</code> if your ModelEngine camera bone orientation appears rotated from expected perspective.</p>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>

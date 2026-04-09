@@ -1,67 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Sequences - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 980px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-    pre { padding: 1rem; overflow-x: auto; }
-    ul { margin: 0.5rem 0 1.5rem 1.2rem; }
-    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
-    <a href="../index.html">← Back to wiki home</a>
-  </div>
-  <h1>Create Sequences</h1>
-  <p>Sequences are YAML files in <code>sequences/*.yml</code> that define a list of instructions to play cameras over time. The bundled examples now include polished mini-scenarios you can copy directly into production.</p>
-
-  <h2>Sequence template</h2>
-  <pre><code>sequence: castle_intro
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sequences</title><style>body{font-family:Arial;background:#0f1117;color:#e6edf3;margin:0}main{max-width:980px;margin:auto;padding:24px}code,pre{background:#11161d;border:1px solid #30363d;border-radius:6px}pre{padding:12px;overflow:auto}a{color:#7cc7ff}</style></head><body><main>
+<h1>Sequence Format</h1>
+<p>Sequences live in <code>plugins/DirectorsCut/sequences/*.yml</code>. A file can define one sequence or many under <code>sequences:</code>.</p>
+<pre><code>sequence: intro_demo
+format: 2
 settings:
   allow_exit: false
   freeze_player: true
-  hide_gui: true
-
+  hide_gui: false
+  max_uses: 3
 script:
-  - static(courtyard_wide)
-  - delay 40
-  - spawnmob{mob=gate_guard;client=false}
-  - glide(courtyard_wide,gate_closeup,60)
-  - spawnmob{mob=illusion_guard;client=true}
-  - showtitle(20,60,20,"&amp;6Welcome to the keep")
-  - end
-
+  - static(intro_shot)
+  - showtitle(10,40,10,"&6Welcome")
+  - delay 20
+  - qte(id=jump_open)
+  - conditionend
 endscript:
-  - command(c="title %player% clear",asplayer=false)
-</code></pre>
-
-  <h2>Bundled polished examples</h2>
-  <ul>
-    <li><code>landscape_hero_intro</code> — layered reveal with titles and chained glides.</li>
-    <li><code>delivery_to_npc</code> — interaction cinematic for NPC dialogue hooks.</li>
-    <li><code>over_shoulder_birds_eye</code> — over-shoulder to top-down pivot + end conditions.</li>
-    <li><code>treasure_cutscene</code> — objective reveal format for quests and loot.</li>
-  </ul>
-
-  <h2>Settings explained</h2>
-  <ul>
-    <li><strong><code>allow_exit</code></strong> — Allow players to exit the sequence early (e.g., via sneak).</li>
-    <li><strong><code>freeze_player</code></strong> — Prevent player movement during playback.</li>
-    <li><strong><code>hide_gui</code></strong> — Hide the player HUD during the sequence.</li>
-  </ul>
-
-  <p>For a full list of instruction lines, visit the <a href="../instructions/index.html">instruction reference</a>.</p>
-  <p><code>spawnmob</code> defaults to shared/global visibility. Use <code>client=true</code> when a spawned mob should only be visible to the sequence viewer.</p>
-</body>
-</html>
+  - command(c="say Sequence ended",asplayer=false)
+endconditions:
+  - sneak
+  - offhandswap
+  - hotbarkey(8)</code></pre>
+<h2>Formats</h2>
+<ul>
+<li><code>format: 1</code>: glide blocks script advancement until transition ends.</li>
+<li><code>format: 2</code>: glide runs asynchronously while script continues.</li>
+</ul>
+<h2>Settings behavior</h2>
+<ul>
+<li><code>allow_exit</code>: if false, sneak exit is blocked.</li>
+<li><code>freeze_player</code>: forces spectator/flight lock state for cinematic playback.</li>
+<li><code>hide_gui</code>: currently parsed; use with resource/UI strategy as needed.</li>
+<li><code>max_uses</code>/<code>maxuses</code>: per-player sequence use cap; <=0 is treated unlimited.</li>
+</ul>
+<p>Full DSL syntax: <a href="../instructions/index.html">Instruction Reference</a>.</p>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>

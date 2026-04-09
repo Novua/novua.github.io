@@ -1,49 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MythicMobs Integration - DirectorsCut Wiki</title>
-  <style>
-    :root { color-scheme: dark; --ink:#f5f2ff; --muted:#9aa0b4; --accent:#a855f7; --accent-soft:#d8b4fe; --panel:#15151d; --border:#2c2c3a; --bg:#0b0b10; }
-    body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 900px; padding: 0 1.5rem 3rem; color: #e6e3f2; background: var(--bg); }
-    h1, h2 { color: var(--ink); }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-soft); }
-    code, pre { background: #111117; padding: 0.2rem 0.4rem; border-radius: 4px; }
-    pre { padding: 1rem; overflow-x: auto; }
-    .top-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: #0f0f18; border: 1px solid var(--border); box-shadow: 0 0 14px rgba(168, 85, 247, 0.3); }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <img class="logo" src="../assets/logo.svg" alt="DirectorsCut logo" onerror="this.style.display='none'">
-    <a href="../index.html">← Back to wiki home</a>
-  </div>
-  <h1>MythicMobs Integration</h1>
-  <p>When MythicMobs is installed, DirectorsCut registers a mechanic named <code>directorscut</code> (aliases: <code>directors_cut</code>, <code>dcscene</code>) that can trigger sequences for a specific player.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Integrations</title><style>body{font-family:Arial;background:#0f1117;color:#e6edf3;margin:0}main{max-width:1050px;margin:auto;padding:24px}code,pre{background:#11161d;border:1px solid #30363d;border-radius:6px}pre{padding:12px;overflow:auto}a{color:#7cc7ff}</style></head><body><main>
+<h1>MythicMobs, ModelEngine, and QTE Integration</h1>
+<h2>MythicMobs</h2>
+<ul>
+<li><code>spawnmob...</code> instructions spawn MythicMobs and register aliases in sequence context.</li>
+<li><code>clearmobs</code> cleans up sequence-tracked spawned mobs.</li>
+<li>Camera anchor/look sources can point at these aliases for mob-relative shots.</li>
+</ul>
 
-  <h2>DirectorsCut mechanic examples</h2>
-  <pre><code>Skills:
-  - directorscut{sequence=drawbridge-openclose;player=&lt;trigger.name&gt;} @trigger
-  - directorscut{sequence=&lt;trigger.var.scene&gt;;player=&lt;trigger.name&gt;} @trigger
-  - directorscut{sequence=drawbridge-openclose} @trigger
-</code></pre>
-
-  <p>Both <code>sequence=</code> and <code>player=</code> support Mythic variable placeholders. If <code>player=</code> cannot be resolved, DirectorsCut now attempts fallback context in this order: explicit player expression, targeted player, trigger player, then caster player.</p>
-
-  <h2>Using spawnmob from sequence scripts</h2>
-  <pre><code>script:
-  - spawnmob ZombieKnight
-  - spawnmob{mob=ZombieKnight;client=true}
-</code></pre>
+<h2>ModelEngine bone cameras (full flow)</h2>
+<ol>
+<li>Have a ModelEngine model with a camera bone (common naming: <code>cam_&lt;instance&gt;</code>).</li>
+<li>Spawn or attach model instance:
   <ul>
-    <li><code>client=false</code> (or omitted) keeps MythicMob spawns shared/global.</li>
-    <li><code>client=true</code> scopes visibility so only the sequence viewer sees that spawned mob.</li>
+    <li><code>camspawn(instance,modelId[,bone][,animation])</code></li>
+    <li><code>camattach(instance,mobAlias[,bone][,animation])</code></li>
   </ul>
+</li>
+<li>Activate perspective: <code>camplay(instance)</code>.</li>
+<li>When finished, cleanup: <code>camclear(instance)</code>.</li>
+</ol>
+<pre><code>script:
+  - spawnmob{mob=BossMob;id=boss;client=false}
+  - camattach(bosscam,boss,cam_bosscam,intro)
+  - camplay(bosscam)
+  - delay 80
+  - camclear(bosscam)</code></pre>
+<p>If camera facing looks offset, tune <code>model_engine.camera_rotation.yaw_offset</code> and <code>pitch_offset</code> in <code>config.yml</code>.</p>
 
-  <h2>Targeter context</h2>
-  <p>During this skill, the entity targeted by MythicMobs becomes the <code>mythicmobs_targeter</code>. Cameras can anchor or look at it with <code>source: mythicmobs_targeter</code>.</p>
-</body>
-</html>
+<h2>QTE branching</h2>
+<ul>
+<li>Trigger QTE in a sequence with <code>qte(...)</code>.</li>
+<li>Definition can automatically route to <code>success_sequence</code> / <code>fail_sequence</code>.</li>
+<li>Use <code>sendqteresult(alias)</code> when you need QTE outcome bound to specific mob context for downstream mechanics.</li>
+</ul>
+
+<h2>Targeter context</h2>
+<p>When a sequence is launched from Mythic mechanics, DirectorsCut can resolve target entity/location context for <code>source</code> lookups and relative camera calculations.</p>
+<p><a href="../index.html">Back to docs home</a></p>
+</main></body></html>
